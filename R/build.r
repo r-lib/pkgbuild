@@ -38,14 +38,6 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
   if (binary) {
     args <- c("--build", args)
     cmd <- "INSTALL"
-
-    if (.Platform$OS.type == "windows") {
-      ext <- ".zip"
-    } else if (grepl("darwin", R.version$os)) {
-      ext <- ".tgz"
-    } else {
-      ext <- paste0("_R_", Sys.getenv("R_PLATFORM"), ".tar.gz")
-    }
   } else {
     args <- c(args, "--no-resave-data")
 
@@ -62,18 +54,24 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
     }
 
     cmd <- "build"
-
-    ext <- ".tar.gz"
   }
 
-  # Run in temporary library to ensure that default library doesn't get
-  # contaminated
-  withr::with_temp_libpaths(
-    callr::rcmd_safe(cmd, c(shQuote(path), args))
+  # Build in temporary directory and then copy to final location
+  out_dir <- tempfile()
+  dir.create(out_dir)
+  on.exit(unlink(out_dir))
+
+  path <- normalizePath(path)
+
+  withr::with_dir(out_dir,
+    withr::with_temp_libpaths(
+      callr::rcmd_safe(cmd, c(shQuote(path), args))
+    )
   )
 
-  targz <- paste0(pkg_name(path), "_", desc::desc_get("Version", path)[[1]], ext)
-  file.path(path, targz)
+  out_file <- dir(out_dir)
+  file.copy(file.path(out_dir, out_file), dest_path, overwrite = TRUE)
+  file.path(dest_path, out_file)
 }
 
 
