@@ -161,9 +161,8 @@ scan_path_for_rtools <- function(debug = FALSE,
       path
     }
 
-
     # First check if gcc set by BINPREF/CC is valid and use that is so
-    cc_path <- RCMD("config", "CC", fun = system_output, quiet = !debug)
+    cc_path <- callr::rcmd_safe("config", "CC", show = debug)$stdout
 
     # remove '-m64' from tail if it exists
     cc_path <- sub("[[:space:]]+-m[[:digit:]]+$", "", cc_path)

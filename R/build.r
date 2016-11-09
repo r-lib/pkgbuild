@@ -37,8 +37,8 @@ build <- function(pkg = ".", path = NULL, binary = FALSE, vignettes = TRUE,
 
   if (binary) {
     args <- c("--build", args)
-    cmd <- paste0("CMD INSTALL ", shQuote(pkg$path), " ",
-      paste0(args, collapse = " "))
+    cmd <- "INSTALL"
+
     if (.Platform$OS.type == "windows") {
       ext <- ".zip"
     } else if (grepl("darwin", R.version$os)) {
@@ -61,16 +61,19 @@ build <- function(pkg = ".", path = NULL, binary = FALSE, vignettes = TRUE,
       args <- c(args, "--no-build-vignettes")
     }
 
-    cmd <- paste0("CMD build ", shQuote(pkg$path), " ",
-      paste0(args, collapse = " "))
+    cmd <- "build"
 
     ext <- ".tar.gz"
   }
 
   # Run in temporary library to ensure that default library doesn't get
   # contaminated
-  withr::with_temp_libpaths(R(cmd, path, quiet = quiet))
-  targz <- paste0(pkg$package, "_", pkg$version, ext)
+  withr::with_temp_libpaths(
+    callr::rcmd_safe(cmd, c(shQuote(pkg$path), args))
+  )
 
+  targz <- paste0(pkg$package, "_", pkg$version, ext)
   file.path(path, targz)
 }
+
+
