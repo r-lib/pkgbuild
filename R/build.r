@@ -9,9 +9,8 @@
 #' only be installable on the current platform, but no development
 #' environment is needed.
 #'
-#' @param pkg package description, can be path or package name.  See
-#'   \code{\link{as.package}} for more information
-#' @param path path in which to produce package.  If \code{NULL}, defaults to
+#' @param path Path to a package, or within a package.
+#' @param dest_path path in which to produce package.  If \code{NULL}, defaults to
 #'   the parent directory of the package.
 #' @param binary Produce a binary (\code{--binary}) or source (
 #'   \code{--no-manual --no-resave-data}) version of the package.
@@ -25,15 +24,16 @@
 #' @family build functions
 #' @return a string giving the location (including file name) of the built
 #'  package
-build <- function(pkg = ".", path = NULL, binary = FALSE, vignettes = TRUE,
+build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE,
                   manual = FALSE, args = NULL, quiet = FALSE) {
-  pkg <- as.package(pkg)
-  if (is.null(path)) {
-    path <- dirname(pkg$path)
+
+  path <- pkg_path(path)
+  if (is.null(dest_path)) {
+    dest_path <- dirname(path)
   }
 
-  check_build_tools(pkg)
-  compile_rcpp_attributes(pkg)
+  check_build_tools(path)
+  compile_rcpp_attributes(path)
 
   if (binary) {
     args <- c("--build", args)
@@ -69,10 +69,10 @@ build <- function(pkg = ".", path = NULL, binary = FALSE, vignettes = TRUE,
   # Run in temporary library to ensure that default library doesn't get
   # contaminated
   withr::with_temp_libpaths(
-    callr::rcmd_safe(cmd, c(shQuote(pkg$path), args))
+    callr::rcmd_safe(cmd, c(shQuote(path), args))
   )
 
-  targz <- paste0(pkg$package, "_", pkg$version, ext)
+  targz <- paste0(pkg_name(path), "_", desc::desc_get("Version", path)[[1]], ext)
   file.path(path, targz)
 }
 

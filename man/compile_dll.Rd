@@ -4,22 +4,20 @@
 \alias{compile_dll}
 \title{Compile a .dll/.so from source.}
 \usage{
-compile_dll(pkg = ".", quiet = FALSE)
+compile_dll(path = ".", quiet = FALSE)
 }
 \arguments{
-\item{pkg}{package description, can be path or package name.  See
-\code{\link{as.package}} for more information}
+\item{path}{Path to a package, or within a package.}
 
 \item{quiet}{if \code{TRUE} suppresses output from this function.}
 }
 \description{
 \code{compile_dll} performs a fake R CMD install so code that
 works here should work with a regular install (and vice versa).
-}
-\details{
 During compilation, debug flags are set with
 \code{\link{compiler_flags}(TRUE)}.
-
+}
+\details{
 Invisibly returns the names of the DLL.
 }
 \note{

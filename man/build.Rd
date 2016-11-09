@@ -4,14 +4,13 @@
 \alias{build}
 \title{Build package.}
 \usage{
-build(pkg = ".", path = NULL, binary = FALSE, vignettes = TRUE,
+build(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE,
   manual = FALSE, args = NULL, quiet = FALSE)
 }
 \arguments{
-\item{pkg}{package description, can be path or package name.  See
-\code{\link{as.package}} for more information}
+\item{path}{Path to a package, or within a package.}
 
-\item{path}{path in which to produce package.  If \code{NULL}, defaults to
+\item{dest_path}{path in which to produce package.  If \code{NULL}, defaults to
 the parent directory of the package.}
 
 \item{binary}{Produce a binary (\code{--binary}) or source (

@@ -4,11 +4,10 @@
 \alias{clean_dll}
 \title{Remove compiled objects from /src/ directory}
 \usage{
-clean_dll(pkg = ".")
+clean_dll(path = ".")
 }
 \arguments{
-\item{pkg}{package description, can be path or package name.  See
-\code{\link{as.package}} for more information}
+\item{path}{Path to a package, or within a package.}
 }
 \description{
 Invisibly returns the names of the deleted files.

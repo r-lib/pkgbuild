@@ -9,6 +9,7 @@ Description: What the package does (one paragraph).
 Imports:
   callr,
   desc,
+  rprojroot,
   withr
 Suggests:
   Rcpp

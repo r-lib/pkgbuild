@@ -1,12 +1,10 @@
-has_src <- function(pkg = ".") {
-  pkg <- as.package(pkg)
-
-  src_path <- file.path(pkg$path, "src")
+has_src <- function(path = ".") {
+  src_path <- file.path(pkg_path(path), "src")
   file.exists(src_path)
 }
 
-check_build_tools <- function(pkg = ".") {
-  if (!has_src(pkg)) {
+check_build_tools <- function(path = ".") {
+  if (!has_src(path)) {
     return(TRUE)
   }
 
@@ -21,7 +19,7 @@ check_build_tools <- function(pkg = ".") {
   }
 
   if (!can_build) {
-    stop("Could not find build tools necessary to build ", pkg$package,
+    stop("Could not find build tools necessary to build ", pkg_name(path),
       call. = FALSE)
   }
 }
