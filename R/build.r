@@ -1,4 +1,4 @@
-#' Build package.
+#' Build package
 #'
 #' Building converts a package source directory into a single bundled file.
 #' If \code{binary = FALSE} this creates a \code{tar.gz} package that can
@@ -32,7 +32,8 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
     dest_path <- dirname(path)
   }
 
-  check_build_tools(path)
+  if (pkg_has_src(path))
+    check_build_tools()
   compile_rcpp_attributes(path)
 
   if (binary) {
@@ -73,5 +74,11 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
   file.copy(file.path(out_dir, out_file), dest_path, overwrite = TRUE)
   file.path(dest_path, out_file)
 }
+
+pkg_has_src <- function(path = ".") {
+  src_path <- file.path(pkg_path(path), "src")
+  file.exists(src_path)
+}
+
 
 

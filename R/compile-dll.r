@@ -21,6 +21,7 @@ compile_dll <- function(path = ".", quiet = FALSE) {
   if (!needs_compile(path))
     return(invisible())
 
+  check_build_tools()
   compile_rcpp_attributes(path)
 
   # Mock install the package to generate the DLL

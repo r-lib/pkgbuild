@@ -2,7 +2,7 @@
 % Please edit documentation in R/build.r
 \name{build}
 \alias{build}
-\title{Build package.}
+\title{Build package}
 \usage{
 build(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE,
   manual = FALSE, args = NULL, quiet = FALSE)
