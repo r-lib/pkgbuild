@@ -1,6 +1,6 @@
 # pkgbuild
 
-[![Travis-CI Build Status](https://travis-ci.org/hadley/pkgbuild.svg?branch=master)](https://travis-ci.org/hadley/pkgbuild)
+[![Travis-CI Build Status](https://travis-ci.org/r-pkgs/pkgbuild.svg?branch=master)](https://travis-ci.org/r-pkgs/pkgbuild)
 
 The goal of pkgbuild is to make it easy to build packages with compiled code. It provides tool to configure your R session, and check that everything is working ok. If you are using RStudio, it also helps you trigger automatical install of the build tools.
 

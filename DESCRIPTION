@@ -1,5 +1,5 @@
 Package: pkgbuild
-Title: Tools for Compile Code and Building Packages
+Title: Find Tools Needed to Build R Packages
 Version: 0.0.0.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
