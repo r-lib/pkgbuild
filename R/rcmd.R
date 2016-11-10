@@ -5,12 +5,13 @@
 #' the path to include Rtools.
 #'
 #' @param ... Parameters passed on to \code{rcmd_safe}.
+#' @inheritParams rcmd_build_tools
 #' @export
 #' @examples
 #' if (has_build_tools()) {
 #'   rcmd_build_tools("CONFIG", "CC")$stdout
 #'   rcmd_build_tools("CC", "--version")$stdout
 #' }
-rcmd_build_tools <- function(...) {
-  with_build_tools(callr::rcmd_safe(...))
+rcmd_build_tools <- function(..., required = TRUE) {
+  with_build_tools(callr::rcmd_safe(...), required = required)
 }
