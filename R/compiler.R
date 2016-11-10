@@ -15,9 +15,7 @@ has_compiler <- function(debug = FALSE) {
   on.exit(unlink(foo_path))
 
   tryCatch({
-    withr::with_dir(tempdir(), {
-      callr::rcmd_safe("SHLIB", "foo.c", show = debug)
-    })
+    RCMD("SHLIB", "foo.c", quiet = !debug, wd = tempdir())
 
     dylib <- file.path(tempdir(), paste0("foo", .Platform$dynlib.ext))
     on.exit(unlink(dylib), add = TRUE)
@@ -27,7 +25,6 @@ has_compiler <- function(debug = FALSE) {
 
     .C(dll$foo, 0L)[[1]] == 1L
   }, error = function(e) {
-    cat(e$message)
     FALSE
   })
 }

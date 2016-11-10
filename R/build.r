@@ -64,10 +64,8 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
 
   path <- normalizePath(path)
 
-  withr::with_dir(out_dir,
-    withr::with_temp_libpaths(
-      callr::rcmd_safe(cmd, c(shQuote(path), args))
-    )
+  withr::with_temp_libpaths(
+    RCMD(cmd, c(shQuote(path), args), wd = out_dir)
   )
 
   out_file <- dir(out_dir)
@@ -79,6 +77,3 @@ pkg_has_src <- function(path = ".") {
   src_path <- file.path(pkg_path(path), "src")
   file.exists(src_path)
 }
-
-
-

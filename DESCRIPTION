@@ -11,6 +11,8 @@ Imports:
   desc,
   rprojroot,
   withr
+Remotes:
+  mangothecat/callr
 Suggests:
   Rcpp
 License: GPL-3
