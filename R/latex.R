@@ -1,9 +1,17 @@
-has_latex <- function(verbose = FALSE) {
-  has <- nzchar(Sys.which("pdflatex"))
-  if (!has && verbose) {
-    message("pdflatex not found! Not building PDF manual or vignettes.\n",
-            "If you are planning to release this package, please run a check with ",
-            "manual and vignettes beforehand.\n")
-  }
-  has
+#' Is latex installed?
+#'
+#' Checks for presence of pdflatex on path.
+#'
+#' @export
+has_latex <- function() {
+  nzchar(Sys.which("pdflatex"))
+}
+
+#' @export
+#' @rdname has_latex
+check_latex <- function() {
+  if (!has_latex)
+    stop("LaTeX not installed (pdflatex not found)", call. = FALSE)
+
+  TRUE
 }

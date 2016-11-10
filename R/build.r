@@ -41,7 +41,8 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
   } else {
     args <- c(args, "--no-resave-data")
 
-    if (manual && !has_latex(verbose = TRUE)) {
+    if (manual && !has_latex()) {
+      message("pdflatex not found! Not building PDF manual.")
       manual <- FALSE
     }
 
