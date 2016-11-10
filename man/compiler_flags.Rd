@@ -25,6 +25,6 @@ compiler_flags()
 compiler_flags(TRUE)
 }
 \seealso{
-Other res: \code{\link{build}}
+Other debugging.flags: \code{\link{with_debug}}
 }
 

@@ -10,6 +10,7 @@
 #'
 #' @param debug If \code{TRUE} adds \code{-g -O0} to all flags
 #'   (Adding \env{FFLAGS} and \env{FCFLAGS}
+#' @family debugging flags
 #' @export
 #' @examples
 #' compiler_flags()
