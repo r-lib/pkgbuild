@@ -18,3 +18,8 @@ cache_set <- function(name, value) {
 cache_remote <- function(name) {
   rm(list = name, envir = cache)
 }
+
+
+cache_reset <- function() {
+  rm(list = ls(envir = cache), envir = cache)
+}
