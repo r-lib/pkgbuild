@@ -21,7 +21,6 @@
 #'   or \code{R CMD install} if \code{binary = TRUE}.
 #' @param quiet if \code{TRUE} suppresses output from this function.
 #' @export
-#' @family build functions
 #' @return a string giving the location (including file name) of the built
 #'  package
 build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE,

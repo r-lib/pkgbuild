@@ -39,7 +39,4 @@ a platform specific extension (e.g. \code{.zip} for windows), and will
 only be installable on the current platform, but no development
 environment is needed.
 }
-\seealso{
-Other res: \code{\link{compiler_flags}}
-}
 
