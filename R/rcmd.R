@@ -5,7 +5,7 @@
 #' the path to include Rtools.
 #'
 #' @param ... Parameters passed on to \code{rcmd_safe}.
-#' @inheritParams rcmd_build_tools
+#' @inheritParams with_build_tools
 #' @export
 #' @examples
 #' if (has_build_tools()) {

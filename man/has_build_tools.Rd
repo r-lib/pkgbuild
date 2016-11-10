@@ -10,7 +10,7 @@ has_build_tools(debug = FALSE)
 
 check_build_tools(debug = FALSE)
 
-with_build_tools(code, debug = FALSE)
+with_build_tools(code, debug = FALSE, required = TRUE)
 }
 \arguments{
 \item{debug}{If \code{TRUE}, will print out extra information useful for
@@ -18,6 +18,10 @@ debugging. If \code{FALSE}, it will use result cached from a previous run.}
 
 \item{code}{Code to rerun in environment where build tools are guaranteed to
 exist.}
+
+\item{required}{If \code{TRUE}, and build tools are not available,
+will throw an error. Otherwise will attempt to run \code{code} without
+them.}
 }
 \description{
 \code{has_build_tools} returns a logical, \code{check_build_tools} throws

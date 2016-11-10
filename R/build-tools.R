@@ -35,8 +35,12 @@ check_build_tools <- function(debug = FALSE) {
 #' @rdname has_build_tools
 #' @param code Code to rerun in environment where build tools are guaranteed to
 #'   exist.
-with_build_tools <- function(code, debug = FALSE) {
-  check_build_tools(debug = debug)
+#' @param required If \code{TRUE}, and build tools are not available,
+#'   will throw an error. Otherwise will attempt to run \code{code} without
+#'   them.
+with_build_tools <- function(code, debug = FALSE, required = TRUE) {
+  if (required)
+    check_build_tools(debug = debug)
 
   if (has_rtools()) {
     withr::with_path(rtools_path(), code)
