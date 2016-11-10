@@ -7,14 +7,14 @@ Authors@R: c(
   )
 Description: What the package does (one paragraph).
 Imports:
-  callr,
-  desc,
-  rprojroot,
-  withr
+    callr,
+    desc,
+    rprojroot,
+    withr
 Remotes:
-  mangothecat/callr
+    mangothecat/callr
 Suggests:
-  Rcpp
+    Rcpp
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
