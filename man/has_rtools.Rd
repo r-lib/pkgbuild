@@ -10,15 +10,13 @@
 \usage{
 rtools_path()
 
-has_rtools(cache = TRUE, debug = FALSE)
+has_rtools(debug = FALSE)
 
 check_rtools(debug = FALSE)
 }
 \arguments{
-\item{cache}{if \code{TRUE} will used cached version of Rtools.}
-
 \item{debug}{If \code{TRUE}, will print out extra information useful for
-debugging.}
+debugging. If \code{FALSE}, it will use result cached from a previous run.}
 }
 \value{
 Either a visible \code{TRUE} if rtools is found, or an invisible

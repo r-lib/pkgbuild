@@ -12,7 +12,7 @@ check_compiler(debug = FALSE)
 }
 \arguments{
 \item{debug}{If \code{TRUE}, will print out extra information useful for
-debugging.}
+debugging. If \code{FALSE}, it will use result cached from a previous run.}
 }
 \description{
 \code{has_devel} returns \code{TRUE} or \code{FALSE}. \code{check_devel}
@@ -22,5 +22,7 @@ based on a suggestion by Simon Urbanek.
 \examples{
 has_compiler()
 check_compiler()
+
+with_build_tools(has_compiler())
 }
 

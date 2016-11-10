@@ -6,7 +6,7 @@ Authors@R: c(
     person("RStudio", role = "cph")
   )
 Description: You need a little help to reliably compile C code and build
-    pacakages across platforms. This package provides such help
+    pacakages across platforms. This package provides such help.
 Imports:
     callr,
     desc,
@@ -15,7 +15,8 @@ Imports:
 Remotes:
     mangothecat/callr
 Suggests:
-    Rcpp
+    Rcpp,
+    testthat
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

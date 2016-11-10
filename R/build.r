@@ -64,7 +64,14 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
   path <- normalizePath(path)
 
   withr::with_temp_libpaths(
-    RCMD(cmd, c(shQuote(path), args), wd = out_dir)
+    rcmd_build_tools(
+      cmd,
+      c(shQuote(path), args),
+      wd = out_dir,
+      show = !quiet,
+      echo = !quiet,
+      fail_on_status = TRUE
+    )
   )
 
   out_file <- dir(out_dir)

@@ -3,20 +3,28 @@
 \name{has_build_tools}
 \alias{check_build_tools}
 \alias{has_build_tools}
+\alias{with_build_tools}
 \title{Are build tools are available?}
 \usage{
 has_build_tools(debug = FALSE)
 
 check_build_tools(debug = FALSE)
+
+with_build_tools(code, debug = FALSE)
 }
 \arguments{
 \item{debug}{If \code{TRUE}, will print out extra information useful for
-debugging.}
+debugging. If \code{FALSE}, it will use result cached from a previous run.}
+
+\item{code}{Code to rerun in environment where build tools are guaranteed to
+exist.}
 }
 \description{
 \code{has_build_tools} returns a logical, \code{check_build_tools} throws
-an error. If run interactively from RStudio, and the built-tools are not
-available either function will trigger an automated install.
+an error. \code{with_build_tools} checks that build tools are available,
+then runs \code{code} in an correctly staged environment.
+If run interactively from RStudio, and the build tools are not
+available these functions will trigger an automated install.
 }
 \examples{
 has_build_tools()

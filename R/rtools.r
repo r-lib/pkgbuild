@@ -11,9 +11,8 @@
 #' @section Acknowledgements:
 #'   This code borrows heavily from RStudio's code for finding Rtools.
 #'   Thanks JJ!
-#' @param cache if \code{TRUE} will used cached version of Rtools.
 #' @param debug If \code{TRUE}, will print out extra information useful for
-#'   debugging.
+#'   debugging. If \code{FALSE}, it will use result cached from a previous run.
 #' @return Either a visible \code{TRUE} if rtools is found, or an invisible
 #'   \code{FALSE} with a diagnostic \code{\link{message}}.
 #'   As a side-effect the internal package variable \code{rtools_path} is
@@ -22,8 +21,8 @@
 #' @export
 #' @examples
 #' has_rtools()
-has_rtools <- function(cache = TRUE, debug = FALSE) {
-  if (cache && rtools_path_is_set())
+has_rtools <- function(debug = FALSE) {
+  if (!debug && rtools_path_is_set())
     return(TRUE)
 
   if (!is_windows())
@@ -114,7 +113,7 @@ setup_rtools <- has_rtools
 #' @export
 #' @rdname has_rtools
 check_rtools <- function(debug = FALSE) {
-  if (is_windows() && !has_rtools(cache = !debug, debug = debug))
+  if (is_windows() && !has_rtools(debug = debug))
     stop("Rtools is not installed.", call. = FALSE)
 
   TRUE

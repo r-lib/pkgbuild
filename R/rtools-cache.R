@@ -1,18 +1,11 @@
-
-# Need to check for existence so load_all doesn't override known rtools location
-if (!exists("rtools_env")) {
-  rtools_env <- new.env()
-  rtools_env$path <- NULL
-}
-
 #' @export
 #' @rdname has_rtools
 rtools_path <- function() {
- rtools_env$path
+  cache_get("rtools_path")
 }
 
 rtools_path_is_set <- function() {
-  !is.null(rtools_env$path)
+  cache_exists("rtools_path")
 }
 
 rtools_path_set <- function(rtools) {
@@ -24,9 +17,7 @@ rtools_path_set <- function(rtools) {
     Sys.setenv(BINPREF = file.path(rtools$path, "mingw_$(WIN)", "bin", "/"))
   }
 
-  old <- rtools_env$path
-  rtools_env$path <- path
-  invisible(old)
+  cache_set("rtools_path", path)
 }
 
 using_gcc49 <- function() {

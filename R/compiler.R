@@ -9,14 +9,32 @@
 #' @examples
 #' has_compiler()
 #' check_compiler()
+#'
+#' with_build_tools(has_compiler())
 has_compiler <- function(debug = FALSE) {
+  if (!debug && cache_exists("has_compiler")) {
+    return(cache_get("has_compiler"))
+  }
+
   foo_path <- file.path(tempdir(), "foo.c")
   cat("void foo(int *bar) { *bar=1; }\n", file = foo_path)
   on.exit(unlink(foo_path))
 
-  tryCatch({
-    RCMD("SHLIB", "foo.c", quiet = !debug, wd = tempdir())
+  res <- tryCatch({
+    if (debug)
+      message("Trying to compile a simple C file")
 
+    callr::rcmd_safe(
+      "SHLIB",
+      "foo.c",
+      wd = tempdir(),
+      show = debug,
+      echo = debug,
+      fail_on_status = TRUE
+    )
+
+    if (debug)
+      message("")
     dylib <- file.path(tempdir(), paste0("foo", .Platform$dynlib.ext))
     on.exit(unlink(dylib), add = TRUE)
 
@@ -27,6 +45,9 @@ has_compiler <- function(debug = FALSE) {
   }, error = function(e) {
     FALSE
   })
+
+  cache_set("has_compiler", res)
+  res
 }
 
 #' @export

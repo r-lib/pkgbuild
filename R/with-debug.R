@@ -26,7 +26,7 @@ with_debug <- function(code, CFLAGS = NULL, CXXFLAGS = NULL,
     FFLAGS = FFLAGS, FCFLAGS = FCFLAGS
   )
 
-  flags <- unlist(modifyList(as.list(defaults), as.list(flags)))
+  flags <- unlist(utils::modifyList(as.list(defaults), as.list(flags)))
 
   withr::with_makevars(flags, code)
 }
