@@ -4,7 +4,7 @@
 compile_rcpp_attributes <- function(path = ".") {
   path <- pkg_path(path)
 
-  deps <- desc::desc_get_deps(path)
+  deps <- desc::desc_get_deps(file.path(path, "DESCRIPTION"))
   links_to_rcpp <- any(deps$type == "LinkingTo" & deps$package == "Rcpp")
 
   if (links_to_rcpp) {
