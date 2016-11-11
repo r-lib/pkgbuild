@@ -31,6 +31,8 @@ has_rtools <- function(debug = FALSE) {
   # First, try the path ------------------------------------------------
   from_path <- scan_path_for_rtools(debug)
   if (is_compatible(from_path)) {
+    if (debug)
+      cat("Found compatible gcc on path\n")
     rtools_path_set(from_path)
     return(TRUE)
   }
@@ -39,7 +41,8 @@ has_rtools <- function(debug = FALSE) {
     # Installed
     if (is.null(from_path$version)) {
       # but not from rtools
-      if (debug) cat("gcc and ls on path, assuming set up is correct\n")
+      if (debug)
+        cat("gcc and ls on path, assuming set up is correct\n")
       return(TRUE)
     } else {
       # Installed, but not compatible
