@@ -28,7 +28,16 @@ has_rtools <- function(debug = FALSE) {
   if (!is_windows())
     return(FALSE)
 
-  # First, try the path ------------------------------------------------
+  # First, R CMD config CC --------------------------------------------
+  from_config <- scan_config_for_rtools(debug)
+  if (is_compatible(from_config)) {
+    if (debug)
+      cat("Found compatible gcc from R CMD config CC\n")
+    rtools_path_set(from_config)
+    return(TRUE)
+  }
+
+  # Next, try the path ------------------------------------------------
   from_path <- scan_path_for_rtools(debug)
   if (is_compatible(from_path)) {
     if (debug)

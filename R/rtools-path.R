@@ -1,23 +1,4 @@
 scan_path_for_rtools <- function(debug = FALSE) {
-
-  if (using_gcc49()) {
-    # First check if gcc set by BINPREF/CC is valid and use that if so
-    if (debug)
-      cat("Trying R CMD config CC...\n")
-
-    cc_path <- callr::rcmd_safe("config", "CC")$stdout
-    # remove '-m64' from tail if it exists
-    cc_path <- sub("[[:space:]]+-m[[:digit:]]+$", "", cc_path)
-
-    if (debug)
-      cat("cc_path:", cc_path, "\n")
-
-    gcc_path <- find_arch_exe(cc_path, debug = debug)
-    if (gcc_path != "") {
-      return(rtools(gcc_path, NULL, valid_binpref = TRUE))
-    }
-  }
-
   if (debug)
     cat("Scanning path...\n")
 
