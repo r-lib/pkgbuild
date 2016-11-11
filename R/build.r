@@ -78,8 +78,3 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
   file.copy(file.path(out_dir, out_file), dest_path, overwrite = TRUE)
   file.path(dest_path, out_file)
 }
-
-pkg_has_src <- function(path = ".") {
-  src_path <- file.path(pkg_path(path), "src")
-  file.exists(src_path)
-}
