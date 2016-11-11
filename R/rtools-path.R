@@ -45,13 +45,19 @@ find_arch_exe <- function(path, debug = FALSE) {
     path <- paste0(path, ".exe")
   }
 
-  if (!file.exists(path))
+  if (!file.exists(path)) {
+    if (debug)
+      cat("'", path, "' does exist\n", sep = "")
     return("")
+  }
 
   # Then check architecture matches
   file_info <- file.info(path)
-  if (file_info$exe != paste0("win", gcc_arch()))
+  if (file_info$exe != paste0("win", gcc_arch())) {
+    if (debug)
+      cat("  Architecture doesn't match\n")
     return("")
+  }
 
   path
 }
