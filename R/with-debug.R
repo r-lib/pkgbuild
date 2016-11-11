@@ -30,3 +30,20 @@ with_debug <- function(code, CFLAGS = NULL, CXXFLAGS = NULL,
 
   withr::with_makevars(flags, code)
 }
+
+#' Temporarily break code compilation
+#'
+#' This is useful for testing.
+#'
+#' @param code Code to execute with broken compilers
+#' @export
+with_no_compiler <- function(code) {
+  flags <- c(
+    CC = "test",
+    CXX = "test",
+    CXX1X = "test",
+    FC = "test"
+  )
+
+  withr::with_makevars(flags, code)
+}
