@@ -31,13 +31,15 @@ with_debug <- function(code, CFLAGS = NULL, CXXFLAGS = NULL,
   withr::with_makevars(flags, code)
 }
 
-#' Temporarily break code compilation
+#' Tools for testing pkgbuild
 #'
-#' This is useful for testing.
+#' \code{with_compiler} temporarily disables code compilation by setting
+#' \code{CC}, \code{CXX}, makevars to \code{test}. \code{without_cache}
+#' resets the cache before and after running \code{code}.
 #'
 #' @param code Code to execute with broken compilers
 #' @export
-with_no_compiler <- function(code) {
+without_compiler <- function(code) {
   flags <- c(
     CC = "test",
     CXX = "test",
@@ -45,5 +47,15 @@ with_no_compiler <- function(code) {
     FC = "test"
   )
 
-  withr::with_makevars(flags, code)
+  without_cache(withr::with_makevars(flags, code))
+}
+
+
+#' @export
+#' @rdname without_compiler
+without_cache <- function(code) {
+  cache_reset()
+  on.exit(cache_reset())
+
+  code
 }
