@@ -1,6 +1,7 @@
 context("build_tools")
 
 test_that("tests always run in environment with dev tools", {
+  cache_reset()
   on.exit(cache_reset())
 
   expect_true(has_compiler())
@@ -10,6 +11,7 @@ test_that("tests always run in environment with dev tools", {
 })
 
 test_that("with dummy path, no build tools found", {
+  cache_reset()
   on.exit(cache_reset())
 
   withr::with_path(".", action = "replace", {
