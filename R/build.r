@@ -31,8 +31,6 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
     dest_path <- dirname(path)
   }
 
-  if (pkg_has_src(path))
-    check_build_tools()
   compile_rcpp_attributes(path)
 
   if (binary) {
@@ -71,7 +69,8 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
       wd = out_dir,
       show = !quiet,
       echo = !quiet,
-      fail_on_status = TRUE
+      fail_on_status = TRUE,
+      required = pkg_has_src(path)
     )
   )
 
