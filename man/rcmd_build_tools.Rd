@@ -4,10 +4,13 @@
 \alias{rcmd_build_tools}
 \title{Call R CMD <command> with build tools active}
 \usage{
-rcmd_build_tools(..., required = TRUE)
+rcmd_build_tools(..., env = character(), required = TRUE)
 }
 \arguments{
 \item{...}{Parameters passed on to \code{rcmd_safe}.}
+
+\item{env}{Additional environment variables to set. The defaults from
+\code{\link[callr]{rcmd_safe_env}()} are always set.}
 
 \item{required}{If \code{TRUE}, and build tools are not available,
 will throw an error. Otherwise will attempt to run \code{code} without
@@ -19,6 +22,9 @@ that you have build tools available, and on Windows, automatically sets
 the path to include Rtools.
 }
 \examples{
+# These env vars are always set
+callr::rcmd_safe_env()
+
 if (has_build_tools()) {
   rcmd_build_tools("CONFIG", "CC")$stdout
   rcmd_build_tools("CC", "--version")$stdout

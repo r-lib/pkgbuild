@@ -5,13 +5,23 @@
 #' the path to include Rtools.
 #'
 #' @param ... Parameters passed on to \code{rcmd_safe}.
+#' @param env Additional environment variables to set. The defaults from
+#'   \code{\link[callr]{rcmd_safe_env}()} are always set.
 #' @inheritParams with_build_tools
 #' @export
 #' @examples
+#' # These env vars are always set
+#' callr::rcmd_safe_env()
+#'
 #' if (has_build_tools()) {
 #'   rcmd_build_tools("CONFIG", "CC")$stdout
 #'   rcmd_build_tools("CC", "--version")$stdout
 #' }
-rcmd_build_tools <- function(..., required = TRUE) {
-  with_build_tools(callr::rcmd_safe(...), required = required)
+rcmd_build_tools <- function(..., env = character(), required = TRUE) {
+  env <- c(callr::rcmd_safe_env(), env)
+
+  with_build_tools(
+    callr::rcmd_safe(..., env = env),
+    required = required
+  )
 }
