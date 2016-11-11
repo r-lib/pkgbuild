@@ -6,7 +6,7 @@ scan_config_for_rtools <- function(debug = FALSE) {
   if (!using_gcc49())
     return()
 
-  cc_path <- callr::rcmd_safe("config", "CC")$stdout
+  cc_path <- gsub("\n", "", callr::rcmd_safe("config", "CC")$stdout)
   # remove '-m64' from tail if it exists
   cc_path <- sub("[[:space:]]+-m[[:digit:]]+$", "", cc_path)
 
