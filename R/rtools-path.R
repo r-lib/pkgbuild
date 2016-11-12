@@ -47,7 +47,7 @@ find_arch_exe <- function(path, debug = FALSE) {
 
   if (!file.exists(path)) {
     if (debug)
-      cat("'", path, "' does exist\n", sep = "")
+      cat("'", path, "' does not exist\n", sep = "")
     return("")
   }
 
