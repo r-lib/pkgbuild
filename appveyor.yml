@@ -12,6 +12,10 @@ install:
 
 # Adapt as necessary starting from here
 
+# force install of Rtools
+environment:
+  USE_RTOOLS: true
+
 build_script:
   - travis-tool.sh install_deps
 
