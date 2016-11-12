@@ -54,10 +54,17 @@ compile_dll <- function(path = ".", quiet = FALSE) {
 clean_dll <- function(path = ".") {
   path <- pkg_path(path)
 
-  # Clean out the /src/ directory
+  # Clean out the /src/ directory and children:
+  # * individual object files
+  # * overall package definition file
+  # * symbols.rds (added when run inside R CMD check)
+  pattern <- sprintf(
+    "\\.(o|sl|so|dylib|a|dll)$|(%s\\.def)$|^symbols.rds$",
+    pkg_name(path)
+  )
   files <- dir(
     file.path(path, "src"),
-    pattern = sprintf("\\.(o|sl|so|dylib|a|dll)$|(%s\\.def)$", pkg_name(path)),
+    pattern = pattern,
     full.names = TRUE,
     recursive = TRUE
   )
