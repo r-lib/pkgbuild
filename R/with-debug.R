@@ -53,7 +53,9 @@ without_compiler <- function(code) {
       withr::with_makevars(flags, code)
     })
   } else {
-    without_cache(withr::with_makevars(flags, code))
+    without_cache({
+      withr::with_makevars(flags, code)
+    })
   }
 }
 
