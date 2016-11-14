@@ -23,7 +23,7 @@
 #' has_rtools()
 has_rtools <- function(debug = FALSE) {
   if (!debug && rtools_path_is_set())
-    return(TRUE)
+    return(!identical(rtools_path(), ""))
 
   if (!is_windows())
     return(FALSE)

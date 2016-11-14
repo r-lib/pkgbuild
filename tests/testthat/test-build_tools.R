@@ -8,8 +8,9 @@ test_that("tests always run in environment with dev tools", {
   })
 })
 
-test_that("with dummy path, no build tools found", {
+test_that("unless specifically disabled", {
   without_compiler({
+    expect_false(has_rtools())
     expect_false(has_compiler())
     expect_false(has_build_tools())
   })

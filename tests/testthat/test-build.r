@@ -36,7 +36,6 @@ test_that("source builds return correct filenames", {
 })
 
 test_that("build package with src requires compiler", {
-
   without_compiler({
     expect_error(
       build("testWithSrc", dest_path = tempdir(), quiet = TRUE),
