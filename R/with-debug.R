@@ -47,7 +47,14 @@ without_compiler <- function(code) {
     FC = "test"
   )
 
-  without_cache(withr::with_makevars(flags, code))
+  if (is_windows()) {
+    without_cache({
+      cache_set("rtools_path", "")
+      withr::with_makevars(flags, code)
+    })
+  } else {
+    without_cache(withr::with_makevars(flags, code))
+  }
 }
 
 
