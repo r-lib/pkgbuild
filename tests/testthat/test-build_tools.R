@@ -12,6 +12,5 @@ test_that("with dummy path, no build tools found", {
   without_compiler({
     expect_false(has_compiler())
     expect_false(has_build_tools())
-    expect_false(has_rtools())
   })
 })
