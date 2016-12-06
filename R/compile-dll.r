@@ -75,7 +75,7 @@ clean_dll <- function(path = ".") {
 
 # Returns the full path and name of the DLL file
 dll_path <- function(path = ".") {
-  name <- paste(path, .Platform$dynlib.ext, sep = "")
+  name <- paste(pkg_name(path), .Platform$dynlib.ext, sep = "")
   file.path(path, "src", name)
 }
 
