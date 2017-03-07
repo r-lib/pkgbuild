@@ -1,12 +1,12 @@
 Package: pkgbuild
 Title: Find Tools Needed to Build R Packages
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
     person("RStudio", role = "cph")
   )
 Description: You need a little help to reliably compile C code and build
-    pacakages across platforms. This package provides such help.
+    packages across platforms. This package provides such help.
 Imports:
     callr,
     desc,
