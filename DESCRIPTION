@@ -13,7 +13,7 @@ Imports:
     rprojroot,
     withr
 Remotes:
-    r-pkgs/callr@3609df80
+    r-pkgs/callr@HEAD
 Suggests:
     Rcpp,
     testthat,
