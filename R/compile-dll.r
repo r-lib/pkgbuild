@@ -144,8 +144,8 @@ install_min <- function(path = ".", dest, components = NULL, args = NULL, quiet 
   rcmd_build_tools(
     "INSTALL",
     c(
-      shQuote(path),
-      paste("--library=", shQuote(dest), sep = ""),
+      path,
+      paste("--library=", dest, sep = ""),
       no_args,
       "--no-multiarch",
       "--no-test-load",
