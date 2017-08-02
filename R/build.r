@@ -20,11 +20,14 @@
 #'   line arguments to be passed to \code{R CMD build} if \code{binary = FALSE},
 #'   or \code{R CMD install} if \code{binary = TRUE}.
 #' @param quiet if \code{TRUE} suppresses output from this function.
+#' @param remove_remotes if \code{TRUE} removes Remotes field from
+#' \code{DESCRIPTION}
 #' @export
 #' @return a string giving the location (including file name) of the built
 #'  package
 build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE,
-                  manual = FALSE, args = NULL, quiet = FALSE) {
+                  manual = FALSE, args = NULL, quiet = FALSE,
+                  remove_remotes = FALSE) {
 
   path <- pkg_path(path)
   if (is.null(dest_path)) {
@@ -64,6 +67,21 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
   on.exit(unlink(out_dir))
 
   path <- normalizePath(path)
+  if (remove_remotes) {
+    dcf_file <- file.path(path, "DESCRIPTION")
+    dcf_con <- file(dcf_file)
+    dcf = read.dcf(dcf_con, all = TRUE)
+    close(dcf_con)
+    dcf = as.data.frame(
+      dcf,
+      stringsAsFactors = FALSE)
+    xdcf = dcf
+    on.exit({
+      write.dcf(x = xdcf, file = dcf_file)
+    })
+    dcf$Remotes = NULL
+    write.dcf(x = dcf, file = dcf_file)
+  }
 
   withr::with_temp_libpaths(
     rcmd_build_tools(
