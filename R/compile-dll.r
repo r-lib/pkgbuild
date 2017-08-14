@@ -5,7 +5,14 @@
 #' During compilation, debug flags are set with
 #' \code{\link{compiler_flags}(TRUE)}.
 #'
-#' Invisibly returns the names of the DLL.
+#' The build system normally only recompiles the files that were
+#' changed since the last build. However if a header or makefile has
+#' changed, the whole source is recompiled from scratch. Furthermore,
+#' if the `devtools.clean.compile.subdir.changes` global option is set
+#' to `TRUE`, any change in subdirectories trigger a complete
+#' recompilation.
+#'
+#' @return The names of the DLL, invisibly.
 #'
 #' @note If this is used to compile code that uses Rcpp, you will need to
 #'   add the following line to your `Makevars` file so that it
@@ -106,7 +113,11 @@ headers <- function(path = ".") {
 # Does the package need recompiling?
 # (i.e. is there a source or header file newer than the dll)
 needs_compile <- function(path = ".") {
-  source <- mtime(c(sources(path), headers(path)))
+  files <- c(sources(path), headers(path))
+  files_need_compile(files, path)
+}
+files_need_compile <- function(files, path) {
+  source <- mtime(files)
   # no source files, so doesn't need compile
   if (is.null(source)) return(FALSE)
 
@@ -120,15 +131,35 @@ needs_compile <- function(path = ".") {
 # Does the package need a clean compile?
 # (i.e. is there a header or Makevars newer than the dll)
 needs_clean <- function(path = ".") {
+  if (needs_subdir_clean(path)) {
+    return(TRUE)
+  }
+
   headers <- mtime(headers(path))
   # no headers, so never needs clean compile
-  if (is.null(headers)) return(FALSE)
+  if (is.null(headers)) {
+    return(FALSE)
+  }
 
   dll <- mtime(dll_path(path))
   # no dll, so needs compile
-  if (is.null(dll)) return(TRUE)
+  if (is.null(dll)) {
+    return(TRUE)
+  }
 
   headers > dll
+}
+
+needs_subdir_clean <- function(path) {
+  if (!identical(getOption("devtools.clean.compile.subdir.changes"), TRUE)) {
+    return(FALSE)
+  }
+
+  srcdir <- file.path(path, "src")
+  subdirs <- list.dirs(srcdir, recursive = FALSE)
+  files <- dir(subdirs, "\\.(c.*|f)$", recursive = TRUE, full.names = TRUE)
+
+  files_need_compile(files, path)
 }
 
 install_min <- function(path = ".", dest, components = NULL, args = NULL, quiet = FALSE) {
@@ -158,4 +189,3 @@ install_min <- function(path = ".", dest, components = NULL, args = NULL, quiet 
 
   invisible(file.path(dest, pkg_name(path)))
 }
-
