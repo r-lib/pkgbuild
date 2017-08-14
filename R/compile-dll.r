@@ -106,7 +106,11 @@ headers <- function(path = ".") {
 # Does the package need recompiling?
 # (i.e. is there a source or header file newer than the dll)
 needs_compile <- function(path = ".") {
-  source <- mtime(c(sources(path), headers(path)))
+  files <- c(sources(path), headers(path))
+  files_need_compile(files, path)
+}
+files_need_compile <- function(files, path) {
+  source <- mtime(files)
   # no source files, so doesn't need compile
   if (is.null(source)) return(FALSE)
 
