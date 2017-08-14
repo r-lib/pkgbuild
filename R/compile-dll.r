@@ -122,11 +122,15 @@ needs_compile <- function(path = ".") {
 needs_clean <- function(path = ".") {
   headers <- mtime(headers(path))
   # no headers, so never needs clean compile
-  if (is.null(headers)) return(FALSE)
+  if (is.null(headers)) {
+    return(FALSE)
+  }
 
   dll <- mtime(dll_path(path))
   # no dll, so needs compile
-  if (is.null(dll)) return(TRUE)
+  if (is.null(dll)) {
+    return(TRUE)
+  }
 
   headers > dll
 }
@@ -158,4 +162,3 @@ install_min <- function(path = ".", dest, components = NULL, args = NULL, quiet 
 
   invisible(file.path(dest, pkg_name(path)))
 }
-
