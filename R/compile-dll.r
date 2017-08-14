@@ -5,7 +5,14 @@
 #' During compilation, debug flags are set with
 #' \code{\link{compiler_flags}(TRUE)}.
 #'
-#' Invisibly returns the names of the DLL.
+#' The build system normally only recompiles the files that were
+#' changed since the last build. However if a header or makefile has
+#' changed, the whole source is recompiled from scratch. Furthermore,
+#' if the `devtools.clean.compile.subdir.changes` global option is set
+#' to `TRUE`, any change in subdirectories trigger a complete
+#' recompilation.
+#'
+#' @return The names of the DLL, invisibly.
 #'
 #' @note If this is used to compile code that uses Rcpp, you will need to
 #'   add the following line to your \code{Makevars} file so that it

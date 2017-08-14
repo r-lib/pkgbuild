@@ -5,5 +5,7 @@
 
 * First argument of all functions is now `path` rather than `pkg`.
 
-
+* New global option `devtools.clean.compile.subdir.changes`. If it is
+  set to `TRUE`, any change in subdirectories trigger a complete
+  recompilation.
 

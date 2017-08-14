@@ -11,6 +11,9 @@ compile_dll(path = ".", quiet = FALSE)
 
 \item{quiet}{if \code{TRUE} suppresses output from this function.}
 }
+\value{
+The names of the DLL, invisibly.
+}
 \description{
 \code{compile_dll} performs a fake R CMD install so code that
 works here should work with a regular install (and vice versa).
@@ -18,7 +21,12 @@ During compilation, debug flags are set with
 \code{\link{compiler_flags}(TRUE)}.
 }
 \details{
-Invisibly returns the names of the DLL.
+The build system normally only recompiles the files that were
+changed since the last build. However if a header or makefile has
+changed, the whole source is recompiled from scratch. Furthermore,
+if the `devtools.clean.compile.subdir.changes` global option is set
+to `TRUE`, any change in subdirectories trigger a complete
+recompilation.
 }
 \note{
 If this is used to compile code that uses Rcpp, you will need to
