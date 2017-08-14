@@ -5,17 +5,17 @@
 #' the path. The default installation process does not add it, so this
 #' script finds it (looking first on the path, then in the registry).
 #' It also checks that the version of rtools matches the version of R.
-#' \code{has_rtools()} determines if Rtools is installed, caching the results.
-#' Afterward, run \code{rtools_path()} to find out where it's installed.
+#' `has_rtools()` determines if Rtools is installed, caching the results.
+#' Afterward, run `rtools_path()` to find out where it's installed.
 #'
 #' @section Acknowledgements:
 #'   This code borrows heavily from RStudio's code for finding Rtools.
 #'   Thanks JJ!
-#' @param debug If \code{TRUE}, will print out extra information useful for
-#'   debugging. If \code{FALSE}, it will use result cached from a previous run.
-#' @return Either a visible \code{TRUE} if rtools is found, or an invisible
-#'   \code{FALSE} with a diagnostic \code{\link{message}}.
-#'   As a side-effect the internal package variable \code{rtools_path} is
+#' @param debug If `TRUE`, will print out extra information useful for
+#'   debugging. If `FALSE`, it will use result cached from a previous run.
+#' @return Either a visible `TRUE` if rtools is found, or an invisible
+#'   `FALSE` with a diagnostic [message()].
+#'   As a side-effect the internal package variable `rtools_path` is
 #'   updated to the paths to rtools binaries.
 #' @keywords internal
 #' @export

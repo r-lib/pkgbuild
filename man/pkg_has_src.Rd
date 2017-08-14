@@ -12,4 +12,3 @@ pkg_has_src(path = ".")
 \description{
 If it does, you definitely need build tools.
 }
-

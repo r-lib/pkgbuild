@@ -1,6 +1,6 @@
 #' Is a compiler available?
 #'
-#' \code{has_devel} returns \code{TRUE} or \code{FALSE}. \code{check_devel}
+#' `has_devel` returns `TRUE` or `FALSE`. `check_devel`
 #' throws an error if you don't developer tools installed. Implementation
 #' based on a suggestion by Simon Urbanek.
 #'

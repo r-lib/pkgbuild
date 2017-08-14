@@ -16,7 +16,7 @@ These default flags enforce good coding practice by ensuring that
 These tests are run by cran and are generally considered to be good practice.
 }
 \details{
-By default \code{\link{compile_dll}} is run with \code{compiler_flags(TRUE)},
+By default \code{\link[=compile_dll]{compile_dll()}} is run with \code{compiler_flags(TRUE)},
 and check with \code{compiler_flags(FALSE)}.  If you want to avoid the
 possible performance penalty from the debug flags, install the package.
 }
@@ -25,6 +25,5 @@ compiler_flags()
 compiler_flags(TRUE)
 }
 \seealso{
-Other debugging.flags: \code{\link{with_debug}}
+Other debugging flags: \code{\link{with_debug}}
 }
-

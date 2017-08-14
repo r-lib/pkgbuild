@@ -27,7 +27,7 @@ or \code{R CMD install} if \code{binary = TRUE}.}
 }
 \value{
 a string giving the location (including file name) of the built
- package
+package
 }
 \description{
 Building converts a package source directory into a single bundled file.
@@ -39,4 +39,3 @@ a platform specific extension (e.g. \code{.zip} for windows), and will
 only be installable on the current platform, but no development
 environment is needed.
 }
-

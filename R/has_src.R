@@ -1,4 +1,4 @@
-#' Does a source package have \code{src/} directory?
+#' Does a source package have `src/` directory?
 #'
 #' If it does, you definitely need build tools.
 #'

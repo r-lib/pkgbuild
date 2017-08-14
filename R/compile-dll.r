@@ -1,6 +1,6 @@
 #' Compile a .dll/.so from source.
 #'
-#' \code{compile_dll} performs a fake R CMD install so code that
+#' `compile_dll` performs a fake R CMD install so code that
 #' works here should work with a regular install (and vice versa).
 #' During compilation, debug flags are set with
 #' \code{\link{compiler_flags}(TRUE)}.
@@ -8,12 +8,12 @@
 #' Invisibly returns the names of the DLL.
 #'
 #' @note If this is used to compile code that uses Rcpp, you will need to
-#'   add the following line to your \code{Makevars} file so that it
+#'   add the following line to your `Makevars` file so that it
 #'   knows where to find the Rcpp headers:
-#'   \code{PKG_CPPFLAGS=`$(R_HOME)/bin/Rscript -e 'Rcpp:::CxxFlags()'`}
+#'   `PKG_CPPFLAGS=`$(R_HOME)/bin/Rscript -e 'Rcpp:::CxxFlags()'``
 #'
 #' @inheritParams build
-#' @seealso \code{\link{clean_dll}} to delete the compiled files.
+#' @seealso [clean_dll()] to delete the compiled files.
 #' @export
 compile_dll <- function(path = ".", quiet = FALSE) {
   path <- pkg_path(path)
@@ -49,7 +49,7 @@ compile_dll <- function(path = ".", quiet = FALSE) {
 #' Invisibly returns the names of the deleted files.
 #'
 #' @inheritParams build
-#' @seealso \code{\link{compile_dll}}
+#' @seealso [compile_dll()]
 #' @export
 clean_dll <- function(path = ".") {
   path <- pkg_path(path)

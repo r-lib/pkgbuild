@@ -1,25 +1,25 @@
 #' Build package
 #'
 #' Building converts a package source directory into a single bundled file.
-#' If \code{binary = FALSE} this creates a \code{tar.gz} package that can
+#' If `binary = FALSE` this creates a `tar.gz` package that can
 #' be installed on any platform, provided they have a full development
 #' environment (although packages without source code can typically be
-#' install out of the box). If \code{binary = TRUE}, the package will have
-#' a platform specific extension (e.g. \code{.zip} for windows), and will
+#' install out of the box). If `binary = TRUE`, the package will have
+#' a platform specific extension (e.g. `.zip` for windows), and will
 #' only be installable on the current platform, but no development
 #' environment is needed.
 #'
 #' @param path Path to a package, or within a package.
-#' @param dest_path path in which to produce package.  If \code{NULL}, defaults to
+#' @param dest_path path in which to produce package.  If `NULL`, defaults to
 #'   the parent directory of the package.
-#' @param binary Produce a binary (\code{--binary}) or source (
-#'   \code{--no-manual --no-resave-data}) version of the package.
-#' @param vignettes,manual For source packages: if \code{FALSE}, don't build PDF
-#'   vignettes (\code{--no-build-vignettes}) or manual (\code{--no-manual}).
+#' @param binary Produce a binary (`--binary`) or source (
+#'   `--no-manual --no-resave-data`) version of the package.
+#' @param vignettes,manual For source packages: if `FALSE`, don't build PDF
+#'   vignettes (`--no-build-vignettes`) or manual (`--no-manual`).
 #' @param args An optional character vector of additional command
-#'   line arguments to be passed to \code{R CMD build} if \code{binary = FALSE},
-#'   or \code{R CMD install} if \code{binary = TRUE}.
-#' @param quiet if \code{TRUE} suppresses output from this function.
+#'   line arguments to be passed to `R CMD build` if `binary = FALSE`,
+#'   or `R CMD install` if `binary = TRUE`.
+#' @param quiet if `TRUE` suppresses output from this function.
 #' @export
 #' @return a string giving the location (including file name) of the built
 #'  package

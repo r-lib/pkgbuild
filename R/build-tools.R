@@ -1,8 +1,8 @@
 #' Are build tools are available?
 #'
-#' \code{has_build_tools} returns a logical, \code{check_build_tools} throws
-#' an error. \code{with_build_tools} checks that build tools are available,
-#' then runs \code{code} in an correctly staged environment.
+#' `has_build_tools` returns a logical, `check_build_tools` throws
+#' an error. `with_build_tools` checks that build tools are available,
+#' then runs `code` in an correctly staged environment.
 #' If run interactively from RStudio, and the build tools are not
 #' available these functions will trigger an automated install.
 #'
@@ -35,8 +35,8 @@ check_build_tools <- function(debug = FALSE) {
 #' @rdname has_build_tools
 #' @param code Code to rerun in environment where build tools are guaranteed to
 #'   exist.
-#' @param required If \code{TRUE}, and build tools are not available,
-#'   will throw an error. Otherwise will attempt to run \code{code} without
+#' @param required If `TRUE`, and build tools are not available,
+#'   will throw an error. Otherwise will attempt to run `code` without
 #'   them.
 with_build_tools <- function(code, debug = FALSE, required = TRUE) {
   if (required)

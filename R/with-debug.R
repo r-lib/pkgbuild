@@ -33,9 +33,9 @@ with_debug <- function(code, CFLAGS = NULL, CXXFLAGS = NULL,
 
 #' Tools for testing pkgbuild
 #'
-#' \code{with_compiler} temporarily disables code compilation by setting
-#' \code{CC}, \code{CXX}, makevars to \code{test}. \code{without_cache}
-#' resets the cache before and after running \code{code}.
+#' `with_compiler` temporarily disables code compilation by setting
+#' `CC`, `CXX`, makevars to `test`. `without_cache`
+#' resets the cache before and after running `code`.
 #'
 #' @param code Code to execute with broken compilers
 #' @export

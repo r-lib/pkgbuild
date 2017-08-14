@@ -13,6 +13,5 @@ clean_dll(path = ".")
 Invisibly returns the names of the deleted files.
 }
 \seealso{
-\code{\link{compile_dll}}
+\code{\link[=compile_dll]{compile_dll()}}
 }
-
