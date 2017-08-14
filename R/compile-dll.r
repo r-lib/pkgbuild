@@ -124,6 +124,10 @@ files_need_compile <- function(files, path) {
 # Does the package need a clean compile?
 # (i.e. is there a header or Makevars newer than the dll)
 needs_clean <- function(path = ".") {
+  if (needs_subdir_clean(path)) {
+    return(TRUE)
+  }
+
   headers <- mtime(headers(path))
   # no headers, so never needs clean compile
   if (is.null(headers)) {
@@ -137,6 +141,18 @@ needs_clean <- function(path = ".") {
   }
 
   headers > dll
+}
+
+needs_subdir_clean <- function(path) {
+  if (!identical(getOption("devtools.clean.compile.subdir.changes"), TRUE)) {
+    return(FALSE)
+  }
+
+  srcdir <- file.path(path, "src")
+  subdirs <- list.dirs(srcdir, recursive = FALSE)
+  files <- dir(subdirs, "\\.(c.*|f)$", recursive = TRUE, full.names = TRUE)
+
+  files_need_compile(files, path)
 }
 
 install_min <- function(path = ".", dest, components = NULL, args = NULL, quiet = FALSE) {
