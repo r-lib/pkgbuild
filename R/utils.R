@@ -1,3 +1,8 @@
+dir.exists <- function(x) {
+  res <- file.exists(x) & file.info(x)$isdir
+  stats::setNames(res, x)
+}
+
 pkg_path <- function(path = ".") {
   rprojroot::find_root("DESCRIPTION", path)
 }
