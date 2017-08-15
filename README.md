@@ -1,7 +1,7 @@
 # pkgbuild
 
-[![Travis-CI Build Status](https://travis-ci.org/r-lib/pkgbuild.svg?branch=master)](https://travis-ci.org/r-pkgs/pkgbuild)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-pkgs/pkgbuild?branch=master&svg=true)](https://ci.appveyor.com/project/r-pkgs/pkgbuild)
+[![Travis-CI Build Status](https://travis-ci.org/r-lib/pkgbuild.svg?branch=master)](https://travis-ci.org/r-lib/pkgbuild)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-lib/pkgbuild?branch=master&svg=true)](https://ci.appveyor.com/project/hadley/pkgbuild)
 [![Coverage status](https://codecov.io/gh/r-lib/pkgbuild/branch/master/graph/badge.svg)](https://codecov.io/github/r-lib/pkgbuild?branch=master)
 
 The goal of pkgbuild is to make it easy to build packages with compiled code. It provides tools to configure your R session, and check that everything is working ok. If you are using RStudio, it also helps you trigger automatical install of the build tools.
