@@ -4,7 +4,7 @@
 #' If `binary = FALSE` this creates a `tar.gz` package that can
 #' be installed on any platform, provided they have a full development
 #' environment (although packages without source code can typically be
-#' install out of the box). If `binary = TRUE`, the package will have
+#' installed out of the box). If `binary = TRUE`, the package will have
 #' a platform specific extension (e.g. `.zip` for windows), and will
 #' only be installable on the current platform, but no development
 #' environment is needed.
