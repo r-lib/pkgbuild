@@ -58,7 +58,7 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
       if (dir.exists(doc_dir)) {
         if (interactive()) {
           message("Building the package will delete...\n  '", doc_dir, "'\nAre you sure?")
-          res <- menu(c("Yes", "No"))
+          res <- utils::menu(c("Yes", "No"))
           if (res == 2) {
             return()
           }

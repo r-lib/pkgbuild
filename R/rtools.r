@@ -1,7 +1,7 @@
 #' Is Rtools installed?
 #'
 #' To build binary packages on windows, Rtools (found at
-#' \url{http://cran.r-project.org/bin/windows/Rtools/}) needs to be on
+#' \url{https://CRAN.R-project.org/bin/windows/Rtools/}) needs to be on
 #' the path. The default installation process does not add it, so this
 #' script finds it (looking first on the path, then in the registry).
 #' It also checks that the version of rtools matches the version of R.
