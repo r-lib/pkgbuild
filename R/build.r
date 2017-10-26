@@ -84,6 +84,7 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
       wd = out_dir,
       show = !quiet,
       echo = !quiet,
+      spinner = FALSE,
       fail_on_status = TRUE,
       required = FALSE # already checked above
     )
