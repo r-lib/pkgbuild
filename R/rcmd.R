@@ -21,7 +21,7 @@ rcmd_build_tools <- function(..., env = character(), required = TRUE) {
   env <- c(callr::rcmd_safe_env(), env)
 
   with_build_tools(
-    callr::rcmd_safe(..., env = env),
+    callr::rcmd_safe(..., env = env, spinner = FALSE),
     required = required
   )
 }
