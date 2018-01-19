@@ -4,7 +4,7 @@
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/r-lib/pkgbuild?branch=master&svg=true)](https://ci.appveyor.com/project/hadley/pkgbuild)
 [![Coverage status](https://codecov.io/gh/r-lib/pkgbuild/branch/master/graph/badge.svg)](https://codecov.io/github/r-lib/pkgbuild?branch=master)
 
-The goal of pkgbuild is to make it easy to build packages with compiled code. It provides tools to configure your R session, and check that everything is working ok. If you are using RStudio, it also helps you trigger automatical install of the build tools.
+The goal of pkgbuild is to make it easy to build packages with compiled code. It provides tools to configure your R session, and check that everything is working ok. If you are using RStudio, it also helps you trigger automatic install of the build tools.
 
 ## Installation
 
@@ -12,7 +12,7 @@ You can install pkgbuild from github with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("hadley/pkgbuild")
+devtools::install_github("r-lib/pkgbuild")
 ```
 
 ## Example
