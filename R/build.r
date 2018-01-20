@@ -40,7 +40,9 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
     args <- c("--build", args)
     cmd <- "INSTALL"
   } else {
-    args <- c(args, "--no-resave-data")
+    if ( ! "--resave-data" %in% args ){
+      args <- c(args, "--no-resave-data")
+    }
 
     if (manual && !has_latex()) {
       message("pdflatex not found! Not building PDF manual.")
