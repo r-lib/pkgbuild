@@ -40,7 +40,7 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
     args <- c("--build", args)
     cmd <- "INSTALL"
   } else {
-    if ( ! "--resave-data" %in% args ){
+    if (!("--resave-data" %in% args)) {
       args <- c(args, "--no-resave-data")
     }
 
