@@ -23,15 +23,15 @@ compiler_flags <- function(debug = FALSE) {
     )
   } else if (debug) {
     c(
-      CFLAGS   = "-UNDEBUG -Wall -pedantic -g -O0",
-      CXXFLAGS = "-UNDEBUG -Wall -pedantic -g -O0",
+      CFLAGS   = "-UNDEBUG -Wall -pedantic -g -O0 -fcolor-diagnostics",
+      CXXFLAGS = "-UNDEBUG -Wall -pedantic -g -O0 -fcolor-diagnostics",
       FFLAGS   = "-g -O0",
       FCFLAGS  = "-g -O0"
     )
   } else {
     c(
-      CFLAGS   = "-Wall -pedantic",
-      CXXFLAGS = "-Wall -pedantic"
+      CFLAGS   = "-Wall -pedantic -fcolor-diagnostics",
+      CXXFLAGS = "-Wall -pedantic -fcolor-diagnostics"
     )
   }
 }
