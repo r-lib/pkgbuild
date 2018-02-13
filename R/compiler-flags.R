@@ -16,22 +16,36 @@
 #' compiler_flags()
 #' compiler_flags(TRUE)
 compiler_flags <- function(debug = FALSE) {
-  if (Sys.info()[["sysname"]] == "SunOS") {
+  res <-
+    if (Sys.info()[["sysname"]] == "SunOS") {
     c(
       CFLAGS   = "-g",
-      CXXFLAGS = "-g"
+      CXXFLAGS = "-g",
+      CXX11FLAGS = "-g"
     )
   } else if (debug) {
     c(
-      CFLAGS   = "-UNDEBUG -Wall -pedantic -g -O0 -fdiagnostics-color=always",
-      CXXFLAGS = "-UNDEBUG -Wall -pedantic -g -O0 -fdiagnostics-color=always",
+      CFLAGS   = "-UNDEBUG -Wall -pedantic -g -O0",
+      CXXFLAGS = "-UNDEBUG -Wall -pedantic -g -O0",
+      CXX11FLAGS = "-UNDEBUG -Wall -pedantic -g -O0",
       FFLAGS   = "-g -O0",
       FCFLAGS  = "-g -O0"
     )
   } else {
     c(
-      CFLAGS   = "-Wall -pedantic -fdiagnostics-color=always",
-      CXXFLAGS = "-Wall -pedantic -fdiagnostics-color=always"
+      CFLAGS   = "-Wall -pedantic",
+      CXXFLAGS = "-Wall -pedantic",
+      CXX11FLAGS = "-Wall -pedantic"
     )
   }
+
+  if (has_compiler_colored_diagnostics()) {
+    res[c("CFLAGS", "CXXFLAGS", "CXX11FLAGS")] <-
+      paste(res[c("CFLAGS", "CXXFLAGS", "CXX11FLAGS")], "-fdiagnostics-color=always")
+  }
+  res
+}
+
+has_compiler_colored_diagnostics <- function() {
+  withr::with_makevars(c(CFLAGS = "-fdiagnostics-color=always"), has_compiler())
 }
