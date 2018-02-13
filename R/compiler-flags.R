@@ -46,6 +46,12 @@ compiler_flags <- function(debug = FALSE) {
   res
 }
 
-has_compiler_colored_diagnostics <- function() {
-  withr::with_makevars(c(CFLAGS = "-fdiagnostics-color=always"), has_compiler())
-}
+has_compiler_colored_diagnostics <- local({
+  res <- NULL
+  function() {
+    if (is.null(res)) {
+      res <<- withr::with_makevars(c(CFLAGS = "-fdiagnostics-color=always"), has_compiler())
+    }
+    res
+  }
+})
