@@ -53,14 +53,15 @@ has_compiler_colored_diagnostics <- function() {
 
   # We cannot use the existing has_compiler setting, because it may not have
   # run with -fdiagnostics-color=always
-  cache_remove("has_compiler")
+  if (cache_exists("has_compiler")) {
+    old <- cache_get("has_compiler")
+    cache_remove("has_compiler")
+    on.exit(cache_set("has_compiler", old))
+  } else {
+    on.exit(cache_remove("has_compiler"))
+  }
 
   res <- withr::with_makevars(c(CFLAGS = "-fdiagnostics-color=always"), has_compiler())
-
-  # We also do not want to retain the setting, because the call may have
-  # failed because there was no support for color diagnostics.
-  cache_remove("has_compiler")
-
 
   cache_set("has_compiler_colored_diagnostics", res)
   res
