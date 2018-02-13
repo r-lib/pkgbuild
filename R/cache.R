@@ -15,7 +15,7 @@ cache_set <- function(name, value) {
   assign(name, value, envir = cache)
 }
 
-cache_remote <- function(name) {
+cache_remove <- function(name) {
   rm(list = name, envir = cache)
 }
 

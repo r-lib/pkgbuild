@@ -31,7 +31,7 @@ compile_dll <- function(path = ".", quiet = FALSE) {
   install_dir <- tempfile("devtools_install_")
   dir.create(install_dir)
 
-  withr::with_envvar(compiler_flags(TRUE), action = "prefix", {
+  withr::with_makevars(compiler_flags(TRUE), assignment = "+=", {
     install_min(
       path,
       dest = install_dir,
