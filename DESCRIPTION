@@ -9,6 +9,7 @@ Description: You need a little help to reliably compile C code and build
     packages across platforms. This package provides such help.
 Imports:
     callr,
+    crayon,
     desc,
     rprojroot,
     withr

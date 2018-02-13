@@ -39,7 +39,7 @@ compiler_flags <- function(debug = FALSE) {
     )
   }
 
-  if (has_compiler_colored_diagnostics()) {
+  if (crayon::has_color() && has_compiler_colored_diagnostics()) {
     res[c("CFLAGS", "CXXFLAGS", "CXX11FLAGS")] <-
       paste(res[c("CFLAGS", "CXXFLAGS", "CXX11FLAGS")], "-fdiagnostics-color=always")
   }
