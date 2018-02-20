@@ -28,6 +28,31 @@
 build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE,
                   manual = FALSE, args = NULL, quiet = FALSE, compile_attributes = TRUE) {
 
+  options <- build_setup(path, dest_path, binary, vignettes, manual, args)
+
+  withr::with_makevars(compiler_flags(FALSE),
+    withr::with_temp_libpaths(
+      rcmd_build_tools(
+        options$cmd,
+        c(options$path, options$args),
+        wd = options$out_dir,
+        show = !quiet,
+        echo = !quiet,
+        fail_on_status = TRUE,
+        required = FALSE # already checked in setup
+      )
+    )
+  )
+
+  out_file <- dir(options$out_dir)
+  file.copy(
+    file.path(options$out_dir, out_file), options$dest_path,
+    overwrite = TRUE)
+  file.path(options$dest_path, out_file)
+}
+
+build_setup <- function(path, dest_path, binary, vignettes, manual, args) {
+
   path <- pkg_path(path)
   if (is.null(dest_path)) {
     dest_path <- dirname(path)
@@ -83,21 +108,11 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
 
   path <- normalizePath(path)
 
-  withr::with_makevars(compiler_flags(FALSE),
-    withr::with_temp_libpaths(
-      rcmd_build_tools(
-        cmd,
-        c(path, args),
-        wd = out_dir,
-        show = !quiet,
-        echo = !quiet,
-        fail_on_status = TRUE,
-        required = FALSE # already checked above
-        )
-      )
+  list(
+    cmd = cmd,
+    path = path,
+    args = args,
+    out_dir = out_dir,
+    dest_path = dest_path
   )
-
-  out_file <- dir(out_dir)
-  file.copy(file.path(out_dir, out_file), dest_path, overwrite = TRUE)
-  file.path(dest_path, out_file)
 }
