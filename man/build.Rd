@@ -5,7 +5,7 @@
 \title{Build package}
 \usage{
 build(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE,
-  manual = FALSE, args = NULL, quiet = FALSE)
+  manual = FALSE, args = NULL, quiet = FALSE, compile_attributes = TRUE)
 }
 \arguments{
 \item{path}{Path to a package, or within a package.}
@@ -24,6 +24,9 @@ line arguments to be passed to \code{R CMD build} if \code{binary = FALSE},
 or \code{R CMD install} if \code{binary = TRUE}.}
 
 \item{quiet}{if \code{TRUE} suppresses output from this function.}
+
+\item{compile_attributes}{if \code{TRUE} and the package uses Rcpp, call
+\code{\link[Rcpp:compileAttributes]{Rcpp::compileAttributes()}} before building the package.}
 }
 \value{
 a string giving the location (including file name) of the built

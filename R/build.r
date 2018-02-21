@@ -20,11 +20,13 @@
 #'   line arguments to be passed to `R CMD build` if `binary = FALSE`,
 #'   or `R CMD install` if `binary = TRUE`.
 #' @param quiet if `TRUE` suppresses output from this function.
+#' @param compile_attributes if `TRUE` and the package uses Rcpp, call
+#'   [Rcpp::compileAttributes()] before building the package.
 #' @export
 #' @return a string giving the location (including file name) of the built
 #'  package
 build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE,
-                  manual = FALSE, args = NULL, quiet = FALSE) {
+                  manual = FALSE, args = NULL, quiet = FALSE, compile_attributes = TRUE) {
 
   path <- pkg_path(path)
   if (is.null(dest_path)) {
@@ -34,7 +36,9 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
   if (pkg_has_src(path))
     check_build_tools()
 
-  compile_rcpp_attributes(path)
+  if (compile_attributes) {
+    compile_rcpp_attributes(path)
+  }
 
   if (binary) {
     args <- c("--build", args)
