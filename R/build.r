@@ -28,7 +28,7 @@
 build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE,
                   manual = FALSE, args = NULL, quiet = FALSE, compile_attributes = TRUE) {
 
-  options <- build_setup(path, dest_path, binary, vignettes, manual, args)
+  options <- build_setup(path, dest_path, binary, vignettes, manual, args, compile_attributes)
 
   withr::with_makevars(compiler_flags(FALSE),
     withr::with_temp_libpaths(
@@ -51,7 +51,7 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
   file.path(options$dest_path, out_file)
 }
 
-build_setup <- function(path, dest_path, binary, vignettes, manual, args) {
+build_setup <- function(path, dest_path, binary, vignettes, manual, args, compile_attributes) {
 
   path <- pkg_path(path)
   if (is.null(dest_path)) {
