@@ -54,18 +54,23 @@ rcmdbuild_process <- R6Class(
       rcb_init(self, private, super, path, dest_path, binary, vignettes,
                manual, args),
 
+    finalize = function() {
+      tryCatch(unlink(private$makevars_file), error = function(x) x)
+    },
+
     get_dest_path = function() private$dest_path,
 
     kill = function(...) {
-      private$killed <- TRUE
-      super$kill(...)
+      ret <- super$kill(...)
+      tryCatch(unlink(private$makevars_file), error = function(x) x)
+      ret
     }
   ),
 
   private = list(
     path = NULL,
     dest_path = NULL,
-    killed = FALSE
+    makevars_file = NULL
   )
 )
 
@@ -90,9 +95,9 @@ rcb_init <- function(self, private, super, path, dest_path, binary,
   ## We cannot use withr::with_makevars directly, because that removes
   ## Makevars when exiting
   flags <- compiler_flags(FALSE)
-  makevars_file <- tempfile()
-  withr::with_envvar(c(R_MAKEVARS_USER = makevars_file), {
-    withr::set_makevars(flags, new_path = makevars_file)
+  private$makevars_file <- tempfile()
+  withr::with_envvar(c(R_MAKEVARS_USER = private$makevars_file), {
+    withr::set_makevars(flags, new_path = private$makevars_file)
     super$initialize(options)
   })
 
