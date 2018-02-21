@@ -8,6 +8,7 @@ compile_rcpp_attributes <- function(path = ".") {
   links_to_rcpp <- any(deps$type == "LinkingTo" & deps$package == "Rcpp")
 
   if (links_to_rcpp) {
+    unlink(file.path(path, c("R/RcppExports.R", "src/RcppExports.cpp")))
     Rcpp::compileAttributes(path)
   }
 }
