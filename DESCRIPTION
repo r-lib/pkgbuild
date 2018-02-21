@@ -11,12 +11,14 @@ Imports:
     callr (>= 2.0.0),
     crayon,
     desc,
+    R6,
     rprojroot,
     withr
 Suggests:
     Rcpp,
     testthat,
     covr
+Remotes: r-lib/withr@feature/export-set-functions
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
