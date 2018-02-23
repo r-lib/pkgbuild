@@ -65,7 +65,7 @@ check_compiler <- function(debug = FALSE) {
 #' @export
 #' @rdname has_compiler
 #' @usage NULL
-has_devel <- check_compiler
+has_devel <- check_build_tools
 
 # The checking code looks for the objects in the package namespace, so defining
 # dll here removes the following NOTE
