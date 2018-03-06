@@ -59,9 +59,6 @@ build_setup <- function(path, dest_path, binary, vignettes, manual, args, compil
     dest_path <- dirname(path)
   }
 
-  if (pkg_has_src(path))
-    check_build_tools()
-
   if (compile_attributes) {
     compile_rcpp_attributes(path)
   }
@@ -74,6 +71,9 @@ build_setup <- function(path, dest_path, binary, vignettes, manual, args, compil
 }
 
 build_setup_binary <- function(path, dest_path, args) {
+
+  if (pkg_has_src(path))
+    check_build_tools()
 
   # Build in temporary directory and then copy to final location
   out_dir <- tempfile()
@@ -97,6 +97,10 @@ build_setup_source <- function(path, dest_path, vignettes, manual, args) {
   if (manual && !has_latex()) {
     message("pdflatex not found! Not building PDF manual.")
     manual <- FALSE
+  }
+
+  if ((vignettes || manual) && pkg_has_src(path)) {
+    check_build_tools()
   }
 
   if (!manual) {
