@@ -6,7 +6,7 @@
 #'
 #' @section Usage:
 #' ```
-#' bp <- rcmdbuild_process$new(path = ".", dest_path = NULL,
+#' bp <- pkgbuild_process$new(path = ".", dest_path = NULL,
 #'          binary = FALSE, vignettes = TRUE, manual = FALSE, args = NULL)
 #' bp$get_dest_path()
 #' ```
@@ -27,7 +27,7 @@
 #' ```
 #' ## Here we are just waiting, but in a more realistic example, you
 #' ## would probably run some other code instead...
-#' bp <- rcmdbuild_process$new("mypackage", dest_path = tempdir())
+#' bp <- pkgbuild_process$new("mypackage", dest_path = tempdir())
 #' bp$is_alive()
 #' bp$get_pid()
 #' bp$wait()
@@ -38,13 +38,13 @@
 #' ```
 #'
 #' @importFrom R6 R6Class
-#' @name rcmdbuild_process
+#' @name pkgbuild_process
 NULL
 
 #' @export
 
-rcmdbuild_process <- R6Class(
-  "rcmdbuild_process",
+pkgbuild_process <- R6Class(
+  "pkgbuild_process",
   inherit = callr::rcmd_process,
 
   public = list(
