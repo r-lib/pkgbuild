@@ -29,6 +29,7 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
                   manual = FALSE, args = NULL, quiet = FALSE, compile_attributes = TRUE) {
 
   options <- build_setup(path, dest_path, binary, vignettes, manual, args, compile_attributes)
+  on.exit(unlink(options$out_dir, recursive = TRUE), add = TRUE)
 
   withr::with_makevars(compiler_flags(FALSE),
     withr::with_temp_libpaths(
@@ -66,51 +67,65 @@ build_setup <- function(path, dest_path, binary, vignettes, manual, args, compil
   }
 
   if (binary) {
-    args <- c("--build", args)
-    cmd <- "INSTALL"
+    build_setup_binary(path, dest_path, args)
   } else {
-    if (!("--resave-data" %in% args)) {
-      args <- c(args, "--no-resave-data")
-    }
+    build_setup_source(path, dest_path, vignettes, manual, args)
+  }
+}
 
-    if (manual && !has_latex()) {
-      message("pdflatex not found! Not building PDF manual.")
-      manual <- FALSE
-    }
+build_setup_binary <- function(path, dest_path, args) {
 
-    if (!manual) {
-      args <- c(args, "--no-manual")
-    }
+  # Build in temporary directory and then copy to final location
+  out_dir <- tempfile()
+  dir.create(out_dir)
 
-    if (!vignettes) {
-      args <- c(args, "--no-build-vignettes")
-    } else {
-      doc_dir <- file.path(path, "inst", "doc")
-      if (dir.exists(doc_dir)) {
-        if (interactive()) {
-          message("Building the package will delete...\n  '", doc_dir, "'\nAre you sure?")
-          res <- utils::menu(c("Yes", "No"))
-          if (res == 2) {
-            return()
-          }
+  list(
+    cmd = "INSTALL",
+    path = normalizePath(path),
+    args = c("--build", args),
+    out_dir = out_dir,
+    dest_path = dest_path
+  )
+}
+
+build_setup_source <- function(path, dest_path, vignettes, manual, args) {
+
+  if (!("--resave-data" %in% args)) {
+    args <- c(args, "--no-resave-data")
+  }
+
+  if (manual && !has_latex()) {
+    message("pdflatex not found! Not building PDF manual.")
+    manual <- FALSE
+  }
+
+  if (!manual) {
+    args <- c(args, "--no-manual")
+  }
+
+  if (!vignettes) {
+    args <- c(args, "--no-build-vignettes")
+  } else {
+    doc_dir <- file.path(path, "inst", "doc")
+    if (dir.exists(doc_dir)) {
+      if (interactive()) {
+        message("Building the package will delete...\n  '", doc_dir, "'\nAre you sure?")
+        res <- utils::menu(c("Yes", "No"))
+        if (res == 2) {
+          return()
         }
-        unlink(doc_dir, recursive = TRUE)
       }
+      unlink(doc_dir, recursive = TRUE)
     }
-
-    cmd <- "build"
   }
 
   # Build in temporary directory and then copy to final location
   out_dir <- tempfile()
   dir.create(out_dir)
-  on.exit(unlink(out_dir))
-
-  path <- normalizePath(path)
 
   list(
-    cmd = cmd,
-    path = path,
+    cmd = "build",
+    path = normalizePath(path),
     args = args,
     out_dir = out_dir,
     dest_path = dest_path
