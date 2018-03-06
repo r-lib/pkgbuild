@@ -51,9 +51,9 @@ rcmdbuild_process <- R6Class(
 
     initialize = function(path = ".", dest_path = NULL, binary = FALSE,
                           vignettes = TRUE, manual = FALSE, args = NULL,
-                          compile_attributes = TRUE)
+                          needs_compilation = NA, compile_attributes = TRUE)
       rcb_init(self, private, super, path, dest_path, binary, vignettes,
-               manual, args, compile_attributes),
+               manual, args, needs_compilation, compile_attributes),
 
     finalize = function() {
       tryCatch(unlink(private$makevars_file), error = function(x) x)
@@ -78,9 +78,11 @@ rcmdbuild_process <- R6Class(
 #' @importFrom callr rcmd_process rcmd_process_options
 
 rcb_init <- function(self, private, super, path, dest_path, binary,
-                     vignettes, manual, args, compile_attributes) {
+                     vignettes, manual, args, needs_compilation,
+                     compile_attributes) {
 
-  options <- build_setup(path, dest_path, binary, vignettes, manual, args, compile_attributes)
+  options <- build_setup(path, dest_path, binary, vignettes, manual, args,
+                         needs_compilation, compile_attributes)
 
   private$path <- options$path
   private$dest_path <- options$dest_path

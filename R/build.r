@@ -20,15 +20,20 @@
 #'   line arguments to be passed to `R CMD build` if `binary = FALSE`,
 #'   or `R CMD install` if `binary = TRUE`.
 #' @param quiet if `TRUE` suppresses output from this function.
+#' @param needs_compilation Usually only needed if the packages has
+#'   C/C++/Fortran code. By default this is autodetected.
 #' @param compile_attributes if `TRUE` and the package uses Rcpp, call
-#'   [Rcpp::compileAttributes()] before building the package.
+#'   [Rcpp::compileAttributes()] before building the package. It is ignored
+#'   if package does not need compilation.
 #' @export
 #' @return a string giving the location (including file name) of the built
 #'  package
 build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE,
-                  manual = FALSE, args = NULL, quiet = FALSE, compile_attributes = TRUE) {
+                  manual = FALSE, args = NULL, quiet = FALSE,
+                  needs_compilation = NA, compile_attributes = TRUE) {
 
-  options <- build_setup(path, dest_path, binary, vignettes, manual, args, compile_attributes)
+  options <- build_setup(path, dest_path, binary, vignettes, manual, args,
+                         needs_compilation, compile_attributes)
   on.exit(unlink(options$out_dir, recursive = TRUE), add = TRUE)
 
   withr::with_makevars(compiler_flags(FALSE),
@@ -52,28 +57,35 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
   file.path(options$dest_path, out_file)
 }
 
-build_setup <- function(path, dest_path, binary, vignettes, manual, args, compile_attributes) {
+build_setup <- function(path, dest_path, binary, vignettes, manual, args,
+                        needs_compilation, compile_attributes) {
 
   path <- pkg_path(path)
   if (is.null(dest_path)) {
     dest_path <- dirname(path)
   }
 
-  if (compile_attributes) {
+  if (is.na(needs_compilation)) {
+    needs_compilation <- pkg_has_src(path)
+  }
+
+  if (needs_compilation && compile_attributes) {
     compile_rcpp_attributes(path)
   }
 
   if (binary) {
-    build_setup_binary(path, dest_path, args)
+    build_setup_binary(path, dest_path, args, needs_compilation)
   } else {
-    build_setup_source(path, dest_path, vignettes, manual, args)
+    build_setup_source(path, dest_path, vignettes, manual, args,
+                       needs_compilation)
   }
 }
 
-build_setup_binary <- function(path, dest_path, args) {
+build_setup_binary <- function(path, dest_path, args, needs_compilation) {
 
-  if (pkg_has_src(path))
+  if (needs_compilation) {
     check_build_tools()
+  }
 
   # Build in temporary directory and then copy to final location
   out_dir <- tempfile()
@@ -88,7 +100,8 @@ build_setup_binary <- function(path, dest_path, args) {
   )
 }
 
-build_setup_source <- function(path, dest_path, vignettes, manual, args) {
+build_setup_source <- function(path, dest_path, vignettes, manual, args,
+                               needs_compilation) {
 
   if (!("--resave-data" %in% args)) {
     args <- c(args, "--no-resave-data")
@@ -99,7 +112,7 @@ build_setup_source <- function(path, dest_path, vignettes, manual, args) {
     manual <- FALSE
   }
 
-  if ((vignettes || manual) && pkg_has_src(path)) {
+  if (needs_compilation && (vignettes || manual)) {
     check_build_tools()
   }
 
