@@ -7,6 +7,8 @@ test_that("source builds return correct filenames", {
   on.exit(unlink(path))
 
   expect_true(file.exists(path))
+  expect_false(is.na(desc::desc(path)$get("Packaged")))
+  expect_true(is.na(desc::desc(path)$get("Built")))
 })
 
 test_that("binary builds return correct filenames", {
@@ -44,6 +46,33 @@ test_that("build package with src requires compiler", {
   })
 })
 
+# Package files -----------------------------------------------------------
 
+test_that("package tarball binary build", {
+  path <- build("testDummy", dest_path = tempdir(), quiet = TRUE)
+  on.exit(unlink(path), add = TRUE)
 
+  path2 <- build(path, dest_path = tempdir(), quiet = TRUE,
+                 binary = TRUE, needs_compilation = FALSE,
+                 compile_attributes = FALSE)
+  on.exit(unlink(path2), add = TRUE)
+  expect_true(file.exists(path2))
+  expect_false(is.na(desc::desc(path2)$get("Packaged")))
+  expect_false(is.na(desc::desc(path2)$get("Built")))
+})
 
+test_that("package tarball binary build errors", {
+  path <- build("testDummy", dest_path = tempdir(), quiet = TRUE)
+  on.exit(unlink(path), add = TRUE)
+
+  expect_error(
+    build(path, dest_path = tempdir(), quiet = TRUE),
+    "binary")
+  expect_error(
+    build(path, dest_path = tempdir(), quiet = TRUE, binary = TRUE),
+    "needs_compilation")
+  expect_error(
+    build(path, dest_path = tempdir(), quiet = TRUE, binary = TRUE,
+          needs_compilation = FALSE),
+    "compile_attributes")
+})

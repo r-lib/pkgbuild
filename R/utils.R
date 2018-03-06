@@ -18,3 +18,7 @@ gcc_arch <- function() {
 is_windows <- function() {
   .Platform$OS.type == "windows"
 }
+
+is_dir <- function(x) {
+  file.info(x)$isdir
+}
