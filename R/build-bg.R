@@ -61,6 +61,22 @@ pkgbuild_process <- R6Class(
 
     get_dest_path = function() private$dest_path,
 
+    get_built_file = function() {
+      if (self$is_alive()) stop("Still alive")
+      if (self$get_exit_status() != 0) stop("Build process failed")
+
+      ## Already copied?
+      if (!is.null(private$out_file)) return(private$out_file)
+
+      ## No, copy, and remove temp dir, order is important here!
+      file_name <- dir(private$out_dir)
+      tmp_file <- file.path(private$out_dir, file_name)
+      file.copy(tmp_file, private$dest_path, overwrite = TRUE)
+      private$out_file <- file.path(private$dest_path, file_name)
+      unlink(private$out_dir, recursive = TRUE)
+      private$out_file
+    },
+
     kill = function(...) {
       ret <- super$kill(...)
       tryCatch(unlink(private$makevars_file), error = function(x) x)
@@ -71,7 +87,9 @@ pkgbuild_process <- R6Class(
   private = list(
     path = NULL,
     dest_path = NULL,
-    makevars_file = NULL
+    makevars_file = NULL,
+    out_dir = NULL,
+    out_file = NULL
   )
 )
 
@@ -86,6 +104,7 @@ rcb_init <- function(self, private, super, path, dest_path, binary,
 
   private$path <- options$path
   private$dest_path <- options$dest_path
+  private$out_dir <- options$out_dir
 
   ## Build tools already checked in setup
 
