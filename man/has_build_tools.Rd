@@ -43,7 +43,7 @@ binaries in Rtools may conflict with existing binaries elsewhere on the PATH it
 is better practice to use \code{with_build_tools()} as needed.
 }
 \examples{
-has_build_tools()
+has_build_tools(debug = TRUE)
 check_build_tools()
 }
 \seealso{

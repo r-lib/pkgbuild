@@ -21,7 +21,7 @@
 #' @export
 #' @seealso has_rtools
 #' @examples
-#' has_build_tools()
+#' has_build_tools(debug = TRUE)
 #' check_build_tools()
 has_build_tools <- function(debug = FALSE) {
   check <- getOption("buildtools.check", NULL)
