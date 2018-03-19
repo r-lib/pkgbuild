@@ -158,4 +158,3 @@ install_min <- function(path = ".", dest, components = NULL, args = NULL, quiet 
 
   invisible(file.path(dest, pkg_name(path)))
 }
-

@@ -24,4 +24,3 @@ scan_config_for_rtools <- function(debug = FALSE) {
     rtools(install_path, version, valid_binpref = TRUE)
   }
 }
-

@@ -61,4 +61,3 @@ find_arch_exe <- function(path, debug = FALSE) {
 
   path
 }
-

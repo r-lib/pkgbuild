@@ -1,4 +1,3 @@
-
 # Call Rcpp::compileAttributes() for packages that link to Rcpp.
 # Assumes Rcpp is installed
 compile_rcpp_attributes <- function(path = ".") {

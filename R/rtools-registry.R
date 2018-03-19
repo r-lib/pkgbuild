@@ -1,4 +1,3 @@
-
 scan_registry_for_rtools <- function(debug = FALSE) {
   if (debug) cat("Scanning registry...\n")
 

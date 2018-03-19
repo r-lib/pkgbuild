@@ -1,4 +1,3 @@
-
 #' Build package in the background
 #'
 #' This R6 class is a counterpart of the [build()] function, and
