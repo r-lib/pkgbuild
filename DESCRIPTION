@@ -1,25 +1,25 @@
 Package: pkgbuild
 Title: Find Tools Needed to Build R Packages
-Version: 0.0.0.9001
+Version: 1.0.0
 Authors@R: c(
     person("Hadley", "Wickham", role = "aut"),
     person("Jim", "Hester", , "james.hester@rstudio.com", role = c("aut", "cre")),
     person("RStudio", role = "cph")
   )
-Description: You need a little help to reliably compile C code and build
-    packages across platforms. This package provides such help.
+Description: Provides functions used to build R packages. Locates compilers
+  needed to build R packages on various platforms and ensures the PATH is
+  configured appropriately so R can use them.
 Imports:
     callr (>= 2.0.0),
     crayon,
     desc,
     R6,
     rprojroot,
-    withr (> 2.1.1)
+    withr (>= 2.1.2)
 Suggests:
     Rcpp,
     testthat,
     covr
-Remotes: r-lib/withr
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
