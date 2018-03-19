@@ -20,7 +20,8 @@ scan_config_for_rtools <- function(debug = FALSE) {
     install_path <- dirname(dirname(dirname(cc_path)))
     if (debug)
       cat("install_path:", install_path, "\n")
-    rtools(install_path, NULL, valid_binpref = TRUE)
+    version <- installed_version(install_path, debug = debug)
+    rtools(install_path, version, valid_binpref = TRUE)
   }
 }
 
