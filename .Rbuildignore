@@ -5,3 +5,4 @@
 ^appveyor\.yml$
 ^\.httr-oauth$
 ^cran-comments\.md$
+^CRAN-RELEASE$

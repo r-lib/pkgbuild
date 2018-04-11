@@ -1,5 +1,7 @@
 # pkgbuild 0.0.0.9000
 
+* Add metadata to support Rtools 3.5 (#38).
+
 * `build()` only uses the `--no-resave-data` argument in `R CMD build`
   if the `--resave-data` argument wasn't supplied by the user
   (@theGreatWhiteShark, #26)
