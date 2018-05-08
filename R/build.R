@@ -61,7 +61,7 @@ build_setup <- function(path, dest_path, binary, vignettes, manual, args,
                         needs_compilation, compile_attributes) {
 
   if (!is_dir(path)) {
-    if (!binary) stop("`binary` must be TRUE for packge files")
+    if (!binary) stop("`binary` must be TRUE for package files")
     if (is.na(needs_compilation)) {
       stop("`needs_compilation` cannot be NA for package files")
     }
