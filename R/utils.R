@@ -20,5 +20,5 @@ is_windows <- function() {
 }
 
 is_dir <- function(x) {
-  file.info(x)$isdir
+  isTRUE(file.info(x)$isdir)
 }

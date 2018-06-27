@@ -60,13 +60,16 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
 build_setup <- function(path, dest_path, binary, vignettes, manual, args,
                         needs_compilation, compile_attributes) {
 
+  if (!file.exists(path)) {
+    stop("`path` must exist", call. = FALSE)
+  }
   if (!is_dir(path)) {
-    if (!binary) stop("`binary` must be TRUE for package files")
+    if (!binary) stop("`binary` must be TRUE for package files", call. = FALSE)
     if (is.na(needs_compilation)) {
-      stop("`needs_compilation` cannot be NA for package files")
+      stop("`needs_compilation` cannot be NA for package files", call. = FALSE)
     }
     if (compile_attributes) {
-      stop("`compile_attributes` must be FALSE for package files")
+      stop("`compile_attributes` must be FALSE for package files", call. = FALSE)
     }
   } else {
     path <- pkg_path(path)
