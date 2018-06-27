@@ -55,6 +55,7 @@ pkgbuild_process <- R6Class(
                manual, args, needs_compilation, compile_attributes),
 
     finalize = function() {
+      super$kill()
       tryCatch(unlink(private$makevars_file), error = function(x) x)
     },
 
