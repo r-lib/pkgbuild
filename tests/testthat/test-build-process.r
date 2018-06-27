@@ -121,6 +121,7 @@ test_that("can kill a build process", {
 })
 
 test_that("temp makevars file is cleaned up", {
+  skip_on_cran()
   dir.create(tmp <- tempfile())
   on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
 
