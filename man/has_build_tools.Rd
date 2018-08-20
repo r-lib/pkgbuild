@@ -32,7 +32,7 @@ available these functions will trigger an automated install.
 }
 \details{
 Errors like \code{running command '"C:/PROGRA~1/R/R-34~1.2/bin/x64/R" CMD config CC' had status 127}
-indicate the code expected RTools to be on the system PATH. You can
+indicate the code expected Rtools to be on the system PATH. You can
 then verify you have rtools installed with \code{has_build_tools()} and
 temporarily add Rtools to the PATH \code{with_build_tools({ code })}.
 

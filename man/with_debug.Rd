@@ -36,3 +36,4 @@ with_debug(install("mypkg"))
 \seealso{
 Other debugging flags: \code{\link{compiler_flags}}
 }
+\concept{debugging flags}

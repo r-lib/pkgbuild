@@ -4,9 +4,9 @@
 \alias{build}
 \title{Build package}
 \usage{
-build(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE,
-  manual = FALSE, args = NULL, quiet = FALSE, needs_compilation = NA,
-  compile_attributes = TRUE)
+build(path = ".", dest_path = NULL, binary = FALSE,
+  vignettes = TRUE, manual = FALSE, args = NULL, quiet = FALSE,
+  needs_compilation = NA, compile_attributes = TRUE)
 }
 \arguments{
 \item{path}{Path to a package, or within a package.}
