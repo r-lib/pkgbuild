@@ -24,7 +24,7 @@ pkgbuild::check_build_tools(debug = TRUE)
 # Build a package
 pkgbuild::build("/path/to/my/package")
 
-# Run your own code in an environment guarnteed to 
+# Run your own code in an environment guaranteed to 
 # have build tools available
 pkgbuild::with_build_tools(my_code)
 ```
