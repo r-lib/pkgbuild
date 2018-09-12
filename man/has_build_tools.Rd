@@ -4,6 +4,7 @@
 \alias{has_build_tools}
 \alias{check_build_tools}
 \alias{with_build_tools}
+\alias{local_build_tools}
 \title{Are build tools are available?}
 \usage{
 has_build_tools(debug = FALSE)
@@ -11,6 +12,9 @@ has_build_tools(debug = FALSE)
 check_build_tools(debug = FALSE)
 
 with_build_tools(code, debug = FALSE, required = TRUE)
+
+local_build_tools(debug = FALSE, required = TRUE,
+  .local_envir = parent.frame())
 }
 \arguments{
 \item{debug}{If \code{TRUE}, will print out extra information useful for
@@ -22,6 +26,8 @@ exist.}
 \item{required}{If \code{TRUE}, and build tools are not available,
 will throw an error. Otherwise will attempt to run \code{code} without
 them.}
+
+\item{.local_envir}{\code{[environment]}\cr The environment to use for scoping.}
 }
 \description{
 \code{has_build_tools} returns a logical, \code{check_build_tools} throws

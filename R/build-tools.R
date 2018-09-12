@@ -60,3 +60,15 @@ with_build_tools <- function(code, debug = FALSE, required = TRUE) {
     code
   }
 }
+
+#' @rdname has_build_tools
+#' @inheritParams withr::local_path
+#' @export
+local_build_tools <- function(debug = FALSE, required = TRUE, .local_envir = parent.frame()) {
+  if (required)
+    check_build_tools(debug = debug)
+
+  if (has_rtools()) {
+    withr::local_path(rtools_path(), .local_envir = .local_envir)
+  }
+}
