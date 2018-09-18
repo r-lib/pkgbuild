@@ -1,5 +1,7 @@
 # Development
 
+* Preliminary support for rtools 4.0 (#40)
+
 * `compile_dll()` now does not supply compiler flags if there is an existing
   user defined Makevars file.
 
