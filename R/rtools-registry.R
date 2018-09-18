@@ -1,12 +1,19 @@
+read_registry <- function(...) {
+  tryCatch(
+    utils::readRegistry(...),
+    error = function(e) NULL
+  )
+}
+
 scan_registry_for_rtools <- function(debug = FALSE) {
   if (debug) cat("Scanning registry...\n")
 
-  keys <- NULL
-  try(keys <- utils::readRegistry("SOFTWARE\\R-core\\Rtools",
-    hive = "HCU", view = "32-bit", maxdepth = 2), silent = TRUE)
-  if (is.null(keys))
-    try(keys <- utils::readRegistry("SOFTWARE\\R-core\\Rtools",
-      hive = "HLM", view = "32-bit", maxdepth = 2), silent = TRUE)
+  keys <- c(
+    read_registry("SOFTWARE\\R-core\\Rtools", hive = "HCU", view = "32-bit", maxdepth = 2),
+    read_registry("SOFTWARE\\R-core\\Rtools", hive = "HLM", view = "32-bit", maxdepth = 2),
+    read_registry("SOFTWARE\\R-core\\Rtools", hive = "HLM", view = "64-bit", maxdepth = 2)
+  )
+
   if (is.null(keys)) return(NULL)
 
   rts <- vector("list", length(keys))
