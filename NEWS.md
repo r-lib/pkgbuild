@@ -1,5 +1,8 @@
 # Development
 
+* `compile_dll()` now does not supply compiler flags if there is an existing
+  user defined Makevars file.
+
 * `local_build_tools()` function added to provide a deferred equivalent to
   `with_build_tools()`. So you can add rtools to the PATH until the end of a
   function body.

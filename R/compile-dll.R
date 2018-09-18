@@ -31,7 +31,8 @@ compile_dll <- function(path = ".", quiet = FALSE) {
   install_dir <- tempfile("devtools_install_")
   dir.create(install_dir)
 
-  withr::with_makevars(compiler_flags(TRUE), assignment = "+=", {
+  # If the user has a makevars file just use that
+  if (length(makevars_user()) > 0) {
     install_min(
       path,
       dest = install_dir,
@@ -39,7 +40,18 @@ compile_dll <- function(path = ".", quiet = FALSE) {
       args = if (needs_clean(path)) "--preclean",
       quiet = quiet
     )
-  })
+  } else {
+    # Otherwise set makevars for fast development / debugging
+    withr::with_makevars(compiler_flags(TRUE), assignment = "+=", {
+      install_min(
+        path,
+        dest = install_dir,
+        components = "libs",
+        args = if (needs_clean(path)) "--preclean",
+        quiet = quiet
+        )
+    })
+  }
 
   invisible(dll_path(file.path(install_dir, pkg_name(path))))
 }
