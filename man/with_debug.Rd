@@ -18,7 +18,7 @@ with_debug(code, CFLAGS = NULL, CXXFLAGS = NULL, FFLAGS = NULL,
 
 \item{FCFLAGS}{flags for Fortran 9x code.}
 
-\item{debug}{If \code{TRUE} adds \code{-g -Og} to all flags
+\item{debug}{If \code{TRUE} adds \code{-g -O0} to all flags
 (Adding \env{FFLAGS} and \env{FCFLAGS}}
 }
 \description{
