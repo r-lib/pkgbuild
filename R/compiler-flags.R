@@ -8,7 +8,7 @@
 #' and check with `compiler_flags(FALSE)`.  If you want to avoid the
 #' possible performance penalty from the debug flags, install the package.
 #'
-#' @param debug If `TRUE` adds `-g -Og` to all flags
+#' @param debug If `TRUE` adds `-g -O0` to all flags
 #'   (Adding \env{FFLAGS} and \env{FCFLAGS}
 #' @family debugging flags
 #' @export
@@ -25,11 +25,11 @@ compiler_flags <- function(debug = FALSE) {
     )
   } else if (debug) {
     c(
-      CFLAGS   = "-UNDEBUG -Wall -pedantic -g -Og",
-      CXXFLAGS = "-UNDEBUG -Wall -pedantic -g -Og",
-      CXX11FLAGS = "-UNDEBUG -Wall -pedantic -g -Og",
-      FFLAGS   = "-g -Og",
-      FCFLAGS  = "-g -Og"
+      CFLAGS   = "-UNDEBUG -Wall -pedantic -g -O0",
+      CXXFLAGS = "-UNDEBUG -Wall -pedantic -g -O0",
+      CXX11FLAGS = "-UNDEBUG -Wall -pedantic -g -O0",
+      FFLAGS   = "-g -O0",
+      FCFLAGS  = "-g -O0"
     )
   } else {
     c(
