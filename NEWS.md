@@ -1,5 +1,8 @@
 # Development
 
+* `build()` output is now styled like that in the rcmdcheck package
+  (https://github.com/r-lib/devtools/issues/1874).
+
 * `build()` no longer sets compile flags (#46)
 
 # pkgbuild 1.0.1
