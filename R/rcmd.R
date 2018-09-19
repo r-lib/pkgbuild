@@ -8,6 +8,7 @@
 #' @param env Additional environment variables to set. The defaults from
 #'   [callr::rcmd_safe_env()] are always set.
 #' @inheritParams with_build_tools
+#' @inheritParams build
 #' @export
 #' @examples
 #' # These env vars are always set
@@ -17,11 +18,11 @@
 #'   rcmd_build_tools("CONFIG", "CC")$stdout
 #'   rcmd_build_tools("CC", "--version")$stdout
 #' }
-rcmd_build_tools <- function(..., env = character(), required = TRUE) {
+rcmd_build_tools <- function(..., env = character(), required = TRUE, quiet = FALSE) {
   env <- c(callr::rcmd_safe_env(), env)
 
   with_build_tools(
-    callr::rcmd_safe(..., env = env, spinner = FALSE),
+    callr::rcmd_safe(..., env = env, spinner = FALSE, block_callback = block_callback(quiet)),
     required = required
   )
 }

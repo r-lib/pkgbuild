@@ -11,8 +11,10 @@ Description: Provides functions used to build R packages. Locates compilers
   configured appropriately so R can use them.
 Imports:
     callr (>= 2.0.0),
+    cli,
     crayon,
     desc,
+    prettyunits,
     R6,
     rprojroot,
     withr (>= 2.1.2)

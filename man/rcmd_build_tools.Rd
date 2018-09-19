@@ -4,7 +4,8 @@
 \alias{rcmd_build_tools}
 \title{Call R CMD <command> with build tools active}
 \usage{
-rcmd_build_tools(..., env = character(), required = TRUE)
+rcmd_build_tools(..., env = character(), required = TRUE,
+  quiet = FALSE)
 }
 \arguments{
 \item{...}{Parameters passed on to \code{rcmd_safe}.}
@@ -15,6 +16,8 @@ rcmd_build_tools(..., env = character(), required = TRUE)
 \item{required}{If \code{TRUE}, and build tools are not available,
 will throw an error. Otherwise will attempt to run \code{code} without
 them.}
+
+\item{quiet}{if \code{TRUE} suppresses output from this function.}
 }
 \description{
 This is a wrapper around \code{\link[callr:rcmd_safe]{callr::rcmd_safe()}} that checks
