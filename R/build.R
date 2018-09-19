@@ -36,17 +36,15 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
                          needs_compilation, compile_attributes)
   on.exit(unlink(options$out_dir, recursive = TRUE), add = TRUE)
 
-  withr::with_makevars(compiler_flags(FALSE),
-    withr::with_temp_libpaths(
-      rcmd_build_tools(
-        options$cmd,
-        c(options$path, options$args),
-        wd = options$out_dir,
-        show = !quiet,
-        echo = !quiet,
-        fail_on_status = TRUE,
-        required = FALSE # already checked in setup
-      )
+  withr::with_temp_libpaths(
+    rcmd_build_tools(
+      options$cmd,
+      c(options$path, options$args),
+      wd = options$out_dir,
+      show = !quiet,
+      echo = !quiet,
+      fail_on_status = TRUE,
+      required = FALSE # already checked in setup
     )
   )
 

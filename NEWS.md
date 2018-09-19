@@ -1,5 +1,7 @@
 # Development
 
+* `build()` no longer sets compile flags (#46)
+
 # pkgbuild 1.0.1
 
 * `compile_dll()` now does not supply compiler flags if there is an existing
