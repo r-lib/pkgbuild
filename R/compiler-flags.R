@@ -39,6 +39,10 @@ compiler_flags <- function(debug = FALSE) {
     )
   }
 
+  if (Sys.info()[["sysname"]] == "Windows") {
+    res["CFLAGS"] <- paste(res["CFLAGS"], "-std=gnu99")
+  }
+
   if (crayon::has_color() && has_compiler_colored_diagnostics()) {
     res[c("CFLAGS", "CXXFLAGS", "CXX11FLAGS")] <-
       paste(res[c("CFLAGS", "CXXFLAGS", "CXX11FLAGS")], "-fdiagnostics-color=always")
