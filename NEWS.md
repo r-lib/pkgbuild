@@ -1,5 +1,8 @@
 # Development
 
+* `compile_dll()` no longer doubles output, a regression caused by the styling callback.
+  (https://github.com/r-lib/devtools/issues/1877)
+
 * `build()` output is now styled like that in the rcmdcheck package
   (https://github.com/r-lib/devtools/issues/1874).
 

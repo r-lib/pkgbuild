@@ -41,8 +41,6 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
       options$cmd,
       c(options$path, options$args),
       wd = options$out_dir,
-      show = FALSE,
-      echo = FALSE,
       fail_on_status = TRUE,
       required = FALSE, # already checked in setup
       quiet = quiet

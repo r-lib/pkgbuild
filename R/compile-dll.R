@@ -163,9 +163,8 @@ install_min <- function(path = ".", dest, components = NULL, args = NULL, quiet 
       "--no-test-load",
       args
     ),
-    show = !quiet,
-    echo = !quiet,
-    fail_on_status = TRUE
+    fail_on_status = TRUE,
+    quiet = quiet
   )
 
   invisible(file.path(dest, pkg_name(path)))
