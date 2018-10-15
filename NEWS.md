@@ -1,5 +1,8 @@
 # Development
 
+* `build()` will now warn if trying to build packages on R versions <= 3.4.2 on
+  Windows with a space in the R installation directory (#49)
+
 * `build()` will now message if a build contains long paths, which are unsupported on windows
   (#48)
 
