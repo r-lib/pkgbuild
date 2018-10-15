@@ -13,16 +13,23 @@
 #'   `PKG_CPPFLAGS=`$(R_HOME)/bin/Rscript -e 'Rcpp:::CxxFlags()'``
 #'
 #' @inheritParams build
+#' @param force If `TRUE`, for compilation even if [needs_compile()] is
+#'   `FALSE`.
 #' @seealso [clean_dll()] to delete the compiled files.
 #' @export
-compile_dll <- function(path = ".", quiet = FALSE) {
+compile_dll <- function(path = ".",
+                        force = FALSE,
+                        compile_attributes = pkg_links_to_rcpp(path),
+                        register_routines = !compile_attributes,
+                        quiet = FALSE) {
   path <- pkg_path(path)
 
-  if (!needs_compile(path))
+  if (!needs_compile(path) && !isTRUE(force)) {
     return(invisible())
+  }
 
   check_build_tools()
-  compile_rcpp_attributes(path)
+  update_registration(path, compile_attributes, register_routines)
 
   # Mock install the package to generate the DLL
   if (!quiet)
@@ -115,8 +122,12 @@ headers <- function(path = ".") {
   )
 }
 
-# Does the package need recompiling?
-# (i.e. is there a source or header file newer than the dll)
+
+#' Does the package need recompiling?
+#' (i.e. is there a source or header file newer than the dll)
+#' @inheritParams build
+#' @keywords internal
+#' @export
 needs_compile <- function(path = ".") {
   source <- mtime(c(sources(path), headers(path)))
   # no source files, so doesn't need compile

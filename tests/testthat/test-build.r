@@ -31,7 +31,7 @@ test_that("can build package without src without compiler", {
 # Package with src code ---------------------------------------------------
 
 test_that("source builds return correct filenames", {
-  path <- build("testWithSrc", dest_path = tempdir(), quiet = TRUE)
+  path <- build("testWithSrc", dest_path = tempdir(), quiet = TRUE, register_routines = FALSE)
   on.exit(unlink(path))
 
   expect_true(file.exists(path))
@@ -69,10 +69,7 @@ test_that("package tarball binary build errors", {
     build(path, dest_path = tempdir(), quiet = TRUE),
     "binary")
   expect_error(
-    build(path, dest_path = tempdir(), quiet = TRUE, binary = TRUE),
-    "needs_compilation")
-  expect_error(
     build(path, dest_path = tempdir(), quiet = TRUE, binary = TRUE,
-          needs_compilation = FALSE),
+          needs_compilation = FALSE, compile_attributes = TRUE),
     "compile_attributes")
 })

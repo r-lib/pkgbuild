@@ -6,7 +6,8 @@
 \usage{
 build(path = ".", dest_path = NULL, binary = FALSE,
   vignettes = TRUE, manual = FALSE, args = NULL, quiet = FALSE,
-  needs_compilation = NA, compile_attributes = TRUE)
+  needs_compilation = pkg_has_src(path), compile_attributes = FALSE,
+  register_routines = FALSE)
 }
 \arguments{
 \item{path}{Path to a package, or within a package.}
@@ -32,6 +33,11 @@ C/C++/Fortran code. By default this is autodetected.}
 \item{compile_attributes}{if \code{TRUE} and the package uses Rcpp, call
 \code{\link[Rcpp:compileAttributes]{Rcpp::compileAttributes()}} before building the package. It is ignored
 if package does not need compilation.}
+
+\item{register_routines}{if \code{TRUE} and the package does not use Rcpp, call
+register routines with
+\code{tools::package_native_routine_registration_skeleton()} before building
+the package. It is ignored if package does not need compilation.}
 }
 \value{
 a string giving the location (including file name) of the built
