@@ -1,5 +1,9 @@
 # Development
 
+* `build()` and `compile_dll()` gain a `register_routines` argument, to
+  automatically register C routines with
+  `tools::package_native_routines_registration_skeleton()` (#50)
+
 * `build()` will now warn if trying to build packages on R versions <= 3.4.2 on
   Windows with a space in the R installation directory (#49)
 

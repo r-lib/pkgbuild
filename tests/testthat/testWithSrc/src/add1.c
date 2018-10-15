@@ -9,3 +9,11 @@ SEXP add1(SEXP a) {
 
   return result;
 }
+
+SEXP mult2(SEXP a) {
+  SEXP result = PROTECT(allocVector(REALSXP, 1));
+  REAL(result)[0] = asReal(a) * 2;
+  UNPROTECT(1);
+
+  return result;
+}

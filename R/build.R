@@ -25,15 +25,20 @@
 #' @param compile_attributes if `TRUE` and the package uses Rcpp, call
 #'   [Rcpp::compileAttributes()] before building the package. It is ignored
 #'   if package does not need compilation.
+#' @param register_routines if `TRUE` and the package does not use Rcpp, call
+#'   register routines with
+#'   `tools::package_native_routine_registration_skeleton()` before building
+#'   the package. It is ignored if package does not need compilation.
 #' @export
 #' @return a string giving the location (including file name) of the built
 #'  package
 build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE,
                   manual = FALSE, args = NULL, quiet = FALSE,
-                  needs_compilation = NA, compile_attributes = TRUE) {
+                  needs_compilation = pkg_has_src(path), compile_attributes = FALSE,
+                  register_routines = FALSE) {
 
   options <- build_setup(path, dest_path, binary, vignettes, manual, args,
-                         needs_compilation, compile_attributes)
+                         needs_compilation, compile_attributes, register_routines)
   on.exit(unlink(options$out_dir, recursive = TRUE), add = TRUE)
 
   withr::with_temp_libpaths(
@@ -55,18 +60,18 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
 }
 
 build_setup <- function(path, dest_path, binary, vignettes, manual, args,
-                        needs_compilation, compile_attributes) {
+                        needs_compilation, compile_attributes, register_routines) {
 
   if (!file.exists(path)) {
     stop("`path` must exist", call. = FALSE)
   }
   if (!is_dir(path)) {
     if (!binary) stop("`binary` must be TRUE for package files", call. = FALSE)
-    if (is.na(needs_compilation)) {
-      stop("`needs_compilation` cannot be NA for package files", call. = FALSE)
-    }
     if (compile_attributes) {
       stop("`compile_attributes` must be FALSE for package files", call. = FALSE)
+    }
+    if (register_routines) {
+      stop("`register_routines` must be FALSE for package files", call. = FALSE)
     }
   } else {
     path <- pkg_path(path)
@@ -76,12 +81,8 @@ build_setup <- function(path, dest_path, binary, vignettes, manual, args,
     dest_path <- dirname(path)
   }
 
-  if (is.na(needs_compilation)) {
-    needs_compilation <- pkg_has_src(path)
-  }
-
-  if (needs_compilation && compile_attributes) {
-    compile_rcpp_attributes(path)
+  if (needs_compilation) {
+    update_registration(path, compile_attributes, register_routines)
   }
 
   if (binary) {

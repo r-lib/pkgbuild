@@ -4,10 +4,24 @@
 \alias{compile_dll}
 \title{Compile a .dll/.so from source.}
 \usage{
-compile_dll(path = ".", quiet = FALSE)
+compile_dll(path = ".", force = FALSE,
+  compile_attributes = pkg_links_to_rcpp(path),
+  register_routines = !compile_attributes, quiet = FALSE)
 }
 \arguments{
 \item{path}{Path to a package, or within a package.}
+
+\item{force}{If \code{TRUE}, for compilation even if \code{\link[=needs_compile]{needs_compile()}} is
+\code{FALSE}.}
+
+\item{compile_attributes}{if \code{TRUE} and the package uses Rcpp, call
+\code{\link[Rcpp:compileAttributes]{Rcpp::compileAttributes()}} before building the package. It is ignored
+if package does not need compilation.}
+
+\item{register_routines}{if \code{TRUE} and the package does not use Rcpp, call
+register routines with
+\code{tools::package_native_routine_registration_skeleton()} before building
+the package. It is ignored if package does not need compilation.}
 
 \item{quiet}{if \code{TRUE} suppresses output from this function.}
 }
