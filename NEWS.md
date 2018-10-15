@@ -1,5 +1,8 @@
 # Development
 
+* `build()` will now message if a build contains long paths, which are unsupported on windows
+  (#48)
+
 * `compile_dll()` no longer doubles output, a regression caused by the styling callback.
   (https://github.com/r-lib/devtools/issues/1877)
 
