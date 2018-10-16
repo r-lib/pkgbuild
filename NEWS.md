@@ -1,4 +1,4 @@
-# Development
+# pkgbuild 1.0.2
 
 * `build()` and `compile_dll()` gain a `register_routines` argument, to
   automatically register C routines with
