@@ -1,7 +1,7 @@
 ## Test environments
-* local OS X install, R 3.4.3
-* ubuntu 14.04 (on travis-ci), R 3.4.3
-* win-builder (devel and release)
+* local OS X install, R 3.5.1
+* ubuntu 14.04 (on travis-ci), R 3.5.1
+* win-builder devel
 
 ## R CMD check results
 
@@ -9,6 +9,6 @@
 
 ## Downstream dependencies
 
-I ran `R CMD check` on all 1 reverse dependencies
+I ran `R CMD check` on all 4 reverse dependencies
 (https://github.com/r-lib/pkgbuild/tree/master/revdep). There were no
 regressions.
