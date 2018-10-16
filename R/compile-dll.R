@@ -20,7 +20,7 @@
 compile_dll <- function(path = ".",
                         force = FALSE,
                         compile_attributes = pkg_links_to_rcpp(path),
-                        register_routines = !compile_attributes,
+                        register_routines = FALSE,
                         quiet = FALSE) {
   path <- pkg_path(path)
 

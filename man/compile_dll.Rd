@@ -6,7 +6,7 @@
 \usage{
 compile_dll(path = ".", force = FALSE,
   compile_attributes = pkg_links_to_rcpp(path),
-  register_routines = !compile_attributes, quiet = FALSE)
+  register_routines = FALSE, quiet = FALSE)
 }
 \arguments{
 \item{path}{Path to a package, or within a package.}
