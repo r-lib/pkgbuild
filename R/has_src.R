@@ -12,9 +12,9 @@ pkg_has_src <- function(path = ".") {
   } else {
     tryCatch({
       files <- if (is_zip_file(path)) {
-        unzip(path, list = TRUE)$Name
+        utils::unzip(path, list = TRUE)$Name
       } else if (is_tar_gz_file(path)) {
-        untar(path, list = TRUE)
+        utils::untar(path, list = TRUE)
       } else {
         stop("not a zip or tar.gz file")
       }
