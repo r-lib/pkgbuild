@@ -19,6 +19,10 @@ test_that("source builds return correct filenames", {
 })
 
 test_that("binary builds return correct filenames", {
+  # building binaries also installs them to the library, so we need to skip on
+  # CRAN.
+  skip_on_cran()
+
   dir.create(tmp <- tempfile())
   on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
 
@@ -35,6 +39,10 @@ test_that("binary builds return correct filenames", {
 })
 
 test_that("can build package without src without compiler", {
+  # building binaries also installs them to the library, so we need to skip on
+  # CRAN.
+  skip_on_cran()
+
   dir.create(tmp <- tempfile())
   on.exit(unlink(tmp, recursive = TRUE))
 
