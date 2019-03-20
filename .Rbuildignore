@@ -7,3 +7,5 @@
 ^\.httr-oauth$
 ^cran-comments\.md$
 ^CRAN-RELEASE$
+^pkgbuild.*\.tar\.gz$
+^script\.R$
