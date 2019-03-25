@@ -1,4 +1,8 @@
-# pkgbuild 1.0.2.9000
+# pkgbuild 1.0.3
+
+* Tests which wrote to the package library are now skipped on CRAN.
+
+* `build()` can now build a tar.gz file directly (#55)
 
 # pkgbuild 1.0.2
 
