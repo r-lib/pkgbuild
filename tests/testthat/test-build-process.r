@@ -116,29 +116,10 @@ test_that("can kill a build process", {
   ret <- pr$kill()
   if (!ret) skip("build finished before we could kill it")
 
-  makevars_file <- pr$.__enclos_env__$private$makevars_file
-  expect_false(is.null(makevars_file))
-  if (!is.null(makevars_file)) expect_false(file.exists(makevars_file))
-
   ex_stat <- pr$get_exit_status()
   if (.Platform$OS.type == "unix") {
     expect_equal(ex_stat, -9)
   } else {
     expect_true(ex_stat != 0)
   }
-})
-
-test_that("temp makevars file is cleaned up", {
-  skip_on_cran()
-  dir.create(tmp <- tempfile())
-  on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
-
-  pr <- pkgbuild_process$new("testDummy", dest_path = tmp)
-  makevars_file <- pr$.__enclos_env__$private$makevars_file
-  expect_false(is.null(makevars_file))
-  expect_true(file.exists(makevars_file))
-
-  rm(pr)
-  gc()
-  expect_false(file.exists(makevars_file))
 })

@@ -56,10 +56,7 @@ pkgbuild_process <- R6Class(
       rcb_init(self, private, super, path, dest_path, binary, vignettes,
                manual, args, needs_compilation, compile_attributes, register_routines),
 
-    finalize = function() {
-      super$kill()
-      tryCatch(unlink(private$makevars_file), error = function(x) x)
-    },
+    finalize = function() super$kill(),
 
     get_dest_path = function() private$dest_path,
 
@@ -79,17 +76,12 @@ pkgbuild_process <- R6Class(
       private$out_file
     },
 
-    kill = function(...) {
-      ret <- super$kill(...)
-      tryCatch(unlink(private$makevars_file), error = function(x) x)
-      ret
-    }
+    kill = function(...) super$kill(...)
   ),
 
   private = list(
     path = NULL,
     dest_path = NULL,
-    makevars_file = NULL,
     out_dir = NULL,
     out_file = NULL
   )
@@ -116,14 +108,7 @@ rcb_init <- function(self, private, super, path, dest_path, binary,
     wd = options$out_dir
   )
 
-  ## We cannot use withr::with_makevars directly, because that removes
-  ## Makevars when exiting
-  flags <- compiler_flags(FALSE)
-  private$makevars_file <- tempfile()
-  withr::with_envvar(c(R_MAKEVARS_USER = private$makevars_file), {
-    withr::set_makevars(flags, new_path = private$makevars_file)
-    super$initialize(options)
-  })
+  super$initialize(options)
 
   invisible(self)
 }
