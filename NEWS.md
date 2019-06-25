@@ -1,6 +1,9 @@
 
 # dev
 
+* `pkgbuild_process` now do not set custom compiler flags, and it uses
+  the user's `Makevars` file (@gaborcsardi, #76).
+
 # pkgbuild 1.0.3
 
 * Tests which wrote to the package library are now skipped on CRAN.
