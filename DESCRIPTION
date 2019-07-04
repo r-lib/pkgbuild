@@ -10,7 +10,7 @@ Description: Provides functions used to build R packages. Locates compilers
   needed to build R packages on various platforms and ensures the PATH is
   configured appropriately so R can use them.
 Imports:
-    callr (>= 2.0.0),
+    callr (>= 3.2.0),
     cli,
     crayon,
     desc,

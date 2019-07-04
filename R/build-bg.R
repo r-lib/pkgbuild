@@ -58,6 +58,12 @@ pkgbuild_process <- R6Class(
 
     finalize = function() super$kill(),
 
+    is_incomplete_error = function() FALSE,
+    read_all_error = function() "",
+    read_all_error_lines = function() character(),
+    read_error = function(n = -1) "",
+    read_error_lines = function(n = -1) character(),
+
     get_dest_path = function() private$dest_path,
 
     get_built_file = function() {
@@ -105,7 +111,8 @@ rcb_init <- function(self, private, super, path, dest_path, binary,
   options <- rcmd_process_options(
     cmd = options$cmd,
     cmdargs = c(options$path, options$args),
-    wd = options$out_dir
+    wd = options$out_dir,
+    stderr = "2>&1"
   )
 
   super$initialize(options)
