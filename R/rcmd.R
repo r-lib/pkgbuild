@@ -25,7 +25,7 @@ rcmd_build_tools <- function(..., env = character(), required = TRUE, quiet = FA
 
   res <- with_build_tools(
     callr::rcmd_safe(..., env = env, spinner = FALSE, show = FALSE,
-      echo = FALSE, block_callback = block_callback(quiet)),
+      echo = FALSE, block_callback = block_callback(quiet), stderr = "2>&1"),
     required = required
   )
 
@@ -36,7 +36,7 @@ rcmd_build_tools <- function(..., env = character(), required = TRUE, quiet = FA
 
 msg_for_long_paths <- function(output) {
   if (is_windows() &&
-      any(grepl("over-long path length", output$stderr))) {
+      any(grepl("over-long path length", output$stdout))) {
     message(
       "\nIt seems that this package contains files with very long paths.\n",
       "This is not supported on most Windows versions. Please contact the\n",

@@ -33,7 +33,8 @@ has_compiler <- function(debug = FALSE) {
       wd = tempdir(),
       show = debug,
       echo = debug,
-      fail_on_status = TRUE
+      fail_on_status = TRUE,
+      stderr = "2>&1"
     )
 
     if (debug)
