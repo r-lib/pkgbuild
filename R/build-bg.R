@@ -67,8 +67,12 @@ pkgbuild_process <- R6Class(
     get_dest_path = function() private$dest_path,
 
     get_built_file = function() {
-      if (self$is_alive()) stop("Still alive")
-      if (self$get_exit_status() != 0) stop("Build process failed")
+      if (self$is_alive()) throw(new_error("Build process is still alive"))
+      if (self$get_exit_status() != 0) {
+        output <- if (self$has_output_connection()) self$read_all_output()
+        throw(new_build_error(
+          "Build process failed", path = private$path, output = output))
+      }
 
       ## Already copied?
       if (!is.null(private$out_file)) return(private$out_file)

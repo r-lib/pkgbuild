@@ -60,3 +60,30 @@ last_char <- function(x) {
 cat0 <- function(..., sep = "") {
   cat(..., sep = "")
 }
+
+new_build_error <- function(..., path = NULL, output = NULL,
+                            call. = NULL, domain = NULL) {
+  cnd <- new_error(..., call. = call., domain = domain)
+  cnd$path <- path
+  cnd$output <- output
+  class(cnd) <- c("pkgbuild_error", class(cnd))
+  cnd
+}
+
+#' @export
+
+conditionMessage.pkgbuild_error <- function(c) {
+  msg <- NextMethod(c)
+  if (!is.null(c$path)) msg <- paste0(msg, "\n Path: ", c$path)
+  if (!is.null(c$output)) {
+    out <- tail(strsplit(c$output, "\n", fixed = TRUE)[[1]])
+    msg <- paste0(msg, "\n Output (last 10 lines):\n",
+                  paste0(out, collapse = "\n"))
+  }
+  msg
+}
+
+tail <- function(x, n = 10, dots = "...") {
+  l <- length(x)
+  if (l <= n) x else c(dots, x[(l-9):l])
+}

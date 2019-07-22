@@ -58,7 +58,7 @@ has_compiler <- function(debug = FALSE) {
 #' @rdname has_compiler
 check_compiler <- function(debug = FALSE) {
   if (!has_compiler(debug))
-    stop("Failed to compile C code", call. = FALSE)
+    throw(new_build_error("Failed to compile C code"))
 
   TRUE
 }

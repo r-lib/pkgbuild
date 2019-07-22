@@ -16,18 +16,19 @@ pkg_has_src <- function(path = ".") {
       } else if (is_tar_gz_file(path)) {
         utils::untar(path, list = TRUE)
       } else {
-        stop("not a zip or tar.gz file")
+        throw(new_build_error("not a zip or tar.gz file"))
       }
 
       if (!any(grepl("^[^/]+/DESCRIPTION$", files))) {
-        stop("no DESCRIPTION file")
+        throw(new_build_error("no DESCRIPTION file"))
       }
 
       any(grepl("^[^/]+/src/?$", files))
     }, error = function(e) {
       e$message <- paste(path, "is not a valid package archive file,",
                          e$message)
-      stop(e)
+      e$path <- path
+      throw(e)
     })
   }
 }

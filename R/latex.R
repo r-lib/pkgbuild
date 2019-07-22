@@ -11,7 +11,7 @@ has_latex <- function() {
 #' @rdname has_latex
 check_latex <- function() {
   if (!has_latex())
-    stop("LaTeX not installed (pdflatex not found)", call. = FALSE)
+    throw(new_build_error("LaTeX not installed (pdflatex not found)"))
 
   TRUE
 }

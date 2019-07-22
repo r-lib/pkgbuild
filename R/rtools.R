@@ -126,7 +126,7 @@ setup_rtools <- has_rtools
 #' @rdname has_rtools
 check_rtools <- function(debug = FALSE) {
   if (is_windows() && !has_rtools(debug = debug))
-    stop("Rtools is not installed.", call. = FALSE)
+    throw(new_build_error("Rtools is not installed."))
 
   TRUE
 }

@@ -6,7 +6,8 @@ describe("has_compiler", {
     without_cache({
       without_compiler({
         expect_false(has_compiler())
-        expect_error(check_compiler(), "Failed to compile C code")
+        expect_error(check_compiler(), "Failed to compile C code",
+                     class = "pkgbuild_error")
       })
       cache_reset()
       expect_true(has_compiler())

@@ -41,7 +41,8 @@ test_that("build package with src requires compiler", {
   without_compiler({
     expect_error(
       build("testWithSrc", dest_path = tempdir(), quiet = TRUE),
-      "Could not find tools"
+      "Could not find tools",
+      class = "pkgbuild_error"
     )
   })
 })
@@ -67,9 +68,9 @@ test_that("package tarball binary build errors", {
 
   expect_error(
     build(path, dest_path = tempdir(), quiet = TRUE),
-    "binary")
+    "binary", class = "pkgbuild_error")
   expect_error(
     build(path, dest_path = tempdir(), quiet = TRUE, binary = TRUE,
           needs_compilation = FALSE, compile_attributes = TRUE),
-    "compile_attributes")
+    "compile_attributes", class = "pkgbuild_error")
 })

@@ -63,15 +63,20 @@ build_setup <- function(path, dest_path, binary, vignettes, manual, args,
                         needs_compilation, compile_attributes, register_routines) {
 
   if (!file.exists(path)) {
-    stop("`path` must exist", call. = FALSE)
+    throw(new_build_error("`path` must exist", path = path))
   }
   if (!is_dir(path)) {
-    if (!binary) stop("`binary` must be TRUE for package files", call. = FALSE)
+    if (!binary) {
+      throw(new_build_error("`binary` must be TRUE for package files",
+                            path = path))
+    }
     if (compile_attributes) {
-      stop("`compile_attributes` must be FALSE for package files", call. = FALSE)
+      throw(new_build_error(
+        "`compile_attributes` must be FALSE for package files", path = path))
     }
     if (register_routines) {
-      stop("`register_routines` must be FALSE for package files", call. = FALSE)
+      throw(new_build_error(
+        "`register_routines` must be FALSE for package files", path = path))
     }
   } else {
     path <- pkg_path(path)
