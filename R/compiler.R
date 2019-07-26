@@ -1,7 +1,7 @@
 #' Is a compiler available?
 #'
 #' `has_devel` returns `TRUE` or `FALSE`. `check_devel`
-#' throws an error if you don't developer tools installed. Implementation
+#' throws an error if you don't have developer tools installed. Implementation
 #' based on a suggestion by Simon Urbanek. End-users (particularly those on
 #' Windows) should generally run [check_build_tools()] rather than
 #' [check_compiler()].
