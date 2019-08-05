@@ -1,6 +1,14 @@
 #' @export
 #' @rdname has_rtools
 rtools_path <- function() {
+  if (!is_windows()) {
+    return(NA_character_)
+  }
+
+  if (!rtools_path_is_set()) {
+    has_rtools()
+  }
+
   cache_get("rtools_path")
 }
 

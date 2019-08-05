@@ -1,5 +1,8 @@
 # dev
 
+* `rtools_path()` now returns `NA` on non-windows systems and also works when
+  `has_rtools()` has not been run previously (#74).
+
 * `check_build_tools()` now has a more helpful error message which points you
   towards ways to debug the issue (#68).
 
