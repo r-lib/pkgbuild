@@ -1,8 +1,6 @@
-This release fixes tests which wrote to the system library, as requested by CRAN
-
 ## Test environments
-* local OS X install, R 3.5.1
-* ubuntu 14.04 (on travis-ci), R 3.5.1
+* local OS X install, R 3.6.1
+* ubuntu 14.04 (on travis-ci), R 3.6.1
 * win-builder devel
 
 ## R CMD check results
@@ -11,6 +9,6 @@ This release fixes tests which wrote to the system library, as requested by CRAN
 
 ## Downstream dependencies
 
-I ran `R CMD check` on all 9 reverse dependencies
+I ran `R CMD check` on all 12 reverse dependencies
 (https://github.com/r-lib/pkgbuild/tree/master/revdep). There were no
 regressions.
