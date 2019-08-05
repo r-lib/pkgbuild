@@ -1,5 +1,7 @@
-
 # dev
+
+* `check_build_tools()` now has a more helpful error message which points you
+  towards ways to debug the issue (#68).
 
 * `pkgbuild_process` now do not set custom compiler flags, and it uses
   the user's `Makevars` file (@gaborcsardi, #76).
