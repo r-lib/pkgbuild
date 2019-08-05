@@ -3,7 +3,7 @@ Title: Find Tools Needed to Build R Packages
 Version: 1.0.4
 Authors@R: c(
     person("Hadley", "Wickham", role = "aut"),
-    person("Jim", "Hester", , "james.hester@rstudio.com", role = c("aut", "cre")),
+    person("Jim", "Hester", , "jim.hester@rstudio.com", role = c("aut", "cre")),
     person("RStudio", role = "cph")
   )
 Description: Provides functions used to build R packages. Locates compilers
