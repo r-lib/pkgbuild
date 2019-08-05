@@ -1,5 +1,8 @@
 # dev
 
+* `build()` gains a `clean_doc` argument, to control if the `inst/doc`
+  directory is cleaned before building. (#79, #75)
+
 * `rtools_path()` now returns `NA` on non-windows systems and also works when
   `has_rtools()` has not been run previously (#74).
 

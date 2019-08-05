@@ -29,15 +29,19 @@
 #'   register routines with
 #'   `tools::package_native_routine_registration_skeleton()` before building
 #'   the package. It is ignored if package does not need compilation.
+#' @param clean_doc If `TRUE`, clean the files in `inst/doc` before building
+#'   the package. If `NULL` and interactive, ask to remove the
+#'   files prior to cleaning. In most cases cleaning the files is the correct
+#'   behavior to avoid stale vignette outputs in the built package.
 #' @export
 #' @return a string giving the location (including file name) of the built
 #'  package
 build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE,
-                  manual = FALSE, args = NULL, quiet = FALSE,
+                  manual = FALSE, clean_doc = NULL, args = NULL, quiet = FALSE,
                   needs_compilation = pkg_has_src(path), compile_attributes = FALSE,
                   register_routines = FALSE) {
 
-  options <- build_setup(path, dest_path, binary, vignettes, manual, args,
+  options <- build_setup(path, dest_path, binary, vignettes, manual, clean_doc, args,
                          needs_compilation, compile_attributes, register_routines)
   on.exit(unlink(options$out_dir, recursive = TRUE), add = TRUE)
 
@@ -59,7 +63,7 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
   file.path(options$dest_path, out_file)
 }
 
-build_setup <- function(path, dest_path, binary, vignettes, manual, args,
+build_setup <- function(path, dest_path, binary, vignettes, manual, clean_doc, args,
                         needs_compilation, compile_attributes, register_routines) {
 
   if (!file.exists(path)) {
@@ -88,7 +92,7 @@ build_setup <- function(path, dest_path, binary, vignettes, manual, args,
   if (binary) {
     build_setup_binary(path, dest_path, args, needs_compilation)
   } else {
-    build_setup_source(path, dest_path, vignettes, manual, args,
+    build_setup_source(path, dest_path, vignettes, manual, clean_doc, args,
                        needs_compilation)
   }
 }
@@ -112,8 +116,8 @@ build_setup_binary <- function(path, dest_path, args, needs_compilation) {
   )
 }
 
-build_setup_source <- function(path, dest_path, vignettes, manual, args,
-                               needs_compilation) {
+build_setup_source <- function(path, dest_path, vignettes, manual, clean_doc,
+                               args, needs_compilation) {
 
   if (!("--resave-data" %in% args)) {
     args <- c(args, "--no-resave-data")
@@ -134,10 +138,10 @@ build_setup_source <- function(path, dest_path, vignettes, manual, args,
 
   if (!vignettes) {
     args <- c(args, "--no-build-vignettes")
-  } else {
+  } else if (is.null(clean_doc) || isTRUE(clean_doc)) {
     doc_dir <- file.path(path, "inst", "doc")
     if (dir.exists(doc_dir)) {
-      if (interactive()) {
+      if (is.null(clean_doc) && interactive()) {
         message("Building the package will delete...\n  '", doc_dir, "'\nAre you sure?")
         res <- utils::menu(c("Yes", "No"))
         if (res == 2) {

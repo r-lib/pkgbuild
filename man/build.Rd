@@ -5,9 +5,9 @@
 \title{Build package}
 \usage{
 build(path = ".", dest_path = NULL, binary = FALSE,
-  vignettes = TRUE, manual = FALSE, args = NULL, quiet = FALSE,
-  needs_compilation = pkg_has_src(path), compile_attributes = FALSE,
-  register_routines = FALSE)
+  vignettes = TRUE, clean_doc = TRUE, manual = FALSE, args = NULL,
+  quiet = FALSE, needs_compilation = pkg_has_src(path),
+  compile_attributes = FALSE, register_routines = FALSE)
 }
 \arguments{
 \item{path}{Path to a package, or within a package.}
@@ -20,6 +20,10 @@ the parent directory of the package.}
 
 \item{vignettes, manual}{For source packages: if \code{FALSE}, don't build PDF
 vignettes (\code{--no-build-vignettes}) or manual (\code{--no-manual}).}
+
+\item{clean_doc}{If \code{TRUE}, clean the files in \code{inst/doc} before building
+the package. In most cases this is the correct behavior to avoid stale
+vignette outputs in the built package.}
 
 \item{args}{An optional character vector of additional command
 line arguments to be passed to \code{R CMD build} if \code{binary = FALSE},

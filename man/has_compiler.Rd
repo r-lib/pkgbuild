@@ -16,7 +16,7 @@ debugging. If \code{FALSE}, it will use result cached from a previous run.}
 }
 \description{
 \code{has_devel} returns \code{TRUE} or \code{FALSE}. \code{check_devel}
-throws an error if you don't developer tools installed. Implementation
+throws an error if you don't have developer tools installed. Implementation
 based on a suggestion by Simon Urbanek. End-users (particularly those on
 Windows) should generally run \code{\link[=check_build_tools]{check_build_tools()}} rather than
 \code{\link[=check_compiler]{check_compiler()}}.

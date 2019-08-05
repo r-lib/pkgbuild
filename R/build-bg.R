@@ -49,12 +49,13 @@ pkgbuild_process <- R6Class(
   public = list(
 
     initialize = function(path = ".", dest_path = NULL, binary = FALSE,
-                          vignettes = TRUE, manual = FALSE, args = NULL,
-                          needs_compilation = pkg_has_src(path),
+                          vignettes = TRUE, manual = FALSE, clean_doc = NULL,
+                          args = NULL, needs_compilation = pkg_has_src(path),
                           compile_attributes = FALSE,
                           register_routines = FALSE)
       rcb_init(self, private, super, path, dest_path, binary, vignettes,
-               manual, args, needs_compilation, compile_attributes, register_routines),
+               manual, clean_doc, args, needs_compilation, compile_attributes,
+               register_routines),
 
     finalize = function() super$kill(),
 
@@ -96,11 +97,12 @@ pkgbuild_process <- R6Class(
 #' @importFrom callr rcmd_process rcmd_process_options
 
 rcb_init <- function(self, private, super, path, dest_path, binary,
-                     vignettes, manual, args, needs_compilation,
+                     vignettes, manual, clean_doc, args, needs_compilation,
                      compile_attributes, register_routines) {
 
-  options <- build_setup(path, dest_path, binary, vignettes, manual, args,
-                         needs_compilation, compile_attributes, register_routines)
+  options <- build_setup(path, dest_path, binary, vignettes, manual, clean_doc,
+                         args, needs_compilation, compile_attributes,
+                         register_routines)
 
   private$path <- options$path
   private$dest_path <- options$dest_path
