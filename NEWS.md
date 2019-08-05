@@ -1,10 +1,11 @@
-# dev
+# pkgbuild 1.0.4
 
 * `build()` gains a `clean_doc` argument, to control if the `inst/doc`
   directory is cleaned before building. (#79, #75)
 
-* `rtools_path()` now returns `NA` on non-windows systems and also works when
-  `has_rtools()` has not been run previously (#74).
+* `build()` and `pkgbuild_process` now have standard output and error are
+  correctly interleaved, by redirecting the standard error of build process
+  to the standard output (@gaborcsardi, #78).
 
 * `check_build_tools()` now has a more helpful error message which points you
   towards ways to debug the issue (#68).
@@ -12,9 +13,8 @@
 * `pkgbuild_process` now do not set custom compiler flags, and it uses
   the user's `Makevars` file (@gaborcsardi, #76).
 
-* Make sure that standard output and error are correctly interleaved in
-  `build()` and `pkgbuild_process`, by redirecting the standard error of
-  build process to the standard output (@gaborcsardi, #78).
+* `rtools_path()` now returns `NA` on non-windows systems and also works when
+  `has_rtools()` has not been run previously (#74).
 
 # pkgbuild 1.0.3
 
