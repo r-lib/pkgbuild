@@ -37,10 +37,13 @@ has_build_tools <- function(debug = FALSE) {
 #' @export
 #' @rdname has_build_tools
 check_build_tools <- function(debug = FALSE) {
-  if (!has_build_tools(debug = debug))
+  if (!has_build_tools(debug = debug)) {
     stop(
       "Could not find tools necessary to compile a package\n",
       "Call `pkgbuild::check_build_tools(debug = TRUE)` to diagnose the problem.", call. = FALSE)
+  } else {
+    message("Your system is ready to build packages!")
+  }
 
   invisible(TRUE)
 }
