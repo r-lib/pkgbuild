@@ -18,6 +18,7 @@
 #' binaries in Rtools may conflict with existing binaries elsewhere on the PATH it
 #' is better practice to use `with_build_tools()` as needed.
 #' @inheritParams has_rtools
+#' @param quiet if `TRUE` suppresses output from this function.
 #' @export
 #' @seealso has_rtools
 #' @examples
@@ -36,12 +37,12 @@ has_build_tools <- function(debug = FALSE) {
 
 #' @export
 #' @rdname has_build_tools
-check_build_tools <- function(debug = FALSE) {
+check_build_tools <- function(debug = FALSE, quiet = FALSE) {
   if (!has_build_tools(debug = debug)) {
     stop(
       "Could not find tools necessary to compile a package\n",
       "Call `pkgbuild::check_build_tools(debug = TRUE)` to diagnose the problem.", call. = FALSE)
-  } else {
+  } else if (!isTRUE(quiet)) {
     message("Your system is ready to build packages!")
   }
 
@@ -57,7 +58,7 @@ check_build_tools <- function(debug = FALSE) {
 #'   them.
 with_build_tools <- function(code, debug = FALSE, required = TRUE) {
   if (required)
-    check_build_tools(debug = debug)
+    check_build_tools(debug = debug, quiet = TRUE)
 
   if (has_rtools()) {
     withr::with_path(rtools_path(), code)
@@ -71,7 +72,7 @@ with_build_tools <- function(code, debug = FALSE, required = TRUE) {
 #' @export
 local_build_tools <- function(debug = FALSE, required = TRUE, .local_envir = parent.frame()) {
   if (required)
-    check_build_tools(debug = debug)
+    check_build_tools(debug = debug, quiet = TRUE)
 
   if (has_rtools()) {
     withr::local_path(rtools_path(), .local_envir = .local_envir)

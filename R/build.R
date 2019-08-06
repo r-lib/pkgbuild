@@ -100,7 +100,7 @@ build_setup <- function(path, dest_path, binary, vignettes, manual, clean_doc, a
 build_setup_binary <- function(path, dest_path, args, needs_compilation) {
 
   if (needs_compilation) {
-    check_build_tools()
+    check_build_tools(quiet = TRUE)
   }
 
   # Build in temporary directory and then copy to final location
@@ -129,7 +129,7 @@ build_setup_source <- function(path, dest_path, vignettes, manual, clean_doc,
   }
 
   if (needs_compilation && (vignettes || manual)) {
-    check_build_tools()
+    check_build_tools(quiet = TRUE)
   }
 
   if (!manual) {

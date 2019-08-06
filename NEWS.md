@@ -1,5 +1,9 @@
 # pkgbuild (development version)
 
+* `check_build_tools()` gains a `quiet` argument, to control when the message
+  is displayed. The message is no longer displayed when `check_build_tools()`
+  is called internally by pkgbuild functions. (#83)
+
 # pkgbuild 1.0.4
 
 * `build()` gains a `clean_doc` argument, to control if the `inst/doc`

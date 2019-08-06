@@ -28,7 +28,7 @@ compile_dll <- function(path = ".",
     return(invisible())
   }
 
-  check_build_tools()
+  check_build_tools(quiet = TRUE)
   update_registration(path, compile_attributes, register_routines)
 
   # Mock install the package to generate the DLL

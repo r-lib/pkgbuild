@@ -9,7 +9,7 @@
 \usage{
 has_build_tools(debug = FALSE)
 
-check_build_tools(debug = FALSE)
+check_build_tools(debug = FALSE, quiet = FALSE)
 
 with_build_tools(code, debug = FALSE, required = TRUE)
 
@@ -19,6 +19,8 @@ local_build_tools(debug = FALSE, required = TRUE,
 \arguments{
 \item{debug}{If \code{TRUE}, will print out extra information useful for
 debugging. If \code{FALSE}, it will use result cached from a previous run.}
+
+\item{quiet}{if \code{TRUE} suppresses output from this function.}
 
 \item{code}{Code to rerun in environment where build tools are guaranteed to
 exist.}
