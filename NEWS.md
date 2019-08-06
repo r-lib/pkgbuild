@@ -1,3 +1,5 @@
+# pkgbuild (development version)
+
 # pkgbuild 1.0.4
 
 * `build()` gains a `clean_doc` argument, to control if the `inst/doc`
