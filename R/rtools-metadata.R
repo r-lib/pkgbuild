@@ -62,5 +62,10 @@ version_info <- list(
     version_min = "3.3.0",
     version_max = "99.99.99",
     path = "bin"
+  ),
+  "4.0" = list(
+    version_min = "3.7.0",
+    version_max = "99.99.99",
+    path = "bin"
   )
 )

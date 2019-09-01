@@ -132,6 +132,9 @@ check_rtools <- function(debug = FALSE) {
 }
 
 installed_version <- function(path, debug) {
+  if(is_rtools40(path)){
+    return("4.0")
+  }
   if (!file.exists(file.path(path, "Rtools.txt"))) return(NULL)
 
   # Find the version path
@@ -185,6 +188,12 @@ rtools_needed <- function() {
       return(paste("Rtools", version))
   }
   "the appropriate version of Rtools"
+}
+
+is_rtools40 <- function(path){
+  path <- normalizePath(tolower(path), mustWork = FALSE)
+  rtools40_path <- tolower(Sys.getenv('RTOOLS40_HOME', "c:\\rtools40"))
+  grepl(rtools40_path, path, fixed = TRUE)
 }
 
 rtools_url <- "http://cran.r-project.org/bin/windows/Rtools/"
