@@ -40,9 +40,15 @@ scan_path_for_rtools <- function(debug = FALSE) {
 }
 
 find_arch_exe <- function(path, debug = FALSE) {
-  # First try adding .exe
-  if (!file.exists(path)) {
-    path <- paste0(path, ".exe")
+  # Convert unix path to Windows
+  if(grepl("^/", path)){
+    path <- convert_unix_path(path)
+  }
+
+  # Sys.which normalizes relative/absolute path and adds .exe if needed.
+  full_path <- unname(Sys.which(path))
+  if(nchar(full_path)){
+    path <- full_path
   }
 
   if (!file.exists(path)) {
@@ -60,4 +66,8 @@ find_arch_exe <- function(path, debug = FALSE) {
   }
 
   path
+}
+
+convert_unix_path <- function(path){
+  system2("cygpath", c('-m', path), stdout = TRUE)
 }
