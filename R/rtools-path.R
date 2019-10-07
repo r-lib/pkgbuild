@@ -40,24 +40,34 @@ scan_path_for_rtools <- function(debug = FALSE) {
 }
 
 find_arch_exe <- function(path, debug = FALSE) {
-  # First try adding .exe
-  if (!file.exists(path)) {
-    path <- paste0(path, ".exe")
+
+  # Convert unix path to Windows
+  if(grepl("^/", path)){
+    path <- convert_unix_path(path)
   }
 
-  if (!file.exists(path)) {
+  full_path <- Sys.which(path)
+
+  if (nchar(full_path) == 0) {
     if (debug)
       cat("'", path, "' does not exist\n", sep = "")
     return("")
   }
 
   # Then check architecture matches
-  file_info <- file.info(path)
+  file_info <- file.info(full_path)
   if (file_info$exe != paste0("win", gcc_arch())) {
     if (debug)
       cat("  Architecture doesn't match\n")
     return("")
   }
 
-  path
+  full_path
+}
+
+# This assumes cygpath is on your PATH,
+# but it should be if you are using /foo/bar paths in R CMD config,
+# so we don't need to handle this
+convert_unix_path <- function(path){
+  system2("cygpath", c('-m', path), stdout = TRUE)
 }
