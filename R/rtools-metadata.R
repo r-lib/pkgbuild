@@ -67,5 +67,10 @@ version_info <- list(
     version_min = "3.3.0",
     version_max = "99.99.99",
     path = "bin"
+  ),
+  "custom" = list(
+    version_min = "2.10.0",
+    version_max = "99.99.99",
+    path = "bin"
   )
 )
