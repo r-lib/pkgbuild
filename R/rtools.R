@@ -187,4 +187,4 @@ rtools_needed <- function() {
   "the appropriate version of Rtools"
 }
 
-rtools_url <- "http://cran.r-project.org/bin/windows/Rtools/"
+rtools_url <- "https://cran.r-project.org/bin/windows/Rtools/"
