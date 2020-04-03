@@ -1,3 +1,5 @@
+# pkgbuild (development version)
+
 # pkgbuild 1.0.6
 
 * Support for RTools 40 and custom msys2 toolchains that are explicitly set
