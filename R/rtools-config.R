@@ -3,7 +3,7 @@ scan_config_for_rtools <- function(debug = FALSE) {
   if (debug)
     cat("Scanning R CMD config CC...\n")
 
-  if (!using_gcc49())
+  if (!is_R4() && !using_gcc49())
     return()
 
   cc_path <- gsub("\n", "", callr::rcmd_safe("config", "CC")$stdout)
@@ -22,4 +22,8 @@ scan_config_for_rtools <- function(debug = FALSE) {
       cat("install_path:", install_path, "\n")
     rtools(install_path, "custom", valid_binpref = TRUE)
   }
+}
+
+is_R4 <- function(){
+  R.Version()$major >= "4"
 }
