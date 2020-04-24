@@ -28,7 +28,17 @@ has_rtools <- function(debug = FALSE) {
   if (!is_windows())
     return(FALSE)
 
+  # In R 4.0 we can use RTOOLS40_HOME
+  if(is_R4()){
+    rtools40_home <- Sys.getenv('RTOOLS40_HOME')
+    if(nchar(rtools40_home) && file.exists(rtools40_home)){
+      rtools_path_set(rtools(rtools40_home, '4.0'))
+      return(TRUE)
+    }
+  }
+
   # First, R CMD config CC --------------------------------------------
+  # This does not work if 'make' is not yet on the path
   from_config <- scan_config_for_rtools(debug)
   if (is_compatible(from_config)) {
     if (debug)

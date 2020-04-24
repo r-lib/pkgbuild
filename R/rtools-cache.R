@@ -21,7 +21,8 @@ rtools_path_set <- function(rtools) {
   path <- file.path(rtools$path, version_info[[rtools$version]]$path)
 
   # If using gcc49 and _without_ a valid BINPREF already set
-  if (using_gcc49() && is.null(rtools$valid_binpref)) {
+  # Do NOT set BINPREF anymore for R 4.0 / rtools40
+  if (!is_R4() && using_gcc49() && is.null(rtools$valid_binpref)) {
     Sys.setenv(BINPREF = file.path(rtools$path, "mingw_$(WIN)", "bin", "/"))
   }
 
@@ -29,5 +30,5 @@ rtools_path_set <- function(rtools) {
 }
 
 using_gcc49 <- function() {
-  isTRUE(sub("^gcc[^[:digit:]]+", "", Sys.getenv("R_COMPILED_BY")) >= "4.9.3")
+  grepl('4.9.3', Sys.getenv("R_COMPILED_BY"), fixed = TRUE)
 }

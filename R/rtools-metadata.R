@@ -55,22 +55,22 @@ version_info <- list(
   ),
   "3.4" = list(
     version_min = "3.3.0",
-    version_max = "99.99.99",
+    version_max = "3.6.3",
     path = "bin"
   ),
   "3.5" = list(
     version_min = "3.3.0",
-    version_max = "99.99.99",
+    version_max = "3.6.3",
     path = "bin"
   ),
   "4.0" = list(
-    version_min = "3.3.0",
+    version_min = "4.0.0",
     version_max = "99.99.99",
-    path = "bin"
+    path = "usr/bin"
   ),
   "custom" = list(
     version_min = "2.10.0",
     version_max = "99.99.99",
-    path = "bin"
+    path = "usr/bin"
   )
 )
