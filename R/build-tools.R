@@ -26,7 +26,9 @@
 #' check_build_tools()
 has_build_tools <- function(debug = FALSE) {
   check <- getOption("buildtools.check", NULL)
-  if (!is.null(check)) {
+  if(is_windows() && is_R4() && has_rtools(debug = debug)){
+    TRUE
+  } else if (!is.null(check)) {
     check("Building R package from source")
   } else if (is_windows()) {
     has_rtools(debug = debug)
