@@ -30,8 +30,8 @@ has_rtools <- function(debug = FALSE) {
 
   # In R 4.0 we can use RTOOLS40_HOME
   if(is_R4()){
-    rtools40_home <- Sys.getenv('RTOOLS40_HOME')
-    if(nchar(rtools40_home) && file.exists(rtools40_home)){
+    rtools40_home <- Sys.getenv('RTOOLS40_HOME', 'C:\\rtools40')
+    if(file.exists(file.path(rtools40_home, 'usr', 'bin'))){
       rtools_path_set(rtools(rtools40_home, '4.0'))
       return(TRUE)
     }
@@ -96,25 +96,29 @@ has_rtools <- function(debug = FALSE) {
     return(invisible(FALSE))
   }
 
-  installed_ver <- installed_version(from_registry$path, debug = debug)
-  if (is.null(installed_ver)) {
-    # Previously installed version now deleted
-    message("WARNING: Rtools is required to build R packages, but the ",
-      "version of Rtools previously installed in ", from_registry$path,
-      " has been deleted.\n\n",
-      "Please download and install ", rtools_needed(), " from ", rtools_url, ".")
-    return(invisible(FALSE))
-  }
+  # On Rtools 3.x do an extra check if the installed version is accurate.
+  # With rtools40 this is no longer needed (it doens't have a Version.txt)
+  if(isTRUE(from_registry$version < '4')){
+    installed_ver <- installed_version(from_registry$path, debug = debug)
+    if (is.null(installed_ver)) {
+      # Previously installed version now deleted
+      message("WARNING: Rtools is required to build R packages, but the ",
+        "version of Rtools previously installed in ", from_registry$path,
+        " has been deleted.\n\n",
+        "Please download and install ", rtools_needed(), " from ", rtools_url, ".")
+      return(invisible(FALSE))
+    }
 
-  if (installed_ver != from_registry$version) {
-    # Installed version doesn't match registry version
-    message("WARNING: Rtools is required to build R packages, but no version ",
-      "of Rtools compatible with R ", getRversion(), " was found. ",
-      "Rtools ", from_registry$version, " was previously installed in ",
-      from_registry$path, " but now that directory contains Rtools ",
-      installed_ver, ".\n\n",
-      "Please download and install ", rtools_needed(), " from ", rtools_url, ".")
-    return(invisible(FALSE))
+    if (installed_ver != from_registry$version) {
+      # Installed version doesn't match registry version
+      message("WARNING: Rtools is required to build R packages, but no version ",
+        "of Rtools compatible with R ", getRversion(), " was found. ",
+        "Rtools ", from_registry$version, " was previously installed in ",
+        from_registry$path, " but now that directory contains Rtools ",
+        installed_ver, ".\n\n",
+        "Please download and install ", rtools_needed(), " from ", rtools_url, ".")
+      return(invisible(FALSE))
+    }
   }
 
   # Otherwise it must be ok :)
