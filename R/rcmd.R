@@ -1,4 +1,4 @@
-#' Call R CMD <command> with build tools active
+#' Call R CMD 'command' with build tools active
 #'
 #' This is a wrapper around [callr::rcmd_safe()] that checks
 #' that you have build tools available, and on Windows, automatically sets
