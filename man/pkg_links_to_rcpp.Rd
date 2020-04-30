@@ -2,14 +2,17 @@
 % Please edit documentation in R/rcpp-attributes.R
 \name{pkg_links_to_rcpp}
 \alias{pkg_links_to_rcpp}
-\title{Test if a package path is linking to Rcpp}
+\alias{pkg_links_to_cpp11}
+\title{Test if a package path is linking to Rcpp or cpp11}
 \usage{
 pkg_links_to_rcpp(path)
+
+pkg_links_to_cpp11(path)
 }
 \arguments{
 \item{path}{Path to a package, or within a package.}
 }
 \description{
-Test if a package path is linking to Rcpp
+Test if a package path is linking to Rcpp or cpp11
 }
 \keyword{internal}
