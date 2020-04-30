@@ -2,10 +2,9 @@
 % Please edit documentation in R/rcmd.R
 \name{rcmd_build_tools}
 \alias{rcmd_build_tools}
-\title{Call R CMD <command> with build tools active}
+\title{Call R CMD 'command' with build tools active}
 \usage{
-rcmd_build_tools(..., env = character(), required = TRUE,
-  quiet = FALSE)
+rcmd_build_tools(..., env = character(), required = TRUE, quiet = FALSE)
 }
 \arguments{
 \item{...}{Parameters passed on to \code{rcmd_safe}.}

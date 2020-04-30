@@ -4,8 +4,14 @@
 \alias{with_debug}
 \title{Temporarily set debugging compilation flags.}
 \usage{
-with_debug(code, CFLAGS = NULL, CXXFLAGS = NULL, FFLAGS = NULL,
-  FCFLAGS = NULL, debug = TRUE)
+with_debug(
+  code,
+  CFLAGS = NULL,
+  CXXFLAGS = NULL,
+  FFLAGS = NULL,
+  FCFLAGS = NULL,
+  debug = TRUE
+)
 }
 \arguments{
 \item{code}{to execute.}
@@ -34,6 +40,7 @@ with_debug(install("mypkg"))
 }
 }
 \seealso{
-Other debugging flags: \code{\link{compiler_flags}}
+Other debugging flags: 
+\code{\link{compiler_flags}()}
 }
 \concept{debugging flags}
