@@ -1,3 +1,5 @@
+# pkgbuild (development version)
+
 # pkgbuild 1.0.7
 
 * Additional fixes for Rtools 40
