@@ -9,3 +9,4 @@
 ^CRAN-RELEASE$
 ^pkgbuild.*\.tar\.gz$
 ^script\.R$
+^\.github$
