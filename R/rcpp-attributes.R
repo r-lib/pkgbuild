@@ -3,15 +3,15 @@
 compile_rcpp_attributes <- function(path = ".") {
   path <- pkg_path(path)
 
-  if (pkg_links_to_tidycpp(path)) {
-    tidycpp::generate_exports(path)
+  if (pkg_links_to_cpp11(path)) {
+    cpp11::generate_exports(path)
   } else if (pkg_links_to_rcpp(path)) {
     unlink(file.path(path, c("R/RcppExports.R", "src/RcppExports.cpp")))
     Rcpp::compileAttributes(path)
   }
 }
 
-#' Test if a package path is linking to Rcpp or tidycpp
+#' Test if a package path is linking to Rcpp or cpp11
 #'
 #' @inheritParams build
 #' @export
@@ -27,11 +27,11 @@ pkg_links_to_rcpp <- function(path) {
 #' @rdname pkg_links_to_rcpp
 #' @keywords internal
 #' @export
-pkg_links_to_tidycpp <- function(path) {
+pkg_links_to_cpp11 <- function(path) {
   path <- pkg_path(path)
 
   desc <- desc::desc(file = file.path(path, "DESCRIPTION"))
   deps <- desc$get_deps()
 
-  desc$get_field("Package") == "tidycpp" || any(deps$type == "LinkingTo" & deps$package == "tidycpp")
+  desc$get_field("Package") == "cpp11" || any(deps$type == "LinkingTo" & deps$package == "cpp11")
 }

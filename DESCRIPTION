@@ -20,7 +20,7 @@ Imports:
     withr (>= 2.1.2)
 Suggests:
     Rcpp,
-    tidycpp,
+    cpp11,
     testthat,
     covr
 License: GPL-3

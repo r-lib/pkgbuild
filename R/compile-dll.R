@@ -19,7 +19,7 @@
 #' @export
 compile_dll <- function(path = ".",
                         force = FALSE,
-                        compile_attributes = pkg_links_to_tidycpp(path) || pkg_links_to_rcpp(path),
+                        compile_attributes = pkg_links_to_cpp11(path) || pkg_links_to_rcpp(path),
                         register_routines = FALSE,
                         quiet = FALSE) {
   path <- pkg_path(path)
