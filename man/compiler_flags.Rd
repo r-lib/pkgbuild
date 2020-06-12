@@ -25,6 +25,7 @@ compiler_flags()
 compiler_flags(TRUE)
 }
 \seealso{
-Other debugging flags: \code{\link{with_debug}}
+Other debugging flags: 
+\code{\link{with_debug}()}
 }
 \concept{debugging flags}

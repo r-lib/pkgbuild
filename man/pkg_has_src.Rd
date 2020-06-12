@@ -2,7 +2,7 @@
 % Please edit documentation in R/has_src.R
 \name{pkg_has_src}
 \alias{pkg_has_src}
-\title{Does a source package have \code{src/} directory?}
+\title{Does a source package have \verb{src/} directory?}
 \usage{
 pkg_has_src(path = ".")
 }

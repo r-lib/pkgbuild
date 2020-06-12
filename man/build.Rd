@@ -4,10 +4,19 @@
 \alias{build}
 \title{Build package}
 \usage{
-build(path = ".", dest_path = NULL, binary = FALSE,
-  vignettes = TRUE, manual = FALSE, clean_doc = NULL, args = NULL,
-  quiet = FALSE, needs_compilation = pkg_has_src(path),
-  compile_attributes = FALSE, register_routines = FALSE)
+build(
+  path = ".",
+  dest_path = NULL,
+  binary = FALSE,
+  vignettes = TRUE,
+  manual = FALSE,
+  clean_doc = NULL,
+  args = NULL,
+  quiet = FALSE,
+  needs_compilation = pkg_has_src(path),
+  compile_attributes = FALSE,
+  register_routines = FALSE
+)
 }
 \arguments{
 \item{path}{Path to a package, or within a package.}
@@ -27,8 +36,8 @@ files prior to cleaning. In most cases cleaning the files is the correct
 behavior to avoid stale vignette outputs in the built package.}
 
 \item{args}{An optional character vector of additional command
-line arguments to be passed to \code{R CMD build} if \code{binary = FALSE},
-or \code{R CMD install} if \code{binary = TRUE}.}
+line arguments to be passed to \verb{R CMD build} if \code{binary = FALSE},
+or \verb{R CMD install} if \code{binary = TRUE}.}
 
 \item{quiet}{if \code{TRUE} suppresses output from this function.}
 

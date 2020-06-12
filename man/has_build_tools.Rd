@@ -13,8 +13,11 @@ check_build_tools(debug = FALSE, quiet = FALSE)
 
 with_build_tools(code, debug = FALSE, required = TRUE)
 
-local_build_tools(debug = FALSE, required = TRUE,
-  .local_envir = parent.frame())
+local_build_tools(
+  debug = FALSE,
+  required = TRUE,
+  .local_envir = parent.frame()
+)
 }
 \arguments{
 \item{debug}{If \code{TRUE}, will print out extra information useful for
@@ -29,7 +32,7 @@ exist.}
 will throw an error. Otherwise will attempt to run \code{code} without
 them.}
 
-\item{.local_envir}{\code{[environment]}\cr The environment to use for scoping.}
+\item{.local_envir}{\verb{[environment]}\cr The environment to use for scoping.}
 }
 \description{
 \code{has_build_tools} returns a logical, \code{check_build_tools} throws
@@ -39,7 +42,7 @@ If run interactively from RStudio, and the build tools are not
 available these functions will trigger an automated install.
 }
 \details{
-Errors like \code{running command '"C:/PROGRA~1/R/R-34~1.2/bin/x64/R" CMD config CC' had status 127}
+Errors like \verb{running command '"C:/PROGRA~1/R/R-34~1.2/bin/x64/R" CMD config CC' had status 127}
 indicate the code expected Rtools to be on the system PATH. You can
 then verify you have rtools installed with \code{has_build_tools()} and
 temporarily add Rtools to the PATH \code{with_build_tools({ code })}.

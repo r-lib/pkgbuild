@@ -4,8 +4,7 @@
 \alias{rcmd_build_tools}
 \title{Call R CMD <command> with build tools active}
 \usage{
-rcmd_build_tools(..., env = character(), required = TRUE,
-  quiet = FALSE)
+rcmd_build_tools(..., env = character(), required = TRUE, quiet = FALSE)
 }
 \arguments{
 \item{...}{Parameters passed on to \code{rcmd_safe}.}
