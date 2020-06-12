@@ -1,6 +1,7 @@
 # pkgbuild (development version)
 
 * `compile_dll()` now supports automatic cpp11 registration if the package links to cpp11.
+* `rtools_needed` returns correct version instead of "custom" (@burgerga, #97)
 
 # pkgbuild 1.0.8
 

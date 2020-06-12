@@ -4,7 +4,7 @@
 \alias{rtools_needed}
 \title{Retrieve a text string with the rtools version needed}
 \usage{
-rtools_needed()
+rtools_needed(r_version = getRversion())
 }
 \description{
 Retrieve a text string with the rtools version needed
