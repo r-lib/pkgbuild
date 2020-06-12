@@ -188,6 +188,10 @@ rtools <- function(path, version, ...) {
 }
 is.rtools <- function(x) inherits(x, "rtools")
 
+#' Retrieve a text string with the rtools version needed
+#'
+#' @keywords internal
+#' @export
 rtools_needed <- function() {
   r_version <- getRversion()
 
