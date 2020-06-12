@@ -23,3 +23,12 @@ test_that("has_rtools finds rtools", {
       expect_true(rtools_path() != "")
     }))
 })
+
+test_that("rtools_needed works", {
+  skip_if_not(is_windows())
+
+  # Test only frozen versions
+  expect_equal(rtools_needed("3.6.3"), "Rtools 3.5")
+  expect_equal(rtools_needed("2.9"), "Rtools 3.0")
+  expect_equal(rtools_needed("0.0.0"), "the appropriate version of Rtools")
+})

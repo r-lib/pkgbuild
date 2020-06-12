@@ -192,12 +192,13 @@ is.rtools <- function(x) inherits(x, "rtools")
 #'
 #' @keywords internal
 #' @export
-rtools_needed <- function() {
-  r_version <- getRversion()
+rtools_needed <- function(r_version = getRversion()) {
+  vi <- version_info
+  vi$custom <- NULL
 
-  for (i in rev(seq_along(version_info))) {
-    version <- names(version_info)[i]
-    info <- version_info[[i]]
+  for (i in rev(seq_along(vi))) {
+    version <- names(vi)[i]
+    info <- vi[[i]]
     ok <- r_version >= info$version_min && r_version <= info$version_max
     if (ok)
       return(paste("Rtools", version))
