@@ -4,7 +4,7 @@ compile_rcpp_attributes <- function(path = ".") {
   path <- pkg_path(path)
 
   if (pkg_links_to_cpp11(path)) {
-    cpp11::generate_exports(path)
+    cpp11::cpp_register(path)
   } else if (pkg_links_to_rcpp(path)) {
     unlink(file.path(path, c("R/RcppExports.R", "src/RcppExports.cpp")))
     Rcpp::compileAttributes(path)
