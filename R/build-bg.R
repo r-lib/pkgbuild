@@ -98,11 +98,11 @@ pkgbuild_process <- R6Class(
 
 rcb_init <- function(self, private, super, path, dest_path, binary,
                      vignettes, manual, clean_doc, args, needs_compilation,
-                     compile_attributes, register_routines) {
+                     compile_attributes, register_routines, quiet) {
 
   options <- build_setup(path, dest_path, binary, vignettes, manual, clean_doc,
                          args, needs_compilation, compile_attributes,
-                         register_routines)
+                         register_routines, quiet)
 
   private$path <- options$path
   private$dest_path <- options$dest_path

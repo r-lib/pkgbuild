@@ -42,7 +42,7 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
                   register_routines = FALSE) {
 
   options <- build_setup(path, dest_path, binary, vignettes, manual, clean_doc, args,
-                         needs_compilation, compile_attributes, register_routines)
+                         needs_compilation, compile_attributes, register_routines, quiet)
   on.exit(unlink(options$out_dir, recursive = TRUE), add = TRUE)
 
   withr::with_temp_libpaths(
@@ -64,7 +64,7 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
 }
 
 build_setup <- function(path, dest_path, binary, vignettes, manual, clean_doc, args,
-                        needs_compilation, compile_attributes, register_routines) {
+                        needs_compilation, compile_attributes, register_routines, quiet) {
 
   if (!file.exists(path)) {
     stop("`path` must exist", call. = FALSE)
@@ -86,7 +86,7 @@ build_setup <- function(path, dest_path, binary, vignettes, manual, clean_doc, a
   }
 
   if (needs_compilation) {
-    update_registration(path, compile_attributes, register_routines)
+    update_registration(path, compile_attributes, register_routines, quiet)
   }
 
   if (binary) {
