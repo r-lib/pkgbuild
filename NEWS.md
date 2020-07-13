@@ -1,3 +1,5 @@
+# pkgbuild (development version)
+
 # pkgbuild 1.1.0
 
 * `compile_dll()` now supports automatic cpp11 registration if the package links to cpp11.
