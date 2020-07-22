@@ -9,7 +9,8 @@ compile_dll(
   force = FALSE,
   compile_attributes = pkg_links_to_cpp11(path) || pkg_links_to_rcpp(path),
   register_routines = FALSE,
-  quiet = FALSE
+  quiet = FALSE,
+  debug = TRUE
 )
 }
 \arguments{
@@ -28,6 +29,11 @@ register routines with
 the package. It is ignored if package does not need compilation.}
 
 \item{quiet}{if \code{TRUE} suppresses output from this function.}
+
+\item{debug}{If \code{TRUE}, and if no user Makevars is found, then the build
+runs without optimisation (\code{-O0}) and with debug symbols (\code{-g}). See
+\code{\link[=compiler_flags]{compiler_flags()}} for details. If you have a user Makevars (e.g.,
+\verb{~/.R/Makevars}) then this argument is ignored.}
 }
 \description{
 \code{compile_dll} performs a fake R CMD install so code that

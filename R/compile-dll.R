@@ -15,13 +15,18 @@
 #' @inheritParams build
 #' @param force If `TRUE`, for compilation even if [needs_compile()] is
 #'   `FALSE`.
+#' @param debug If `TRUE`, and if no user Makevars is found, then the build
+#'   runs without optimisation (`-O0`) and with debug symbols (`-g`). See
+#'   [compiler_flags()] for details. If you have a user Makevars (e.g.,
+#'   `~/.R/Makevars`) then this argument is ignored.
 #' @seealso [clean_dll()] to delete the compiled files.
 #' @export
 compile_dll <- function(path = ".",
                         force = FALSE,
                         compile_attributes = pkg_links_to_cpp11(path) || pkg_links_to_rcpp(path),
                         register_routines = FALSE,
-                        quiet = FALSE) {
+                        quiet = FALSE,
+                        debug = TRUE) {
   path <- pkg_path(path)
 
   if (!needs_compile(path) && !isTRUE(force)) {
@@ -49,7 +54,7 @@ compile_dll <- function(path = ".",
     )
   } else {
     # Otherwise set makevars for fast development / debugging
-    withr::with_makevars(compiler_flags(TRUE), assignment = "+=", {
+    withr::with_makevars(compiler_flags(debug), assignment = "+=", {
       install_min(
         path,
         dest = install_dir,
