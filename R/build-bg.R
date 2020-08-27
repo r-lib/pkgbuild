@@ -102,7 +102,7 @@ rcb_init <- function(self, private, super, path, dest_path, binary,
 
   options <- build_setup(path, dest_path, binary, vignettes, manual, clean_doc,
                          args, needs_compilation, compile_attributes,
-                         register_routines, quiet)
+                         register_routines, quiet, env = self)
 
   private$path <- options$path
   private$dest_path <- options$dest_path

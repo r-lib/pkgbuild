@@ -64,7 +64,7 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
 }
 
 build_setup <- function(path, dest_path, binary, vignettes, manual, clean_doc, args,
-                        needs_compilation, compile_attributes, register_routines, quiet) {
+                        needs_compilation, compile_attributes, register_routines, quiet, env = parent.frame()) {
 
   if (!file.exists(path)) {
     stop("`path` must exist", call. = FALSE)
@@ -87,6 +87,7 @@ build_setup <- function(path, dest_path, binary, vignettes, manual, clean_doc, a
 
   if (needs_compilation) {
     update_registration(path, compile_attributes, register_routines, quiet)
+    withr:::local_makevars(compiler_flags(debug = FALSE), assignment = "+=", .local_envir = env)
   }
 
   if (binary) {
