@@ -32,6 +32,8 @@ has_rtools <- function(debug = FALSE) {
   if(is_R4()){
     rtools40_home <- Sys.getenv('RTOOLS40_HOME', 'C:\\rtools40')
     if(file.exists(file.path(rtools40_home, 'usr', 'bin'))){
+      if (debug)
+        cat("Found in Rtools 4.0 installation folder\n")
       rtools_path_set(rtools(rtools40_home, '4.0'))
       return(TRUE)
     }
