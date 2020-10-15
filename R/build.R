@@ -45,6 +45,7 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
                          needs_compilation, compile_attributes, register_routines, quiet)
   on.exit(unlink(options$out_dir, recursive = TRUE), add = TRUE)
 
+  withr:::local_makevars(compiler_flags(debug = FALSE), .assignment = "+=")
   withr::with_temp_libpaths(
     rcmd_build_tools(
       options$cmd,
@@ -64,7 +65,7 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
 }
 
 build_setup <- function(path, dest_path, binary, vignettes, manual, clean_doc, args,
-                        needs_compilation, compile_attributes, register_routines, quiet, env = parent.frame()) {
+                        needs_compilation, compile_attributes, register_routines, quiet) {
 
   if (!file.exists(path)) {
     stop("`path` must exist", call. = FALSE)
@@ -87,7 +88,6 @@ build_setup <- function(path, dest_path, binary, vignettes, manual, clean_doc, a
 
   if (needs_compilation) {
     update_registration(path, compile_attributes, register_routines, quiet)
-    withr:::local_makevars(compiler_flags(debug = FALSE), assignment = "+=", .local_envir = env)
   }
 
   if (binary) {

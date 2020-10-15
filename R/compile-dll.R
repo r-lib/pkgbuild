@@ -49,7 +49,7 @@ compile_dll <- function(path = ".",
     )
   } else {
     # Otherwise set makevars for fast development / debugging
-    withr::with_makevars(compiler_flags(TRUE), assignment = "+=", {
+    withr::with_makevars(compiler_flags(TRUE), .assignment = "+=", {
       install_min(
         path,
         dest = install_dir,
