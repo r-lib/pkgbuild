@@ -57,7 +57,10 @@ pkgbuild_process <- R6Class(
                manual, clean_doc, args, needs_compilation, compile_attributes,
                register_routines),
 
-    finalize = function() super$kill(),
+    finalize = function() {
+      unlink(private$makevars_file)
+      super$kill()
+    },
 
     is_incomplete_error = function() FALSE,
     read_all_error = function() "",
@@ -83,14 +86,18 @@ pkgbuild_process <- R6Class(
       private$out_file
     },
 
-    kill = function(...) super$kill(...)
+    kill = function(...) {
+      unlink(private$makevars_file)
+      super$kill(...)
+    }
   ),
 
   private = list(
     path = NULL,
     dest_path = NULL,
     out_dir = NULL,
-    out_file = NULL
+    out_file = NULL,
+    makevars_file = NULL
   )
 )
 
@@ -107,9 +114,12 @@ rcb_init <- function(self, private, super, path, dest_path, binary,
   private$path <- options$path
   private$dest_path <- options$dest_path
   private$out_dir <- options$out_dir
+  private$makevars_file <- tempfile()
 
   ## Build tools already checked in setup
 
+  withr::set_makevars(compiler_flags(debug = FALSE), new_path = private$makevars_file, assignment = "+=")
+  withr::local_envvar("R_MAKEVARS_USER" = private$makevars_file)
   options <- rcmd_process_options(
     cmd = options$cmd,
     cmdargs = c(options$path, options$args),

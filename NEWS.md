@@ -1,5 +1,7 @@
 # pkgbuild (development version)
 
+* `pkgbuild_process()` and `build()` now use colored compiler diagnostics if supported (#102)
+
 # pkgbuild 1.1.0
 
 * `compile_dll()` now supports automatic cpp11 registration if the package links to cpp11.
