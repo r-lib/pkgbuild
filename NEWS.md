@@ -1,5 +1,6 @@
 # pkgbuild (development version)
 
+* `compile_dll()` gains a `debug` argument for more control over the compile options used (@richfitz, #100)
 * `pkgbuild_process()` and `build()` now use colored compiler diagnostics if supported (#102)
 
 # pkgbuild 1.1.0
