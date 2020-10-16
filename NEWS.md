@@ -1,5 +1,7 @@
 # pkgbuild (development version)
 
+* `compile_dll()` gains a `debug` argument for more control over the compile options used (@richfitz, #100)
+
 # pkgbuild 1.1.0
 
 * `compile_dll()` now supports automatic cpp11 registration if the package links to cpp11.
