@@ -43,7 +43,7 @@ without_compiler <- function(code) {
   flags <- c(
     CC = "test",
     CXX = "test",
-    CXX1X = "test",
+    CXX11 = "test",
     FC = "test"
   )
 
