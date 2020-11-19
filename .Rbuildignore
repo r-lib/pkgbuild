@@ -10,3 +10,4 @@
 ^pkgbuild.*\.tar\.gz$
 ^script\.R$
 ^\.github$
+^LICENSE\.md$
