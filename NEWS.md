@@ -1,4 +1,4 @@
-# pkgbuild (development version)
+# pkgbuild 1.2.0
 
 * pkgbuild is now licensed as MIT (#106)  
 * `compile_dll()` gains a `debug` argument for more control over the compile options used (@richfitz, #100)
