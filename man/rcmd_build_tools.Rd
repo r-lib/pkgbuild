@@ -10,7 +10,7 @@ rcmd_build_tools(..., env = character(), required = TRUE, quiet = FALSE)
 \item{...}{Parameters passed on to \code{rcmd_safe}.}
 
 \item{env}{Additional environment variables to set. The defaults from
-\code{\link[callr:rcmd_safe]{callr::rcmd_safe_env()}} are always set.}
+\code{callr::rcmd_safe_env()} are always set.}
 
 \item{required}{If \code{TRUE}, and build tools are not available,
 will throw an error. Otherwise will attempt to run \code{code} without
@@ -19,7 +19,7 @@ them.}
 \item{quiet}{if \code{TRUE} suppresses output from this function.}
 }
 \description{
-This is a wrapper around \code{\link[callr:rcmd]{callr::rcmd_safe()}} that checks
+This is a wrapper around \code{callr::rcmd_safe()} that checks
 that you have build tools available, and on Windows, automatically sets
 the path to include Rtools.
 }

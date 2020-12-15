@@ -1,12 +1,12 @@
 #' Call R CMD 'command' with build tools active
 #'
-#' This is a wrapper around [callr::rcmd_safe()] that checks
+#' This is a wrapper around `callr::rcmd_safe()` that checks
 #' that you have build tools available, and on Windows, automatically sets
 #' the path to include Rtools.
 #'
 #' @param ... Parameters passed on to `rcmd_safe`.
 #' @param env Additional environment variables to set. The defaults from
-#'   [callr::rcmd_safe_env()] are always set.
+#'   `callr::rcmd_safe_env()` are always set.
 #' @inheritParams with_build_tools
 #' @inheritParams build
 #' @export

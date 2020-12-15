@@ -11,14 +11,14 @@
 #' ```
 #'
 #' Other methods are inherited from [callr::rcmd_process] and
-#' [processx::process].
+#' `processx::process`.
 #'
 #' @section Arguments:
 #' See the corresponding arguments of [build()].
 #'
 #' @section Details:
 #' Most methods are inherited from [callr::rcmd_process] and
-#' [processx::process].
+#' `processx::process`.
 #'
 #' `bp$get_dest_path()` returns the path to the built package.
 #'

@@ -14,7 +14,7 @@ bp$get_dest_path()
 }
 
 Other methods are inherited from \link[callr:rcmd_process]{callr::rcmd_process} and
-\link[processx:process]{processx::process}.
+\code{processx::process}.
 }
 
 \section{Arguments}{
@@ -25,7 +25,7 @@ See the corresponding arguments of \code{\link[=build]{build()}}.
 \section{Details}{
 
 Most methods are inherited from \link[callr:rcmd_process]{callr::rcmd_process} and
-\link[processx:process]{processx::process}.
+\code{processx::process}.
 
 \code{bp$get_dest_path()} returns the path to the built package.
 }
