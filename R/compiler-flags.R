@@ -18,30 +18,40 @@
 compiler_flags <- function(debug = FALSE) {
   res <-
     if (Sys.info()[["sysname"]] == "SunOS") {
-    c(
-      CFLAGS   = "-g",
-      CXXFLAGS = "-g",
-      CXX11FLAGS = "-g"
-    )
-  } else if (debug) {
-    c(
-      CFLAGS   = "-UNDEBUG -Wall -pedantic -g -O0",
-      CXXFLAGS = "-UNDEBUG -Wall -pedantic -g -O0",
-      CXX11FLAGS = "-UNDEBUG -Wall -pedantic -g -O0",
-      FFLAGS   = "-g -O0",
-      FCFLAGS  = "-g -O0"
-    )
-  } else {
-    c(
-      CFLAGS   = "-Wall -pedantic",
-      CXXFLAGS = "-Wall -pedantic",
-      CXX11FLAGS = "-Wall -pedantic"
-    )
-  }
+      c(
+        CFLAGS   = "-g",
+        CXXFLAGS = "-g",
+        CXX11FLAGS = "-g",
+        CXX14FLAGS = "-g",
+        CXX17FLAGS = "-g",
+        CXX20FLAGS = "-g"
+      )
+    } else if (debug) {
+      c(
+        CFLAGS   = "-UNDEBUG -Wall -pedantic -g -O0",
+        CXXFLAGS = "-UNDEBUG -Wall -pedantic -g -O0",
+        CXX11FLAGS = "-UNDEBUG -Wall -pedantic -g -O0",
+        CXX14FLAGS = "-UNDEBUG -Wall -pedantic -g -O0",
+        CXX17FLAGS = "-UNDEBUG -Wall -pedantic -g -O0",
+        CXX20FLAGS = "-UNDEBUG -Wall -pedantic -g -O0",
+        FFLAGS   = "-g -O0",
+        FCFLAGS  = "-g -O0"
+      )
+    } else {
+      c(
+        CFLAGS   = "-Wall -pedantic",
+        CXXFLAGS = "-Wall -pedantic",
+        CXX11FLAGS = "-Wall -pedantic",
+        CXX14FLAGS = "-Wall -pedantic",
+        CXX17FLAGS = "-Wall -pedantic",
+        CXX20FLAGS = "-Wall -pedantic"
+      )
+    }
 
   if (crayon::has_color() && has_compiler_colored_diagnostics()) {
-    res[c("CFLAGS", "CXXFLAGS", "CXX11FLAGS")] <-
-      paste(res[c("CFLAGS", "CXXFLAGS", "CXX11FLAGS")], "-fdiagnostics-color=always")
+    flags <- c("CFLAGS", "CXXFLAGS", "CXX11FLAGS",
+               "CXX14FLAGS", "CXX17FLAGS", "CXX20FLAGS")
+    res[flags] <- paste(res[flags], "-fdiagnostics-color=always")
   }
   res
 }
