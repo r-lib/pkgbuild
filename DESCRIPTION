@@ -17,7 +17,7 @@ Imports:
     prettyunits,
     R6,
     rprojroot,
-    withr (>= 2.1.2)
+    withr (>= 2.3.0)
 Suggests:
     Rcpp,
     cpp11,
