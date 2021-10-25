@@ -124,17 +124,17 @@ build_setup_source <- function(path, dest_path, vignettes, manual, clean_doc,
     args <- c(args, "--no-resave-data")
   }
 
-  if (manual && !has_latex()) {
+  if (!manual) {
+    args <- c(args, "--no-manual")
+  }
+
+  no_manual <- "--no-manual" %in% args
+  if (!no_manual && !has_latex()) {
     message("pdflatex not found! Not building PDF manual.")
-    manual <- FALSE
   }
 
   if (needs_compilation && (vignettes || manual)) {
     check_build_tools(quiet = TRUE)
-  }
-
-  if (!manual) {
-    args <- c(args, "--no-manual")
   }
 
   if (!vignettes) {
