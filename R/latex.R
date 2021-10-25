@@ -4,6 +4,9 @@
 #'
 #' @export
 has_latex <- function() {
+  if (!is.null(fix <- getOption("PKGBUILD_TEST_FIXTURE_HAS_LATEX")))
+    return(fix)
+
   nzchar(Sys.which("pdflatex"))
 }
 
