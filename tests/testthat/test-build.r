@@ -1,5 +1,62 @@
 context("build")
 
+# Package build setup ----------------------------------------------------
+
+test_that("with*_latex context fixtures force has_latex result", {
+  expect_true(with_latex(has_latex()))
+  expect_false(without_latex(has_latex()))
+
+  # one of them should be different from default
+  expect_true({
+    with_latex(has_latex()) != has_latex() ||
+    without_latex(has_latex()) != has_latex()
+  })
+})
+
+# expect `manual=TRUE` & empty `args` not to add build --no-manual flag
+test_that("source build setup accept args and/or parameterized helpers", {
+  expect_silent(res <- with_latex({
+    build_setup_source(
+      file.path(testthat::test_path(), "testDummy"),
+      file.path(tempdir(), "testDummyBuild"),
+      vignettes = FALSE,
+      manual = TRUE,
+      clean_doc = FALSE,
+      args = c(),
+      needs_compilation = FALSE
+    )
+  }))
+  expect_true(!"--no-manual" %in% res$args)
+
+  # expect `manual=FALSE` to affect build --no-manual flag
+  expect_silent(res <- with_latex({
+    build_setup_source(
+      file.path(testthat::test_path(), "testDummy"),
+      file.path(tempdir(), "testDummyBuild"),
+      vignettes = FALSE,
+      manual = FALSE,
+      clean_doc = FALSE,
+      args = c(),
+      needs_compilation = FALSE
+    )
+  }))
+  expect_true("--no-manual" %in% res$args)
+
+  # expect `args` "--no-manual" to affect build --no-manual flag
+  expect_silent(res <- with_latex({
+    build_setup_source(
+      file.path(testthat::test_path(), "testDummy"),
+      file.path(tempdir(), "testDummyBuild"),
+      vignettes = FALSE,
+      manual = TRUE,
+      clean_doc = FALSE,
+      args = c("--no-manual"),
+      needs_compilation = FALSE
+    )
+  }))
+  expect_true("--no-manual" %in% res$args)
+})
+
 # Package without source code --------------------------------------------
 
 test_that("source builds return correct filenames", {

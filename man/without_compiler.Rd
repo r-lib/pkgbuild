@@ -3,11 +3,17 @@
 \name{without_compiler}
 \alias{without_compiler}
 \alias{without_cache}
+\alias{without_latex}
+\alias{with_latex}
 \title{Tools for testing pkgbuild}
 \usage{
 without_compiler(code)
 
 without_cache(code)
+
+without_latex(code)
+
+with_latex(code)
 }
 \arguments{
 \item{code}{Code to execute with broken compilers}
