@@ -4,6 +4,9 @@
 * `compile_dll()` gains a `debug` argument for more control over the compile options used (@richfitz, #100)
 * `pkgbuild_process()` and `build()` now use colored compiler diagnostics if supported (#102)
 * Avoid documentation link ambiguity in R 4.1 (#105)
+* `build_setup_source` now considerers both command-line build arguments, as
+  well as parameters `vignettes` or `manual` when conditionally executing
+  flag-dependent behaviors (@dgkf, #120)
 
 # pkgbuild 1.1.0
 

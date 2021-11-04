@@ -55,6 +55,41 @@ test_that("source build setup accept args and/or parameterized helpers", {
     )
   }))
   expect_true("--no-manual" %in% res$args)
+
+  expect_silent(res <- build_setup_source(
+    file.path(testthat::test_path(), "testDummy"),
+    file.path(tempdir(), "testDummyBuild"),
+    vignettes = TRUE,
+    manual = FALSE,
+    clean_doc = FALSE,
+    args = c(),
+    needs_compilation = FALSE
+  ))
+  expect_true(!"--no-build-vignettes" %in% res$args)
+
+  # expect `vignettes=FALSE` to affect build --no-build-vignettes flag
+  expect_silent(res <-build_setup_source(
+    file.path(testthat::test_path(), "testDummy"),
+    file.path(tempdir(), "testDummyBuild"),
+    vignettes = FALSE,
+    manual = FALSE,
+    clean_doc = FALSE,
+    args = c(),
+    needs_compilation = FALSE
+  ))
+  expect_true("--no-build-vignettes" %in% res$args)
+
+  # expect `arg` `--no-build-vignettes` to produce --no-build-vignettes flag
+  expect_silent(res <- build_setup_source(
+    file.path(testthat::test_path(), "testDummy"),
+    file.path(tempdir(), "testDummyBuild"),
+    vignettes = TRUE,
+    manual = FALSE,
+    clean_doc = FALSE,
+    args = c("--no-build-vignettes"),
+    needs_compilation = FALSE
+  ))
+  expect_true("--no-build-vignettes" %in% res$args)
 })
 
 # Package without source code --------------------------------------------
