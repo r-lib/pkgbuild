@@ -1,4 +1,6 @@
-# pkgbuild 1.2.1
+# pkgbuild (development)
+
+* Gábor Csárdi is now the maintainer.
 
 * `build_setup_source` now considerers both command-line build arguments, as
   well as parameters `vignettes` or `manual` when conditionally executing
