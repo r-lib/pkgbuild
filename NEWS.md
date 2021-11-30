@@ -1,3 +1,5 @@
+# pkgbuild 1.2.1
+
 # pkgbuild (development)
 
 * Gábor Csárdi is now the maintainer.
