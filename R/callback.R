@@ -105,3 +105,10 @@ block_callback <- function(quiet) {
 is_new_check <- function(x) {
   grepl("^\\* ", x)
 }
+
+simple_callback <- function(quiet) {
+  function(x) {
+    if (quiet) return()
+    cat(x)
+  }
+}
