@@ -135,6 +135,7 @@ build_setup_source <- function(path, dest_path, vignettes, manual, clean_doc,
   no_manual <- "--no-manual" %in% args
   if (!no_manual && !has_latex()) {
     message("pdflatex not found! Not building PDF manual.")
+    manual <- FALSE
   }
 
   if (needs_compilation && (vignettes || manual)) {

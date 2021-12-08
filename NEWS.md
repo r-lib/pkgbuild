@@ -1,8 +1,8 @@
 # pkgbuild (development version)
 
-# pkgbuild 1.2.1
+* pkgbuild does not build the PDF manual now if `pdflatex` is not installed, even if `manual = TRUE` (#123).
 
-# pkgbuild (development)
+# pkgbuild 1.2.1
 
 * Gábor Csárdi is now the maintainer.
 
