@@ -1,5 +1,7 @@
 # pkgbuild (development version)
 
+* pkgbuild output now looks better in `.Rmd` documents and in general in non-dynamic terminals. You can also force dynamic and non-dynamic output now (#64).
+
 * pkgbuild does not build the PDF manual now if `pdflatex` is not installed, even if `manual = TRUE` (#123).
 
 # pkgbuild 1.2.1
