@@ -21,8 +21,13 @@ build(
 \arguments{
 \item{path}{Path to a package, or within a package.}
 
-\item{dest_path}{path in which to produce package.  If \code{NULL}, defaults to
-the parent directory of the package.}
+\item{dest_path}{path in which to produce package. If it is an existing
+directory, then the output file is placed in \code{dest_path} and named
+according to the current R conversions (e.g. \code{.zip} for Windows binary
+packages, \code{.tgz} for macOS binary packages, etc).
+If it is an existing file, then it will be overwritten.
+If \code{dest_path} does not exist, then it is used as a file name.
+If \code{NULL}, it defaults to the parent directory of the package.}
 
 \item{binary}{Produce a binary (\code{--binary}) or source (
 \code{--no-manual --no-resave-data}) version of the package.}

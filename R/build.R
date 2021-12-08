@@ -10,8 +10,13 @@
 #' environment is needed.
 #'
 #' @param path Path to a package, or within a package.
-#' @param dest_path path in which to produce package.  If `NULL`, defaults to
-#'   the parent directory of the package.
+#' @param dest_path path in which to produce package. If it is an existing
+#'   directory, then the output file is placed in `dest_path` and named
+#'   according to the current R conversions (e.g. `.zip` for Windows binary
+#'   packages, `.tgz` for macOS binary packages, etc).
+#'   If it is an existing file, then it will be overwritten.
+#'   If `dest_path` does not exist, then it is used as a file name.
+#'   If `NULL`, it defaults to the parent directory of the package.
 #' @param binary Produce a binary (`--binary`) or source (
 #'   `--no-manual --no-resave-data`) version of the package.
 #' @param vignettes,manual For source packages: if `FALSE`, don't build PDF
@@ -60,8 +65,14 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
   out_file <- dir(options$out_dir)
   file.copy(
     file.path(options$out_dir, out_file), options$dest_path,
-    overwrite = TRUE)
-  file.path(options$dest_path, out_file)
+    overwrite = TRUE
+  )
+
+  if (is_dir(options$dest_path)) {
+    file.path(options$dest_path, out_file)
+  } else {
+    options$dest_path
+  }
 }
 
 build_setup <- function(path, dest_path, binary, vignettes, manual, clean_doc, args,
