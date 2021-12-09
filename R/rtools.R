@@ -28,8 +28,20 @@ has_rtools <- function(debug = FALSE) {
   if (!is_windows())
     return(FALSE)
 
+  # R 4.2.x or later and ucrt?
+  ucrt <- is_ucrt()
+  if (ucrt) {
+    rtools42_home <- Sys.getenv("RTOOLS42_HOME", "C:\\rtools42")
+    if(file.exists(file.path(rtools42_home, 'usr', 'bin'))){
+      if (debug)
+        cat("Found in Rtools 4.2 installation folder\n")
+      rtools_path_set(rtools(rtools42_home, '4.2'))
+      return(TRUE)
+    }
+  }
+
   # In R 4.0 we can use RTOOLS40_HOME
-  if(is_R4()){
+  if(is_R4() && !ucrt) {
     rtools40_home <- Sys.getenv('RTOOLS40_HOME', 'C:\\rtools40')
     if(file.exists(file.path(rtools40_home, 'usr', 'bin'))){
       if (debug)
@@ -67,9 +79,10 @@ has_rtools <- function(debug = FALSE) {
       return(TRUE)
     } else {
       # Installed, but not compatible
+      needed <- rtools_needed()
       message("WARNING: Rtools ", from_path$version, " found on the path",
         " at ", from_path$path, " is not compatible with R ", getRversion(), ".\n\n",
-        "Please download and install ", rtools_needed(), " from ", rtools_url,
+        "Please download and install ", needed, " from ", rtools_url(needed),
         ", remove the incompatible version from your PATH.")
       return(invisible(FALSE))
     }
@@ -80,9 +93,10 @@ has_rtools <- function(debug = FALSE) {
 
   if (length(registry_candidates) == 0) {
     # Not on path or in registry, so not installled
+    needed <- rtools_needed()
     message("WARNING: Rtools is required to build R packages, but is not ",
       "currently installed.\n\n",
-      "Please download and install ", rtools_needed(), " from ", rtools_url, ".")
+      "Please download and install ", needed, " from ", rtools_url(needed), ".")
     return(invisible(FALSE))
   }
 
@@ -90,11 +104,12 @@ has_rtools <- function(debug = FALSE) {
   if (is.null(from_registry)) {
     # In registry, but not compatible.
     versions <- vapply(registry_candidates, function(x) x$version, character(1))
+    needed <- rtools_needed()
     message("WARNING: Rtools is required to build R packages, but no version ",
       "of Rtools compatible with R ", getRversion(), " was found. ",
-      "(Only the following incompatible version(s) of Rtools were found:",
-      paste(versions, collapse = ","), ")\n\n",
-      "Please download and install ", rtools_needed(), " from ", rtools_url, ".")
+      "(Only the following incompatible version(s) of Rtools were found: ",
+      paste(versions, collapse = ", "), ")\n\n",
+      "Please download and install ", needed, " from ", rtools_url(needed), ".")
     return(invisible(FALSE))
   }
 
@@ -104,21 +119,23 @@ has_rtools <- function(debug = FALSE) {
     installed_ver <- installed_version(from_registry$path, debug = debug)
     if (is.null(installed_ver)) {
       # Previously installed version now deleted
+      needed <- rtools_needed()
       message("WARNING: Rtools is required to build R packages, but the ",
         "version of Rtools previously installed in ", from_registry$path,
         " has been deleted.\n\n",
-        "Please download and install ", rtools_needed(), " from ", rtools_url, ".")
+        "Please download and install ", needed, " from ", rtools_url(needed), ".")
       return(invisible(FALSE))
     }
 
     if (installed_ver != from_registry$version) {
       # Installed version doesn't match registry version
+      needed <- rtools_needed()
       message("WARNING: Rtools is required to build R packages, but no version ",
         "of Rtools compatible with R ", getRversion(), " was found. ",
         "Rtools ", from_registry$version, " was previously installed in ",
         from_registry$path, " but now that directory contains Rtools ",
         installed_ver, ".\n\n",
-        "Please download and install ", rtools_needed(), " from ", rtools_url, ".")
+        "Please download and install ", needed, " from ", rtools_url(needed), ".")
       return(invisible(FALSE))
     }
   }
@@ -126,6 +143,10 @@ has_rtools <- function(debug = FALSE) {
   # Otherwise it must be ok :)
   rtools_path_set(from_registry)
   TRUE
+}
+
+is_ucrt <- function() {
+  identical(R.Version()$crt, "ucrt")
 }
 
 #' @rdname has_rtools
@@ -208,4 +229,11 @@ rtools_needed <- function(r_version = getRversion()) {
   "the appropriate version of Rtools"
 }
 
-rtools_url <- "https://cran.r-project.org/bin/windows/Rtools/"
+rtools_url <- function(needed) {
+  paste0(
+    "https://cran.r-project.org/bin/windows/Rtools/",
+    if (needed == "Rtools 4.2") {
+      " or https://www.r-project.org/nosvn/winutf8/ucrt3/"
+    }
+  )
+}
