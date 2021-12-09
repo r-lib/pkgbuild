@@ -1,5 +1,9 @@
 # pkgbuild (development version)
 
+* pkgbuild now supports Rtools 4.2.
+
+* pkgbuild now returns the correct path for R 3.x (#96).
+
 * `build()` now always returns the path of the built package (#108).
 
 * pkgbuild output now looks better in `.Rmd` documents and in general in non-dynamic terminals. You can also force dynamic and non-dynamic output now (#64).
