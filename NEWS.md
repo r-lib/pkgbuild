@@ -1,4 +1,4 @@
-# pkgbuild (development version)
+# pkgbuild 1.3.0
 
 * pkgbuild now supports Rtools 4.2.
 
