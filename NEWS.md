@@ -1,5 +1,14 @@
 # pkgbuild (development version)
 
+* Accept Rtools40 for R 4.2, it works well, as long as the PATH includes
+  both `${RTOOLS40_HOME}/usr/bin` and `${RTOOLS40_HOME}/ucrt64/bin`.
+  E.g. `~/.Renviron` should contain now
+  ```
+  PATH="${RTOOLS40_HOME}\usr\bin;${RTOOLS40_HOME}\ucrt64\bin;${PATH}"
+  ```
+  to make Rtools40 work with both R 4.2.x (devel currently) and R 4.1.x and
+  R 4.0.x.
+
 # pkgbuild 1.3.0
 
 * pkgbuild now supports Rtools 4.2.
