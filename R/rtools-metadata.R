@@ -66,7 +66,7 @@ version_info <- list(
   "4.0" = list(
     version_min = "4.0.0",
     version_max = "4.1.99",
-    path = "usr/bin"
+    path = c("usr/bin", "ucrt64/bin")
   ),
   "4.2" = list(
     version_min = "4.2.0",

@@ -40,10 +40,12 @@ has_rtools <- function(debug = FALSE) {
     }
   }
 
-  # In R 4.0 we can use RTOOLS40_HOME
-  if(is_R4() && !ucrt) {
+  # In R 4.0 we can use RTOOLS40_HOME, recent versions of Rtools40 work fine
+  # with ucrt as well, currently.
+  if(is_R4()) {
     rtools40_home <- Sys.getenv('RTOOLS40_HOME', 'C:\\rtools40')
-    if(file.exists(file.path(rtools40_home, 'usr', 'bin'))){
+    fld <- if (ucrt) "ucrt64" else "usr"
+    if (file.exists(file.path(rtools40_home, fld, 'bin'))){
       if (debug)
         cat("Found in Rtools 4.0 installation folder\n")
       rtools_path_set(rtools(rtools40_home, '4.0'))
