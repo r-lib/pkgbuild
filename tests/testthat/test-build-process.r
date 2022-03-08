@@ -1,4 +1,3 @@
-context("pkgbuild_process")
 
 # Package without source code --------------------------------------------
 
