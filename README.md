@@ -29,3 +29,9 @@ pkgbuild::build("/path/to/my/package")
 # have build tools available
 pkgbuild::with_build_tools(my_code)
 ```
+
+## Code of Conduct
+
+Please note that the pkgbuild project is released with a
+[Contributor Code of Conduct](https://r-lib.github.io/pkgbuild/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
