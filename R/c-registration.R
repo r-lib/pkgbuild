@@ -10,11 +10,9 @@ update_registration <- function(path, compile_attributes, register_routines, qui
     update_c_registration(path)
     check_namespace_registration(path)
   }
-
 }
 
 update_c_registration <- function(path) {
-
   path <- pkg_path(path)
 
   pkgbuild_init_file <- file.path(path, "src", "init.c")
@@ -40,9 +38,7 @@ update_c_registration <- function(path) {
   }
 
   if (!file.exists(pkgbuild_init_file)) {
-
     lines <- remove_fixme(lines)
-
   } else {
     current_lines <- readLines(pkgbuild_init_file)
 
@@ -112,9 +108,10 @@ check_namespace_registration <- function(path) {
   has_registration <- any(grepl("^[[:space:]]*useDynLib.*[.]registration[[:space:]]*=[[:space:]]*TRUE", pkg_namespace))
 
   if (!has_registration) {
-    warning(immediate. = TRUE, call. = FALSE,
+    warning(
+      immediate. = TRUE, call. = FALSE,
       sprintf(
-"NAMESPACE missing native routine registration:
+        "NAMESPACE missing native routine registration:
   * Add `#' @useDynLib %s, .registration = TRUE` to R files.
   * Run `devtools::document()`",
         pkg_name(path)

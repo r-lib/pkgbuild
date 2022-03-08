@@ -4,7 +4,6 @@
 
 # This is adapted from https://github.com/r-lib/rcmdcheck/blob/7ee14764c2b17ee2c2f4131a9e19d1b56a66ed0f/R/callback.R
 block_callback <- function(quiet) {
-
   partial_line <- ""
 
   state <- "OK"
@@ -20,7 +19,7 @@ block_callback <- function(quiet) {
 
   time_if_long <- function() {
     elapsed <- now - line_started
-    if (elapsed> as.difftime(1/3, units = "secs")) {
+    if (elapsed > as.difftime(1 / 3, units = "secs")) {
       style(timing = paste0(" (", pretty_dt(elapsed), ")"))
     } else {
       ""
@@ -28,7 +27,6 @@ block_callback <- function(quiet) {
   }
 
   do_line <- function(x) {
-
     should_time <<- FALSE
     now <<- Sys.time()
 
@@ -47,7 +45,9 @@ block_callback <- function(quiet) {
     prev_line <<- x
 
     ## NA_character_ can omit output
-    if (is.na(xx)) return()
+    if (is.na(xx)) {
+      return()
+    }
 
     if (should_time) xx <- style(xx, timing = time_if_long())
 
@@ -87,7 +87,9 @@ block_callback <- function(quiet) {
   }
 
   function(x) {
-    if (quiet) return()
+    if (quiet) {
+      return()
+    }
 
     x <- paste0(partial_line, x)
     partial_line <<- ""
@@ -108,7 +110,9 @@ is_new_check <- function(x) {
 
 simple_callback <- function(quiet) {
   function(x) {
-    if (quiet) return()
+    if (quiet) {
+      return()
+    }
     cat(x)
   }
 }

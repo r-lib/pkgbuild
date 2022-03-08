@@ -8,27 +8,31 @@ pkg_has_src <- function(path = ".") {
   if (is_dir(path)) {
     src_path <- file.path(pkg_path(path), "src")
     file.exists(src_path)
-
   } else {
-    tryCatch({
-      files <- if (is_zip_file(path)) {
-        utils::unzip(path, list = TRUE)$Name
-      } else if (is_tar_gz_file(path)) {
-        utils::untar(path, list = TRUE)
-      } else {
-        stop("not a zip or tar.gz file")
-      }
+    tryCatch(
+      {
+        files <- if (is_zip_file(path)) {
+          utils::unzip(path, list = TRUE)$Name
+        } else if (is_tar_gz_file(path)) {
+          utils::untar(path, list = TRUE)
+        } else {
+          stop("not a zip or tar.gz file")
+        }
 
-      if (!any(grepl("^[^/]+/DESCRIPTION$", files))) {
-        stop("no DESCRIPTION file")
-      }
+        if (!any(grepl("^[^/]+/DESCRIPTION$", files))) {
+          stop("no DESCRIPTION file")
+        }
 
-      any(grepl("^[^/]+/src/?$", files))
-    }, error = function(e) {
-      e$message <- paste(path, "is not a valid package archive file,",
-                         e$message)
-      stop(e)
-    })
+        any(grepl("^[^/]+/src/?$", files))
+      },
+      error = function(e) {
+        e$message <- paste(
+          path, "is not a valid package archive file,",
+          e$message
+        )
+        stop(e)
+      }
+    )
   }
 }
 
@@ -50,7 +54,9 @@ is_gz_file <- function(file) {
 }
 
 is_tar_gz_file <- function(file) {
-  if (!is_gz_file(file)) return(FALSE)
+  if (!is_gz_file(file)) {
+    return(FALSE)
+  }
   con <- gzfile(file, open = "rb")
   on.exit(close(con))
   buf <- readBin(con, what = "raw", n = 262)

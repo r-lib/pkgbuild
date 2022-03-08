@@ -33,7 +33,6 @@ Temporarily set debugging compilation flags.
 \examples{
 flags <- names(compiler_flags(TRUE))
 with_debug(Sys.getenv(flags))
-
 \dontrun{
 install("mypkg")
 with_debug(install("mypkg"))

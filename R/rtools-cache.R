@@ -30,5 +30,5 @@ rtools_path_set <- function(rtools) {
 }
 
 using_gcc49 <- function() {
-  grepl('4.9.3', Sys.getenv("R_COMPILED_BY"), fixed = TRUE)
+  grepl("4.9.3", Sys.getenv("R_COMPILED_BY"), fixed = TRUE)
 }

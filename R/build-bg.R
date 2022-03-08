@@ -45,37 +45,36 @@ NULL
 pkgbuild_process <- R6Class(
   "pkgbuild_process",
   inherit = callr::rcmd_process,
-
   public = list(
-
     initialize = function(path = ".", dest_path = NULL, binary = FALSE,
                           vignettes = TRUE, manual = FALSE, clean_doc = NULL,
                           args = NULL, needs_compilation = pkg_has_src(path),
                           compile_attributes = FALSE,
-                          register_routines = FALSE)
-      rcb_init(self, private, super, path, dest_path, binary, vignettes,
-               manual, clean_doc, args, needs_compilation, compile_attributes,
-               register_routines),
-
+                          register_routines = FALSE) {
+      rcb_init(
+        self, private, super, path, dest_path, binary, vignettes,
+        manual, clean_doc, args, needs_compilation, compile_attributes,
+        register_routines
+      )
+    },
     finalize = function() {
       unlink(private$makevars_file)
       super$kill()
     },
-
     is_incomplete_error = function() FALSE,
     read_all_error = function() "",
     read_all_error_lines = function() character(),
     read_error = function(n = -1) "",
     read_error_lines = function(n = -1) character(),
-
     get_dest_path = function() private$dest_path,
-
     get_built_file = function() {
       if (self$is_alive()) stop("Still alive")
       if (self$get_exit_status() != 0) stop("Build process failed")
 
       ## Already copied?
-      if (!is.null(private$out_file)) return(private$out_file)
+      if (!is.null(private$out_file)) {
+        return(private$out_file)
+      }
 
       ## No, copy, and remove temp dir, order is important here!
       file_name <- dir(private$out_dir)
@@ -85,13 +84,11 @@ pkgbuild_process <- R6Class(
       unlink(private$out_dir, recursive = TRUE)
       private$out_file
     },
-
     kill = function(...) {
       unlink(private$makevars_file)
       super$kill(...)
     }
   ),
-
   private = list(
     path = NULL,
     dest_path = NULL,
@@ -106,10 +103,11 @@ pkgbuild_process <- R6Class(
 rcb_init <- function(self, private, super, path, dest_path, binary,
                      vignettes, manual, clean_doc, args, needs_compilation,
                      compile_attributes, register_routines, quiet) {
-
-  options <- build_setup(path, dest_path, binary, vignettes, manual, clean_doc,
-                         args, needs_compilation, compile_attributes,
-                         register_routines, quiet)
+  options <- build_setup(
+    path, dest_path, binary, vignettes, manual, clean_doc,
+    args, needs_compilation, compile_attributes,
+    register_routines, quiet
+  )
 
   private$path <- options$path
   private$dest_path <- options$dest_path
