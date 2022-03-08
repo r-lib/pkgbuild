@@ -1,4 +1,8 @@
 url: https://r-lib.github.io/pkgbuild/
-template:
-  bootstrap: 5
 
+template:
+  package: tidytemplate
+  bootstrap: 5
+  includes:
+    in_header: |
+      <script defer data-domain="r-lib.github.io/pkgbuild,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
