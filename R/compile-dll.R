@@ -37,8 +37,9 @@ compile_dll <- function(path = ".",
   update_registration(path, compile_attributes, register_routines, quiet)
 
   # Mock install the package to generate the DLL
-  if (!quiet)
+  if (!quiet) {
     message("Re-compiling ", pkg_name(path))
+  }
 
   install_dir <- tempfile("devtools_install_")
   dir.create(install_dir)
@@ -61,7 +62,7 @@ compile_dll <- function(path = ".",
         components = "libs",
         args = if (needs_clean(path)) "--preclean",
         quiet = quiet
-        )
+      )
     })
   }
 
@@ -105,7 +106,9 @@ dll_path <- function(path = ".") {
 
 mtime <- function(x) {
   x <- x[file.exists(x)]
-  if (length(x) == 0) return(NULL)
+  if (length(x) == 0) {
+    return(NULL)
+  }
   max(file.info(x)$mtime)
 }
 
@@ -136,11 +139,15 @@ headers <- function(path = ".") {
 needs_compile <- function(path = ".") {
   source <- mtime(c(sources(path), headers(path)))
   # no source files, so doesn't need compile
-  if (is.null(source)) return(FALSE)
+  if (is.null(source)) {
+    return(FALSE)
+  }
 
   dll <- mtime(dll_path(path))
   # no dll, so needs compile
-  if (is.null(dll)) return(TRUE)
+  if (is.null(dll)) {
+    return(TRUE)
+  }
 
   source > dll
 }
@@ -150,11 +157,15 @@ needs_compile <- function(path = ".") {
 needs_clean <- function(path = ".") {
   headers <- mtime(headers(path))
   # no headers, so never needs clean compile
-  if (is.null(headers)) return(FALSE)
+  if (is.null(headers)) {
+    return(FALSE)
+  }
 
   dll <- mtime(dll_path(path))
   # no dll, so needs compile
-  if (is.null(dll)) return(TRUE)
+  if (is.null(dll)) {
+    return(TRUE)
+  }
 
   headers > dll
 }
