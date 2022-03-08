@@ -12,14 +12,12 @@
 #' @examples
 #' flags <- names(compiler_flags(TRUE))
 #' with_debug(Sys.getenv(flags))
-#'
 #' \dontrun{
 #' install("mypkg")
 #' with_debug(install("mypkg"))
 #' }
 with_debug <- function(code, CFLAGS = NULL, CXXFLAGS = NULL,
                        FFLAGS = NULL, FCFLAGS = NULL, debug = TRUE) {
-
   defaults <- compiler_flags(debug = debug)
   flags <- c(
     CFLAGS = CFLAGS, CXXFLAGS = CXXFLAGS,

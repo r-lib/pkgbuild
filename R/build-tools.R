@@ -26,7 +26,7 @@
 #' check_build_tools()
 has_build_tools <- function(debug = FALSE) {
   check <- getOption("buildtools.check", NULL)
-  if(is_windows() && is_R4() && has_rtools(debug = debug)){
+  if (is_windows() && is_R4() && has_rtools(debug = debug)) {
     TRUE
   } else if (!is.null(check)) {
     check("Building R package from source")
@@ -43,7 +43,9 @@ check_build_tools <- function(debug = FALSE, quiet = FALSE) {
   if (!has_build_tools(debug = debug)) {
     stop(
       "Could not find tools necessary to compile a package\n",
-      "Call `pkgbuild::check_build_tools(debug = TRUE)` to diagnose the problem.", call. = FALSE)
+      "Call `pkgbuild::check_build_tools(debug = TRUE)` to diagnose the problem.",
+      call. = FALSE
+    )
   } else if (!isTRUE(quiet)) {
     message("Your system is ready to build packages!")
   }
@@ -59,8 +61,9 @@ check_build_tools <- function(debug = FALSE, quiet = FALSE) {
 #'   will throw an error. Otherwise will attempt to run `code` without
 #'   them.
 with_build_tools <- function(code, debug = FALSE, required = TRUE) {
-  if (required)
+  if (required) {
     check_build_tools(debug = debug, quiet = TRUE)
+  }
 
   if (has_rtools()) {
     withr::with_path(rtools_path(), code)
@@ -73,8 +76,9 @@ with_build_tools <- function(code, debug = FALSE, required = TRUE) {
 #' @inheritParams withr::local_path
 #' @export
 local_build_tools <- function(debug = FALSE, required = TRUE, .local_envir = parent.frame()) {
-  if (required)
+  if (required) {
     check_build_tools(debug = debug, quiet = TRUE)
+  }
 
   if (has_rtools()) {
     withr::local_path(rtools_path(), .local_envir = .local_envir)

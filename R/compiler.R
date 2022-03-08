@@ -23,32 +23,37 @@ has_compiler <- function(debug = FALSE) {
   cat("void foo(int *bar) { *bar=1; }\n", file = foo_path)
   on.exit(unlink(foo_path))
 
-  res <- tryCatch({
-    if (debug)
-      message("Trying to compile a simple C file")
+  res <- tryCatch(
+    {
+      if (debug) {
+        message("Trying to compile a simple C file")
+      }
 
-    callr::rcmd_safe(
-      "SHLIB",
-      "foo.c",
-      wd = tempdir(),
-      show = debug,
-      echo = debug,
-      fail_on_status = TRUE,
-      stderr = "2>&1"
-    )
+      callr::rcmd_safe(
+        "SHLIB",
+        "foo.c",
+        wd = tempdir(),
+        show = debug,
+        echo = debug,
+        fail_on_status = TRUE,
+        stderr = "2>&1"
+      )
 
-    if (debug)
-      message("")
-    dylib <- file.path(tempdir(), paste0("foo", .Platform$dynlib.ext))
-    on.exit(unlink(dylib), add = TRUE)
+      if (debug) {
+        message("")
+      }
+      dylib <- file.path(tempdir(), paste0("foo", .Platform$dynlib.ext))
+      on.exit(unlink(dylib), add = TRUE)
 
-    dll <- dyn.load(dylib)
-    on.exit(dyn.unload(dylib), add = TRUE)
+      dll <- dyn.load(dylib)
+      on.exit(dyn.unload(dylib), add = TRUE)
 
-    .C(dll$foo, 0L)[[1]] == 1L
-  }, error = function(e) {
-    FALSE
-  })
+      .C(dll$foo, 0L)[[1]] == 1L
+    },
+    error = function(e) {
+      FALSE
+    }
+  )
 
   cache_set("has_compiler", res)
   res
@@ -57,8 +62,9 @@ has_compiler <- function(debug = FALSE) {
 #' @export
 #' @rdname has_compiler
 check_compiler <- function(debug = FALSE) {
-  if (!has_compiler(debug))
+  if (!has_compiler(debug)) {
     stop("Failed to compile C code", call. = FALSE)
+  }
 
   TRUE
 }

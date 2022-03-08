@@ -1,4 +1,3 @@
-context("build_tools")
 
 test_that("tests always run in environment with dev tools", {
   without_cache({

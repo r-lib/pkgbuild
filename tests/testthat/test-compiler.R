@@ -1,4 +1,3 @@
-context("test-compiler.R")
 
 describe("has_compiler", {
   it("succeeds if a compiler exists", {

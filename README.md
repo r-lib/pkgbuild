@@ -1,7 +1,7 @@
 # pkgbuild
 
 <!-- badges: start -->
-[![R build status](https://github.com/r-lib/pkgbuild/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/pkgbuild/actions)
+[![R-CMD-check](https://github.com/r-lib/pkgbuild/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r-lib/pkgbuild/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/r-lib/pkgbuild/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-lib/pkgbuild?branch=main)
 <!-- badges: end -->
 
@@ -29,3 +29,9 @@ pkgbuild::build("/path/to/my/package")
 # have build tools available
 pkgbuild::with_build_tools(my_code)
 ```
+
+## Code of Conduct
+
+Please note that the pkgbuild project is released with a
+[Contributor Code of Conduct](https://r-lib.github.io/pkgbuild/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.

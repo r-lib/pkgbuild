@@ -1,4 +1,3 @@
-context("build")
 
 # Package build setup ----------------------------------------------------
 
@@ -9,7 +8,7 @@ test_that("with*_latex context fixtures force has_latex result", {
   # one of them should be different from default
   expect_true({
     with_latex(has_latex()) != has_latex() ||
-    without_latex(has_latex()) != has_latex()
+      without_latex(has_latex()) != has_latex()
   })
 })
 
@@ -68,7 +67,7 @@ test_that("source build setup accept args and/or parameterized helpers", {
   expect_true(!"--no-build-vignettes" %in% res$args)
 
   # expect `vignettes=FALSE` to affect build --no-build-vignettes flag
-  expect_silent(res <-build_setup_source(
+  expect_silent(res <- build_setup_source(
     file.path(testthat::test_path(), "testDummy"),
     file.path(tempdir(), "testDummyBuild"),
     vignettes = FALSE,
@@ -144,9 +143,11 @@ test_that("package tarball binary build", {
   path <- build("testDummy", dest_path = tempdir(), quiet = TRUE)
   on.exit(unlink(path), add = TRUE)
 
-  path2 <- build(path, dest_path = tempdir(), quiet = TRUE,
-                 binary = TRUE, needs_compilation = FALSE,
-                 compile_attributes = FALSE)
+  path2 <- build(path,
+    dest_path = tempdir(), quiet = TRUE,
+    binary = TRUE, needs_compilation = FALSE,
+    compile_attributes = FALSE
+  )
   on.exit(unlink(path2), add = TRUE)
   expect_true(file.exists(path2))
   expect_false(is.na(desc::desc(path2)$get("Packaged")))
@@ -159,9 +160,13 @@ test_that("package tarball binary build errors", {
 
   expect_error(
     build(path, dest_path = tempdir(), quiet = TRUE),
-    "binary")
+    "binary"
+  )
   expect_error(
-    build(path, dest_path = tempdir(), quiet = TRUE, binary = TRUE,
-          needs_compilation = FALSE, compile_attributes = TRUE),
-    "compile_attributes")
+    build(path,
+      dest_path = tempdir(), quiet = TRUE, binary = TRUE,
+      needs_compilation = FALSE, compile_attributes = TRUE
+    ),
+    "compile_attributes"
+  )
 })

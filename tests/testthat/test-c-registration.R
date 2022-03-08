@@ -1,7 +1,5 @@
-context("c-registration.R")
 
 test_that("update_c_registration does nothing if an init.c file already exists", {
-
   skip_if(getRversion() < "3.4")
 
   init_file <- test_path("testWithSrc", "src", "init.c")
@@ -32,11 +30,11 @@ void R_init_testWithSrc(DllInfo *dll)
 
   expect_equal(
     update_c_registration(test_path("testWithSrc")),
-    character())
+    character()
+  )
 })
 
 test_that("update_c_registration works", {
-
   skip_if(getRversion() < "3.4")
 
   init_file <- test_path("testWithSrc", "src", "init.c")
@@ -64,7 +62,8 @@ add1 <- function(x) {
   # update_c_registration should be idempotent if nothing has changed
   expect_equal(
     update_c_registration(test_path("testWithSrc")),
-      init_lines)
+    init_lines
+  )
 
   writeLines('
 add1 <- function(x) {
