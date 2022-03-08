@@ -1,6 +1,6 @@
 context("c-registration.R")
 
-test_that("update_c_registration does nothig if an init.c file already exists", {
+test_that("update_c_registration does nothing if an init.c file already exists", {
 
   skip_if(getRversion() < "3.4")
 
