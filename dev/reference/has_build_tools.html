@@ -114,9 +114,9 @@ is better practice to use <code>with_build_tools()</code> as needed.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">has_build_tools</span><span class="op">(</span>debug <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Trying to compile a simple C file</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Running /opt/R/4.1.2/lib/R/bin/R CMD SHLIB foo.c</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gcc -I"/opt/R/4.1.2/lib/R/include" -DNDEBUG   -I/usr/local/include   -fpic  -g -O2  -c foo.c -o foo.o</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> gcc -shared -L/opt/R/4.1.2/lib/R/lib -L/usr/local/lib -o foo.so foo.o -L/opt/R/4.1.2/lib/R/lib -lR</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running /opt/R/4.1.3/lib/R/bin/R CMD SHLIB foo.c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gcc -I"/opt/R/4.1.3/lib/R/include" -DNDEBUG   -I/usr/local/include   -fpic  -g -O2  -c foo.c -o foo.o</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> gcc -shared -L/opt/R/4.1.3/lib/R/lib -L/usr/local/lib -o foo.so foo.o -L/opt/R/4.1.3/lib/R/lib -lR</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span class="fu">check_build_tools</span><span class="op">(</span><span class="op">)</span></span>
