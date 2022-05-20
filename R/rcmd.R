@@ -21,6 +21,10 @@
 rcmd_build_tools <- function(..., env = character(), required = TRUE, quiet = FALSE) {
   env <- c(callr::rcmd_safe_env(), env)
 
+  if (!quiet) {
+    cli::cat_rule(paste0("R CMD ", ..1), col = "cyan")
+  }
+
   warn_for_potential_errors()
 
   callback <- if (cli::is_dynamic_tty()) {
