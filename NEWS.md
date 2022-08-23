@@ -28,7 +28,7 @@
 
 * Gábor Csárdi is now the maintainer.
 
-* `build_setup_source` now considerers both command-line build arguments, as
+* `build_setup_source` now considers both command-line build arguments, as
   well as parameters `vignettes` or `manual` when conditionally executing
   flag-dependent behaviors (@dgkf, #120)
 
