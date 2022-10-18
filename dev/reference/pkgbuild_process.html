@@ -56,10 +56,11 @@ represents a background process that builds an R package.</p>
     <div class="section level2">
     <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h2>
     
-<div class="sourceCode"><pre><code><span><span class="va">bp</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/pkgbuild_process.html">pkgbuild_process</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>path <span class="op">=</span> <span class="st">"."</span>, dest_path <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>         binary <span class="op">=</span> <span class="cn">FALSE</span>, vignettes <span class="op">=</span> <span class="cn">TRUE</span>, manual <span class="op">=</span> <span class="cn">FALSE</span>, args <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
-<span><span class="va">bp</span><span class="op">$</span><span class="fu">get_dest_path</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 
+
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>bp <span class="ot">&lt;-</span> pkgbuild_process<span class="sc">$</span><span class="fu">new</span>(<span class="at">path =</span> <span class="st">"."</span>, <span class="at">dest_path =</span> <span class="cn">NULL</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">binary =</span> <span class="cn">FALSE</span>, <span class="at">vignettes =</span> <span class="cn">TRUE</span>, <span class="at">manual =</span> <span class="cn">FALSE</span>, <span class="at">args =</span> <span class="cn">NULL</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>bp<span class="sc">$</span><span class="fu">get_dest_path</span>()</span></code></pre><p></p></div>
 <p>Other methods are inherited from <a href="https://callr.r-lib.org/reference/rcmd_process.html" class="external-link">callr::rcmd_process</a> and
 <code><a href="http://processx.r-lib.org/reference/process.html" class="external-link">processx::process</a></code>.</p>
     </div>
@@ -80,17 +81,18 @@ represents a background process that builds an R package.</p>
     <div class="section level2">
     <h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a></h2>
     
-<div class="sourceCode"><pre><code><span><span class="co">## Here we are just waiting, but in a more realistic example, you</span></span>
-<span><span class="co">## would probably run some other code instead...</span></span>
-<span><span class="va">bp</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/pkgbuild_process.html">pkgbuild_process</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">"mypackage"</span>, dest_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">bp</span><span class="op">$</span><span class="fu">is_alive</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">bp</span><span class="op">$</span><span class="fu">get_pid</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">bp</span><span class="op">$</span><span class="fu">wait</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">bp</span><span class="op">$</span><span class="fu">read_all_output_lines</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">bp</span><span class="op">$</span><span class="fu">read_all_error_lines</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">bp</span><span class="op">$</span><span class="fu">get_exit_status</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="va">bp</span><span class="op">$</span><span class="fu">get_dest_path</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 
+
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Here we are just waiting, but in a more realistic example, you</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## would probably run some other code instead...</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>bp <span class="ot">&lt;-</span> pkgbuild_process<span class="sc">$</span><span class="fu">new</span>(<span class="st">"mypackage"</span>, <span class="at">dest_path =</span> <span class="fu">tempdir</span>())</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>bp<span class="sc">$</span><span class="fu">is_alive</span>()</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>bp<span class="sc">$</span><span class="fu">get_pid</span>()</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>bp<span class="sc">$</span><span class="fu">wait</span>()</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>bp<span class="sc">$</span><span class="fu">read_all_output_lines</span>()</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>bp<span class="sc">$</span><span class="fu">read_all_error_lines</span>()</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>bp<span class="sc">$</span><span class="fu">get_exit_status</span>()</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>bp<span class="sc">$</span><span class="fu">get_dest_path</span>()</span></code></pre><p></p></div>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
