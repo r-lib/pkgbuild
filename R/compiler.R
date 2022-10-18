@@ -1,10 +1,14 @@
 #' Is a compiler available?
 #'
-#' `has_devel` returns `TRUE` or `FALSE`. `check_devel`
+#' `has_compiler()` and `has_devel()` return `TRUE` or `FALSE`.
+#' `check_devel`
 #' throws an error if you don't have developer tools installed. Implementation
 #' based on a suggestion by Simon Urbanek. End-users (particularly those on
 #' Windows) should generally run [check_build_tools()] rather than
 #' [check_compiler()].
+#'
+#' If the `"pkgbuild.has_compiler"` option is set, no check is carried out,
+#' and the value of the option is returned by `has_compiler()`.
 #'
 #' @export
 #' @inheritParams has_rtools
@@ -15,6 +19,11 @@
 #'
 #' with_build_tools(has_compiler())
 has_compiler <- function(debug = FALSE) {
+  res <- getOption("pkgbuild.has_compiler")
+  if (!is.null(res) && is.logical(res) && length(res) == 1 && (res %in% c(TRUE, FALSE))) {
+    return(res)
+  }
+
   if (!debug && cache_exists("has_compiler")) {
     return(cache_get("has_compiler"))
   }
