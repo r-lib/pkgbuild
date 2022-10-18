@@ -8,10 +8,12 @@ This R6 class is a counterpart of the \code{\link[=build]{build()}} function, an
 represents a background process that builds an R package.
 }
 \section{Usage}{
-\preformatted{bp <- pkgbuild_process$new(path = ".", dest_path = NULL,
+
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{bp <- pkgbuild_process$new(path = ".", dest_path = NULL,
          binary = FALSE, vignettes = TRUE, manual = FALSE, args = NULL)
 bp$get_dest_path()
-}
+}\if{html}{\out{</div>}}
 
 Other methods are inherited from \link[callr:rcmd_process]{callr::rcmd_process} and
 \code{processx::process}.
@@ -31,7 +33,9 @@ Most methods are inherited from \link[callr:rcmd_process]{callr::rcmd_process} a
 }
 
 \section{Examples}{
-\preformatted{## Here we are just waiting, but in a more realistic example, you
+
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{## Here we are just waiting, but in a more realistic example, you
 ## would probably run some other code instead...
 bp <- pkgbuild_process$new("mypackage", dest_path = tempdir())
 bp$is_alive()
@@ -41,6 +45,6 @@ bp$read_all_output_lines()
 bp$read_all_error_lines()
 bp$get_exit_status()
 bp$get_dest_path()
-}
+}\if{html}{\out{</div>}}
 }
 
