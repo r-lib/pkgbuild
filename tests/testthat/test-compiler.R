@@ -1,6 +1,7 @@
 
 describe("has_compiler", {
   withr::local_options(pkgbuild.has_compiler = NULL)
+  testthat::local_reproducible_output()
   it("succeeds if a compiler exists", {
     skip_if(is_windows() && !has_rtools())
     without_cache({

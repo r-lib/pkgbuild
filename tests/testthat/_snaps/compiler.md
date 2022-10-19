@@ -5,5 +5,5 @@
     Error <simpleError>
       
       ! Invalid `pkgbuild.has_compiler` option.
-      ℹ It must be `TRUE` or `FALSE`, not an integer vector.
+      i It must be `TRUE` or `FALSE`, not an integer vector.
 
