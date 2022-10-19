@@ -20,8 +20,12 @@
 #' with_build_tools(has_compiler())
 has_compiler <- function(debug = FALSE) {
   res <- getOption("pkgbuild.has_compiler")
-  if (!is.null(res) && is.logical(res) && length(res) == 1 && (res %in% c(TRUE, FALSE))) {
-    return(res)
+  if (!is.null(res)) {
+    if (is.logical(res) && length(res) == 1 && (res %in% c(TRUE, FALSE))) {
+      return(res)
+    }
+    options(pkgbuild.has_compiler = NULL)
+    message("Invalid pkgbuild.has_compiler option. The option was just reset to `NULL`.")
   }
 
   if (!debug && cache_exists("has_compiler")) {
