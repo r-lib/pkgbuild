@@ -1,10 +1,19 @@
 #' Is a compiler available?
 #'
-#' `has_devel` returns `TRUE` or `FALSE`. `check_devel`
-#' throws an error if you don't have developer tools installed. Implementation
-#' based on a suggestion by Simon Urbanek. End-users (particularly those on
-#' Windows) should generally run [check_build_tools()] rather than
-#' [check_compiler()].
+#' @description
+#' These functions check if a small C file can be compiled, linked, loaded
+#' and executed.
+#'
+#' `has_compiler()` and `has_devel()` return `TRUE` or `FALSE`.
+#' `check_compiler()` and `check_devel()`
+#' throw an error if you don't have developer tools installed.
+#' If the `"pkgbuild.has_compiler"` option is set to `TRUE` or `FALSE`,
+#' no check is carried out, and the value of the option is used.
+#'
+#' The implementation is  based on a suggestion by Simon Urbanek.
+#' End-users (particularly those on Windows) should generally run
+#' [check_build_tools()] rather than [check_compiler()].
+#'
 #'
 #' @export
 #' @inheritParams has_rtools
@@ -15,6 +24,16 @@
 #'
 #' with_build_tools(has_compiler())
 has_compiler <- function(debug = FALSE) {
+  res <- getOption("pkgbuild.has_compiler")
+  if (!is.null(res)) {
+    if (is_flag(res)) return(res)
+    stop(cli::format_error(c(
+      "",
+      "!" = "Invalid {.code pkgbuild.has_compiler} option.",
+      "i" = "It must be {.code TRUE} or {.code FALSE}, not {.type {res}}."
+    )))
+  }
+
   if (!debug && cache_exists("has_compiler")) {
     return(cache_get("has_compiler"))
   }

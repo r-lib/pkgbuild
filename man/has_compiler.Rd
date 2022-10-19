@@ -15,11 +15,18 @@ check_compiler(debug = FALSE)
 debugging. If \code{FALSE}, it will use result cached from a previous run.}
 }
 \description{
-\code{has_devel} returns \code{TRUE} or \code{FALSE}. \code{check_devel}
-throws an error if you don't have developer tools installed. Implementation
-based on a suggestion by Simon Urbanek. End-users (particularly those on
-Windows) should generally run \code{\link[=check_build_tools]{check_build_tools()}} rather than
-\code{\link[=check_compiler]{check_compiler()}}.
+These functions check if a small C file can be compiled, linked, loaded
+and executed.
+
+\code{has_compiler()} and \code{has_devel()} return \code{TRUE} or \code{FALSE}.
+\code{check_compiler()} and \code{check_devel()}
+throw an error if you don't have developer tools installed.
+If the \code{"pkgbuild.has_compiler"} option is set to \code{TRUE} or \code{FALSE},
+no check is carried out, and the value of the option is used.
+
+The implementation is  based on a suggestion by Simon Urbanek.
+End-users (particularly those on Windows) should generally run
+\code{\link[=check_build_tools]{check_build_tools()}} rather than \code{\link[=check_compiler]{check_compiler()}}.
 }
 \examples{
 has_compiler()
