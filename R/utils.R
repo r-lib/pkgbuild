@@ -63,3 +63,7 @@ last_char <- function(x) {
 cat0 <- function(..., sep = "") {
   cat(..., sep = "")
 }
+
+is_flag <- function(x) {
+  is.logical(x) && length(x) == 1 && !is.na(x)
+}

@@ -26,11 +26,12 @@
 has_compiler <- function(debug = FALSE) {
   res <- getOption("pkgbuild.has_compiler")
   if (!is.null(res)) {
-    if (is.logical(res) && length(res) == 1 && (res %in% c(TRUE, FALSE))) {
-      return(res)
-    }
-    options(pkgbuild.has_compiler = NULL)
-    message("Invalid pkgbuild.has_compiler option. The option was just reset to `NULL`.")
+    if (is_flag(res)) return(res)
+    stop(cli::format_error(c(
+      "",
+      "!" = "Invalid {.code pkgbuild.has_compiler} option.",
+      "i" = "It must be {.code TRUE} or {.code FALSE}, not {.type {res}}."
+    )))
   }
 
   if (!debug && cache_exists("has_compiler")) {

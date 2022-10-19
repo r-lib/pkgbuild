@@ -1,5 +1,6 @@
 
 describe("has_compiler", {
+  withr::local_options(pkgbuild.has_compiler = NULL)
   it("succeeds if a compiler exists", {
     skip_if(is_windows() && !has_rtools())
     without_cache({
@@ -32,6 +33,13 @@ describe("has_compiler", {
           expect_false(has_compiler())
           expect_error(check_compiler(), "Failed to compile C code")
         }
+      )
+      withr::with_options(
+        list(pkgbuild.has_compiler = 1:2),
+        expect_snapshot(
+          error = TRUE,
+          has_compiler()
+        )
       )
     })
   })
