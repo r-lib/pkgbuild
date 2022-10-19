@@ -17,7 +17,7 @@ Depends:
     R (>= 3.4)
 Imports:
     callr (>= 3.2.0),
-    cli,
+    cli (>= 3.4.0),
     crayon,
     desc,
     prettyunits,
