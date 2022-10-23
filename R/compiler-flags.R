@@ -2,14 +2,14 @@
 #'
 #' These default flags enforce good coding practice by ensuring that
 #' \env{CFLAGS} and \env{CXXFLAGS} are set to `-Wall -pedantic`.
-#' These tests are run by cran and are generally considered to be good practice.
+#' These tests are run by CRAN and are generally considered to be good practice.
 #'
 #' By default [compile_dll()] is run with `compiler_flags(TRUE)`,
 #' and check with `compiler_flags(FALSE)`.  If you want to avoid the
 #' possible performance penalty from the debug flags, install the package.
 #'
 #' @param debug If `TRUE` adds `-g -O0` to all flags
-#'   (Adding \env{FFLAGS} and \env{FCFLAGS}
+#'   (Adding \env{FFLAGS} and \env{FCFLAGS}).
 #' @family debugging flags
 #' @export
 #' @examples

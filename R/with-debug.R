@@ -69,6 +69,8 @@ without_cache <- function(code) {
 
 
 #' @export
+#' @examples
+#' without_latex(has_latex())
 #' @rdname without_compiler
 without_latex <- function(code) {
   withr::with_options(list(PKGBUILD_TEST_FIXTURE_HAS_LATEX = FALSE), code)
@@ -76,6 +78,8 @@ without_latex <- function(code) {
 
 
 #' @export
+#' @examples
+#' with_latex(has_latex())
 #' @rdname without_compiler
 with_latex <- function(code) {
   withr::with_options(list(PKGBUILD_TEST_FIXTURE_HAS_LATEX = TRUE), code)

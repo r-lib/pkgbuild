@@ -21,7 +21,7 @@ build(
 \arguments{
 \item{path}{Path to a package, or within a package.}
 
-\item{dest_path}{path in which to produce package. If it is an existing
+\item{dest_path}{Path in which to produce package. If it is an existing
 directory, then the output file is placed in \code{dest_path} and named
 according to the current R conversions (e.g. \code{.zip} for Windows binary
 packages, \code{.tgz} for macOS binary packages, etc).
@@ -37,30 +37,30 @@ vignettes (\code{--no-build-vignettes}) or manual (\code{--no-manual}).}
 
 \item{clean_doc}{If \code{TRUE}, clean the files in \code{inst/doc} before building
 the package. If \code{NULL} and interactive, ask to remove the
-files prior to cleaning. In most cases cleaning the files is the correct
+files prior to cleaning. In most cases, cleaning the files is the correct
 behavior to avoid stale vignette outputs in the built package.}
 
 \item{args}{An optional character vector of additional command
-line arguments to be passed to \verb{R CMD build} if \code{binary = FALSE},
-or \verb{R CMD install} if \code{binary = TRUE}.}
+line arguments to be passed to \code{"R CMD build"} if \code{binary = FALSE},
+or \code{"R CMD install"} if \code{binary = TRUE}.}
 
-\item{quiet}{if \code{TRUE} suppresses output from this function.}
+\item{quiet}{If \code{TRUE}, suppresses output from this function.}
 
-\item{needs_compilation}{Usually only needed if the packages has
-C/C++/Fortran code. By default this is autodetected.}
+\item{needs_compilation}{Usually only needed if the package has
+C/C++/Fortran code. By default, this is autodetected.}
 
-\item{compile_attributes}{if \code{TRUE} and the package uses Rcpp, call
-\code{\link[Rcpp:compileAttributes]{Rcpp::compileAttributes()}} before building the package. It is ignored
-if package does not need compilation.}
+\item{compile_attributes}{If \code{TRUE} and the package uses Rcpp/cpp11, call
+\code{\link[Rcpp:compileAttributes]{Rcpp::compileAttributes()}}/\code{\link[cpp11:cpp_register]{cpp11::cpp_register()}} before building the
+package. It is ignored if package does not need compilation.}
 
-\item{register_routines}{if \code{TRUE} and the package does not use Rcpp, call
-register routines with
-\code{tools::package_native_routine_registration_skeleton()} before building
-the package. It is ignored if package does not need compilation.}
+\item{register_routines}{If \code{TRUE} and the package does not use Rcpp/cpp11,
+call register routines with
+\code{tools::package_native_routine_registration_skeleton()} before building the
+package. It is ignored if package does not need compilation.}
 }
 \value{
-a string giving the location (including file name) of the built
-package
+A string giving the location (including file name) of the built
+package.
 }
 \description{
 Building converts a package source directory into a single bundled file.

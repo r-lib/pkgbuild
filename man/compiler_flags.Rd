@@ -8,12 +8,12 @@ compiler_flags(debug = FALSE)
 }
 \arguments{
 \item{debug}{If \code{TRUE} adds \code{-g -O0} to all flags
-(Adding \env{FFLAGS} and \env{FCFLAGS}}
+(Adding \env{FFLAGS} and \env{FCFLAGS}).}
 }
 \description{
 These default flags enforce good coding practice by ensuring that
 \env{CFLAGS} and \env{CXXFLAGS} are set to \code{-Wall -pedantic}.
-These tests are run by cran and are generally considered to be good practice.
+These tests are run by CRAN and are generally considered to be good practice.
 }
 \details{
 By default \code{\link[=compile_dll]{compile_dll()}} is run with \code{compiler_flags(TRUE)},

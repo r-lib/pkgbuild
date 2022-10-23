@@ -23,13 +23,13 @@ local_build_tools(
 \item{debug}{If \code{TRUE}, will print out extra information useful for
 debugging. If \code{FALSE}, it will use result cached from a previous run.}
 
-\item{quiet}{if \code{TRUE} suppresses output from this function.}
+\item{quiet}{If \code{TRUE}, suppresses output from this function.}
 
 \item{code}{Code to rerun in environment where build tools are guaranteed to
 exist.}
 
 \item{required}{If \code{TRUE}, and build tools are not available,
-will throw an error. Otherwise will attempt to run \code{code} without
+will throw an error. Otherwise, will attempt to run \code{code} without
 them.}
 
 \item{.local_envir}{\verb{[environment]}\cr The environment to use for scoping.}
@@ -37,26 +37,26 @@ them.}
 \description{
 \code{has_build_tools} returns a logical, \code{check_build_tools} throws
 an error. \code{with_build_tools} checks that build tools are available,
-then runs \code{code} in an correctly staged environment.
+then runs \code{code} in a correctly staged environment.
 If run interactively from RStudio, and the build tools are not
 available these functions will trigger an automated install.
 }
 \details{
 Errors like \verb{running command '"C:/PROGRA~1/R/R-34~1.2/bin/x64/R" CMD config CC' had status 127}
 indicate the code expected Rtools to be on the system PATH. You can
-then verify you have rtools installed with \code{has_build_tools()} and
+then verify you have Rtools installed with \code{has_build_tools()} and
 temporarily add Rtools to the PATH \code{with_build_tools({ code })}.
 
 It is possible to add Rtools to your system PATH manually; you can use
-\code{\link[=rtools_path]{rtools_path()}} to show the installed location. However because this
+\code{\link[=rtools_path]{rtools_path()}} to show the installed location. However, because this
 requires manual updating when a new version of Rtools is installed and the
-binaries in Rtools may conflict with existing binaries elsewhere on the PATH it
-is better practice to use \code{with_build_tools()} as needed.
+binaries in Rtools may conflict with existing binaries elsewhere on the PATH,
+it is better practice to use \code{with_build_tools()} as needed.
 }
 \examples{
 has_build_tools(debug = TRUE)
 check_build_tools()
 }
 \seealso{
-has_rtools
+\code{\link[=has_rtools]{has_rtools()}}
 }

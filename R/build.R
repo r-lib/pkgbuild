@@ -10,7 +10,7 @@
 #' environment is needed.
 #'
 #' @param path Path to a package, or within a package.
-#' @param dest_path path in which to produce package. If it is an existing
+#' @param dest_path Path in which to produce package. If it is an existing
 #'   directory, then the output file is placed in `dest_path` and named
 #'   according to the current R conversions (e.g. `.zip` for Windows binary
 #'   packages, `.tgz` for macOS binary packages, etc).
@@ -22,25 +22,25 @@
 #' @param vignettes,manual For source packages: if `FALSE`, don't build PDF
 #'   vignettes (`--no-build-vignettes`) or manual (`--no-manual`).
 #' @param args An optional character vector of additional command
-#'   line arguments to be passed to `R CMD build` if `binary = FALSE`,
-#'   or `R CMD install` if `binary = TRUE`.
-#' @param quiet if `TRUE` suppresses output from this function.
-#' @param needs_compilation Usually only needed if the packages has
-#'   C/C++/Fortran code. By default this is autodetected.
-#' @param compile_attributes if `TRUE` and the package uses Rcpp, call
-#'   [Rcpp::compileAttributes()] before building the package. It is ignored
-#'   if package does not need compilation.
-#' @param register_routines if `TRUE` and the package does not use Rcpp, call
-#'   register routines with
-#'   `tools::package_native_routine_registration_skeleton()` before building
-#'   the package. It is ignored if package does not need compilation.
+#'   line arguments to be passed to `"R CMD build"` if `binary = FALSE`,
+#'   or `"R CMD install"` if `binary = TRUE`.
+#' @param quiet If `TRUE`, suppresses output from this function.
+#' @param needs_compilation Usually only needed if the package has
+#'   C/C++/Fortran code. By default, this is autodetected.
+#' @param compile_attributes If `TRUE` and the package uses Rcpp/cpp11, call
+#'   [Rcpp::compileAttributes()]/[cpp11::cpp_register()] before building the
+#'   package. It is ignored if package does not need compilation.
+#' @param register_routines If `TRUE` and the package does not use Rcpp/cpp11,
+#'   call register routines with
+#'   `tools::package_native_routine_registration_skeleton()` before building the
+#'   package. It is ignored if package does not need compilation.
 #' @param clean_doc If `TRUE`, clean the files in `inst/doc` before building
 #'   the package. If `NULL` and interactive, ask to remove the
-#'   files prior to cleaning. In most cases cleaning the files is the correct
+#'   files prior to cleaning. In most cases, cleaning the files is the correct
 #'   behavior to avoid stale vignette outputs in the built package.
 #' @export
-#' @return a string giving the location (including file name) of the built
-#'  package
+#' @return A string giving the location (including file name) of the built
+#'  package.
 build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE,
                   manual = FALSE, clean_doc = NULL, args = NULL, quiet = FALSE,
                   needs_compilation = pkg_has_src(path), compile_attributes = FALSE,

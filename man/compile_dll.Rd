@@ -19,16 +19,16 @@ compile_dll(
 \item{force}{If \code{TRUE}, for compilation even if \code{\link[=needs_compile]{needs_compile()}} is
 \code{FALSE}.}
 
-\item{compile_attributes}{if \code{TRUE} and the package uses Rcpp, call
-\code{\link[Rcpp:compileAttributes]{Rcpp::compileAttributes()}} before building the package. It is ignored
-if package does not need compilation.}
+\item{compile_attributes}{If \code{TRUE} and the package uses Rcpp/cpp11, call
+\code{\link[Rcpp:compileAttributes]{Rcpp::compileAttributes()}}/\code{\link[cpp11:cpp_register]{cpp11::cpp_register()}} before building the
+package. It is ignored if package does not need compilation.}
 
-\item{register_routines}{if \code{TRUE} and the package does not use Rcpp, call
-register routines with
-\code{tools::package_native_routine_registration_skeleton()} before building
-the package. It is ignored if package does not need compilation.}
+\item{register_routines}{If \code{TRUE} and the package does not use Rcpp/cpp11,
+call register routines with
+\code{tools::package_native_routine_registration_skeleton()} before building the
+package. It is ignored if package does not need compilation.}
 
-\item{quiet}{if \code{TRUE} suppresses output from this function.}
+\item{quiet}{If \code{TRUE}, suppresses output from this function.}
 
 \item{debug}{If \code{TRUE}, and if no user Makevars is found, then the build
 runs without optimisation (\code{-O0}) and with debug symbols (\code{-g}). See
@@ -48,7 +48,9 @@ Invisibly returns the names of the DLL.
 If this is used to compile code that uses Rcpp, you will need to
 add the following line to your \code{Makevars} file so that it
 knows where to find the Rcpp headers:
-\verb{PKG_CPPFLAGS=}$(R_HOME)/bin/Rscript -e 'Rcpp:::CxxFlags()'``
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{PKG_CPPFLAGS=`$(R_HOME)/bin/Rscript -e 'Rcpp:::CxxFlags()'`
+}\if{html}{\out{</div>}}
 }
 \seealso{
 \code{\link[=clean_dll]{clean_dll()}} to delete the compiled files.

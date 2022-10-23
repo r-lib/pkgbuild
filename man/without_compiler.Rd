@@ -23,3 +23,7 @@ with_latex(code)
 \code{CC}, \code{CXX}, makevars to \code{test}. \code{without_cache}
 resets the cache before and after running \code{code}.
 }
+\examples{
+without_latex(has_latex())
+with_latex(has_latex())
+}
