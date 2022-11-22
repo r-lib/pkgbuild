@@ -67,3 +67,20 @@ cat0 <- function(..., sep = "") {
 is_flag <- function(x) {
   is.logical(x) && length(x) == 1 && !is.na(x)
 }
+
+should_stop_for_warnings <- function() {
+  should_stop <- getOption("pkg.build_stop_for_warnings", NULL)
+  if (!is.null(should_stop)) {
+    if (!is_flag(should_stop)) {
+      stop("`pkg.build_stop_for_warnings` option must be a logical flag.")
+    }
+    return(should_stop)
+  }
+
+  should_stop <- tolower(Sys.getenv("PKG_BUILD_STOP_FOR_WARNINGS", "false"))
+  if (should_stop %in% c("true", "yes", "on", "1")) return(TRUE)
+  if (should_stop %in% c("false", "no", "off", "0")) return(FALSE)
+
+  stop("`PKG_BUILD_STOP_FOR_WARNINGS` environment variable must be `TRUE` ",
+       "or `FALSE`.")
+}

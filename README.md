@@ -25,10 +25,24 @@ pkgbuild::check_build_tools(debug = TRUE)
 # Build a package
 pkgbuild::build("/path/to/my/package")
 
-# Run your own code in an environment guaranteed to 
+# Run your own code in an environment guaranteed to
 # have build tools available
 pkgbuild::with_build_tools(my_code)
 ```
+
+## Configuration
+
+### Options
+
+* `pkg.build_stop_for_warnings` if it is set to `TRUE`, then pkgbuild will stop
+  for `R CMD build` errors. It takes precedence over the
+  `PKG_BUILD_STOP_FOR_WARNINGS` environment variable.
+
+### Environment variables
+
+* `PKG_BUILD_STOP_FOR_WARNINGS` if it is set to `true`, then pkgbuild will stop
+  for `R CMD build` errors. The `pkg.build_stop_for_warnings` option takes
+  precedence over this environment variable.
 
 ## Code of Conduct
 
