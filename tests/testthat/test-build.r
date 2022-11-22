@@ -183,14 +183,31 @@ test_that("warnings can be turned into errors", {
 
   dir.create(file.path(src, "testDummy", "inst"), recursive = TRUE, showWarnings = FALSE)
   saveRDS(1:10, file.path(src, "testDummy", "inst", "testthat-problems.rds"))
-  expect_snapshot(
-    error = TRUE,
-    build(file.path(src, "testDummy"), dest_path = dest, quiet = TRUE),
-    transform = function(x) {
-      x <- sub("\u2018", "'", x, fixed = TRUE)
-      x <- sub("\u2019", "'", x, fixed = TRUE)
-      x <- sub("checking for file '.*'", "checking for file '<file>'", x)
-      x
-    }
-  )
+
+  # No warning/error on R <= 3.5
+  if (getRversion() <= "3.5") skip("Needs R 3.5.0")
+
+  # Warning looks different on older R
+  if (getRversion() >= "4.0") {
+    expect_snapshot(
+      error = TRUE,
+      build(file.path(src, "testDummy"), dest_path = dest, quiet = TRUE),
+      transform = function(x) {
+        x <- sub("\u2018", "'", x, fixed = TRUE)
+        x <- sub("\u2019", "'", x, fixed = TRUE)
+        x <- sub("checking for file '.*'", "checking for file '<file>'", x)
+        x
+      }
+    )
+  } else {
+    expect_error(
+      suppressMessages(build(
+        file.path(src, "testDummy"),
+        dest_path = dest,
+        quiet = TRUE
+      )),
+      "converted from `R CMD build` warning.",
+      fixed = TRUE
+    )
+  }
 })
