@@ -170,3 +170,27 @@ test_that("package tarball binary build errors", {
     "compile_attributes"
   )
 })
+
+test_that("warnings can be turned into errors", {
+  src <- withr::local_tempdir()
+  dest <- withr::local_tempdir()
+  file.copy(test_path("testDummy"), src, recursive = TRUE)
+
+  withr::local_options(pkg.build_stop_for_warnings = TRUE)
+  expect_silent(
+    build(file.path(src, "testDummy"), dest_path = dest, quiet = TRUE)
+  )
+
+  dir.create(file.path(src, "testDummy", "inst"), recursive = TRUE, showWarnings = FALSE)
+  saveRDS(1:10, file.path(src, "testDummy", "inst", "testthat-problems.rds"))
+  expect_snapshot(
+    error = TRUE,
+    build(file.path(src, "testDummy"), dest_path = dest, quiet = TRUE),
+    transform = function(x) {
+      x <- sub("\u2018", "'", x, fixed = TRUE)
+      x <- sub("\u2019", "'", x, fixed = TRUE)
+      x <- sub("checking for file '.*'", "checking for file '<file>'", x)
+      x
+    }
+  )
+})

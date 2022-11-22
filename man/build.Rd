@@ -72,3 +72,23 @@ a platform specific extension (e.g. \code{.zip} for windows), and will
 only be installable on the current platform, but no development
 environment is needed.
 }
+\details{
+\subsection{Configuration}{
+\subsection{Options}{
+\itemize{
+\item \code{pkg.build_stop_for_warnings} if it is set to \code{TRUE}, then pkgbuild
+will stop for \verb{R CMD build} errors. It takes precedence over the
+\code{PKG_BUILD_STOP_FOR_WARNINGS} environment variable.
+}
+}
+
+\subsection{Environment variables}{
+\itemize{
+\item \code{PKG_BUILD_STOP_FOR_WARNINGS} if it is set to \code{true}, then pkgbuild
+will stop for \verb{R CMD build} errors. The \code{pkg.build_stop_for_warnings}
+option takes precedence over this environment variable.
+}
+}
+
+}
+}

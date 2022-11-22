@@ -9,6 +9,20 @@
 #' only be installable on the current platform, but no development
 #' environment is needed.
 #'
+#' ## Configuration
+#'
+#' ### Options
+#'
+#' * `pkg.build_stop_for_warnings` if it is set to `TRUE`, then pkgbuild
+#'   will stop for `R CMD build` errors. It takes precedence over the
+#'   `PKG_BUILD_STOP_FOR_WARNINGS` environment variable.
+#'
+#' ### Environment variables
+#'
+#' * `PKG_BUILD_STOP_FOR_WARNINGS` if it is set to `true`, then pkgbuild
+#' will stop for `R CMD build` errors. The `pkg.build_stop_for_warnings`
+#' option takes precedence over this environment variable.
+#'
 #' @param path Path to a package, or within a package.
 #' @param dest_path path in which to produce package. If it is an existing
 #'   directory, then the output file is placed in `dest_path` and named
@@ -52,7 +66,7 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
   on.exit(unlink(options$out_dir, recursive = TRUE), add = TRUE)
 
   withr::local_makevars(compiler_flags(debug = FALSE), .assignment = "+=")
-  withr::with_temp_libpaths(
+  output <- withr::with_temp_libpaths(
     rcmd_build_tools(
       options$cmd,
       c(options$path, options$args),
@@ -62,6 +76,17 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
       quiet = quiet
     )
   )
+
+  if (should_stop_for_warnings() &&
+      grepl("\n\\s*warning:", output$stdout, ignore.case = TRUE)) {
+    cli::cli_alert_warning(
+      "Stopping as requested for a warning during {.code R CMD build}.")
+    if (quiet) {
+      cli::cli_alert_warning("The full output is printed below.")
+      cli::cli_verbatim(output$stdout)
+    }
+    stop("converted from `R CMD build` warning.")
+  }
 
   out_file <- dir(options$out_dir)
   file.copy(

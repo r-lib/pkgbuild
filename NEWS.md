@@ -1,6 +1,10 @@
 
 # pkgbuild development version
 
+* `R CMD build` warnings can now be turned into errors, by setting the
+  `pkg.build_stop_for_warnings` option to `TRUE` or by setting the
+  `PKG_BUILD_STOP_FOR_WARNINGS` environment variable to `true` (#114).
+
 # pkgbuild 1.3.1
 
 * Accept Rtools40 for R 4.2, it works well, as long as the PATH includes
@@ -132,6 +136,3 @@
   is run inside of `R CMD check`.
 
 * First argument of all functions is now `path` rather than `pkg`.
-
-
-
