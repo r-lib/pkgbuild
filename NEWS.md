@@ -5,6 +5,9 @@
   `pkg.build_stop_for_warnings` option to `TRUE` or by setting the
   `PKG_BUILD_STOP_FOR_WARNINGS` environment variable to `true` (#114).
 
+* `need_compile()` now knows about Rust source code files, i.e. `Cargo.toml`
+  and `*.rs` (#115).
+
 # pkgbuild 1.3.1
 
 * Accept Rtools40 for R 4.2, it works well, as long as the PATH includes

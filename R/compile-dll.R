@@ -115,7 +115,10 @@ mtime <- function(x) {
 # List all source files in the package
 sources <- function(path = ".") {
   srcdir <- file.path(path, "src")
-  dir(srcdir, "\\.(c.*|f)$", recursive = TRUE, full.names = TRUE)
+  c(
+    dir(srcdir, "\\.(c.*|f|rs)$", recursive = TRUE, full.names = TRUE),
+    dir(srcdir, "^Cargo\\.toml$", recursive = TRUE, full.names = TRUE)
+  )
 }
 
 # List all header files in the package
