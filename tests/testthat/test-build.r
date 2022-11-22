@@ -185,7 +185,7 @@ test_that("warnings can be turned into errors", {
   saveRDS(1:10, file.path(src, "testDummy", "inst", "testthat-problems.rds"))
 
   # No warning/error on R <= 3.5
-  if (getRversion() <= "3.5") skip("Needs R 3.5.0")
+  if (getRversion() <= "3.6") skip("Needs R 3.5.0")
 
   # Warning looks different on older R
   if (getRversion() >= "4.1") {
