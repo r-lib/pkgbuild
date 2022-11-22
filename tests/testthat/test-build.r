@@ -188,7 +188,7 @@ test_that("warnings can be turned into errors", {
   if (getRversion() <= "3.5") skip("Needs R 3.5.0")
 
   # Warning looks different on older R
-  if (getRversion() >= "4.0") {
+  if (getRversion() >= "4.1") {
     expect_snapshot(
       error = TRUE,
       build(file.path(src, "testDummy"), dest_path = dest, quiet = TRUE),
@@ -205,9 +205,7 @@ test_that("warnings can be turned into errors", {
         file.path(src, "testDummy"),
         dest_path = dest,
         quiet = TRUE
-      )),
-      "converted from `R CMD build` warning.",
-      fixed = TRUE
+      ))
     )
   }
 })
