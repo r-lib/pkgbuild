@@ -209,3 +209,49 @@ test_that("warnings can be turned into errors", {
     )
   }
 })
+
+test_that("Config/build/clean-inst-doc FALSE", {
+  dest <- withr::local_tempdir()
+  expect_silent(
+    build(
+      test_path("testInstDoc"),
+      dest_path = dest,
+      quiet = TRUE,
+      vignettes = TRUE,
+      clean_doc = NULL
+    )
+  )
+  pkg <- file.path(dest, dir(dest))
+  expect_true(length(pkg) == 1)
+  expect_true(file.exists(pkg))
+  pkg_files <- untar(pkg, list = TRUE)
+  expect_true("testInstDoc/inst/doc/keep.me" %in% pkg_files)
+  expect_true("testInstDoc/inst/doc/test.html" %in% pkg_files)
+})
+
+test_that("Config/build/clean-inst-doc TRUE", {
+  src <- withr::local_tempdir()
+  dest <- withr::local_tempdir()
+  file.copy(test_path("testInstDoc"), src, recursive = TRUE)
+
+  desc::desc_set(
+    "Config/build/clean-inst-doc" = "TRUE",
+    file = file.path(src, "testInstDoc")
+  )
+
+  expect_silent(
+    build(
+      file.path(src, "testInstDoc"),
+      dest_path = dest,
+      quiet = TRUE,
+      vignettes = TRUE,
+      clean_doc = NULL
+    )
+  )
+  pkg <- file.path(dest, dir(dest))
+  expect_true(length(pkg) == 1)
+  expect_true(file.exists(pkg))
+  pkg_files <- untar(pkg, list = TRUE)
+  expect_false("testInstDoc/inst/doc/keep.me" %in% pkg_files)
+  expect_true("testInstDoc/inst/doc/test.html" %in% pkg_files)
+})

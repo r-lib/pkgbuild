@@ -68,10 +68,13 @@ is_flag <- function(x) {
   is.logical(x) && length(x) == 1 && !is.na(x)
 }
 
+flag_true_values <- c("true", "yes", "on", "1")
+flag_false_values <- c("false", "no", "off", "0")
+
 interpret_envvar_flag <- function(name, default = "false") {
   env <- tolower(Sys.getenv(name, default))
-  if (env %in% c("true", "yes", "on", "1")) return(TRUE)
-  if (env %in% c("false", "no", "off", "0")) return(FALSE)
+  if (env %in% flag_true_values) return(TRUE)
+  if (env %in% flag_false_values) return(FALSE)
   if (is.na(env)) return(NA)
 
   stop(cli::format_error(
@@ -99,4 +102,19 @@ get_config_flag_value <- function(name, default = FALSE) {
 
 should_stop_for_warnings <- function() {
   get_config_flag_value("stop_for_warnings")
+}
+
+get_desc_config_flag <- function(path, name) {
+  name <- paste0("Config/build/", name)
+  val <- desc::desc_get(name, file = path)
+  if (is.na(val)) return(NULL)
+  lval <- tolower(val)
+  if (lval %in% flag_true_values) return(TRUE)
+  if (lval %in% flag_false_values) return(FALSE)
+
+  stop(cli::format_error(
+    "The {.code {name}} entry in {.path DESCRIPTION} must be {.code TRUE}
+     or {.code FALSE}.",
+    "i" = "It is {.val {val}}."
+  ))
 }

@@ -36,9 +36,11 @@ If \code{NULL}, it defaults to the parent directory of the package.}
 vignettes (\code{--no-build-vignettes}) or manual (\code{--no-manual}).}
 
 \item{clean_doc}{If \code{TRUE}, clean the files in \code{inst/doc} before building
-the package. If \code{NULL} and interactive, ask to remove the
-files prior to cleaning. In most cases cleaning the files is the correct
-behavior to avoid stale vignette outputs in the built package.}
+the package. If \code{NULL} and the \code{Config/build/clean-inst-doc} entry is
+present in \code{DESCRIPTION}, then that is used. Otherwise, if \code{NULL},
+and interactive, ask to remove the files prior to cleaning. In most
+cases cleaning the files is the correct behavior to avoid stale
+vignette outputs in the built package.}
 
 \item{args}{An optional character vector of additional command
 line arguments to be passed to \verb{R CMD build} if \code{binary = FALSE},
@@ -74,9 +76,17 @@ environment is needed.
 }
 \details{
 \subsection{Configuration}{
+\subsection{\code{DESCRIPTION} entries}{
+\itemize{
+\item \code{Config/build/clean-inst-doc} can be set to \code{FALSE} to avoid cleaning up
+\code{inst/doc} when building a source package. Set it to \code{TRUE} to force a
+cleanup. See the \code{clean_doc} argument.
+}
+}
+
 \subsection{Options}{
 \itemize{
-\item \code{pkg.build_stop_for_warnings} if it is set to \code{TRUE}, then pkgbuild
+\item \code{pkg.build_stop_for_warnings}: if it is set to \code{TRUE}, then pkgbuild
 will stop for \verb{R CMD build} errors. It takes precedence over the
 \code{PKG_BUILD_STOP_FOR_WARNINGS} environment variable.
 }
@@ -84,7 +94,10 @@ will stop for \verb{R CMD build} errors. It takes precedence over the
 
 \subsection{Environment variables}{
 \itemize{
-\item \code{PKG_BUILD_STOP_FOR_WARNINGS} if it is set to \code{true}, then pkgbuild
+\item \code{PKG_BUILD_COLOR_DIAGNOSTICS}: set it to \code{false} to opt out of colored
+compiler diagnostics. Set it to \code{true} to force colored compiler
+diagnostics.
+\item \code{PKG_BUILD_STOP_FOR_WARNINGS}: if it is set to \code{true}, then pkgbuild
 will stop for \verb{R CMD build} errors. The \code{pkg.build_stop_for_warnings}
 option takes precedence over this environment variable.
 }
