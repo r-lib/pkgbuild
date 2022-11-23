@@ -8,6 +8,9 @@
 * `need_compile()` now knows about Rust source code files, i.e. `Cargo.toml`
   and `*.rs` (#115).
 
+* New `PKG_BUILD_COLOR_DIAGNOSTICS` environment variable to opt out from
+  colored compiler output (#141).
+
 # pkgbuild 1.3.1
 
 * Accept Rtools40 for R 4.2, it works well, as long as the PATH includes

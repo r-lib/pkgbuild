@@ -34,13 +34,17 @@ pkgbuild::with_build_tools(my_code)
 
 ### Options
 
-* `pkg.build_stop_for_warnings` if it is set to `TRUE`, then pkgbuild will stop
+* `pkg.build_stop_for_warnings`: if it is set to `TRUE`, then pkgbuild will stop
   for `R CMD build` errors. It takes precedence over the
   `PKG_BUILD_STOP_FOR_WARNINGS` environment variable.
 
 ### Environment variables
 
-* `PKG_BUILD_STOP_FOR_WARNINGS` if it is set to `true`, then pkgbuild will stop
+* `PKG_BUILD_COLOR_DIAGNOSTICS` set it to `false` to opt out of colored
+  compiler diagnostics. Set it to `true` to force colored compiler
+  diagnostics.
+
+* `PKG_BUILD_STOP_FOR_WARNINGS`: if it is set to `true`, then pkgbuild will stop
   for `R CMD build` errors. The `pkg.build_stop_for_warnings` option takes
   precedence over this environment variable.
 

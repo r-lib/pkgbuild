@@ -27,6 +27,7 @@ Imports:
 Suggests:
     covr,
     cpp11,
+    mockery,
     Rcpp,
     testthat (>= 3.0.0)
 Config/Needs/website: tidyverse/tidytemplate

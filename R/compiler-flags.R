@@ -59,6 +59,9 @@ compiler_flags <- function(debug = FALSE) {
 }
 
 has_compiler_colored_diagnostics <- function() {
+  val <- interpret_envvar_flag("PKG_BUILD_COLOR_DIAGNOSTICS", NA_character_)
+  if (!is.na(val)) return(val)
+
   if (cache_exists("has_compiler_colored_diagnostics")) {
     return(cache_get("has_compiler_colored_diagnostics"))
   }
