@@ -68,19 +68,35 @@ is_flag <- function(x) {
   is.logical(x) && length(x) == 1 && !is.na(x)
 }
 
-should_stop_for_warnings <- function() {
-  should_stop <- getOption("pkg.build_stop_for_warnings", NULL)
-  if (!is.null(should_stop)) {
-    if (!is_flag(should_stop)) {
-      stop("`pkg.build_stop_for_warnings` option must be a logical flag.")
+interpret_envvar_flag <- function(name, default = "false") {
+  env <- tolower(Sys.getenv(name, default))
+  if (env %in% c("true", "yes", "on", "1")) return(TRUE)
+  if (env %in% c("false", "no", "off", "0")) return(FALSE)
+  if (is.na(env)) return(NA)
+
+  stop(cli::format_error(
+    "The {.envvar {name}} environment variable must be {.code true} or
+     {.code false}, if set."
+  ))
+}
+
+get_config_flag_value <- function(name, default = FALSE) {
+  option_name <- paste0("pkg.build_", tolower(name))
+  opt <- getOption(option_name, NULL)
+  if (!is.null(opt)) {
+    if (!is_flag(opt)) {
+      stop(cli::format_error(
+        "The {.code {option_name}} option must be {.code TRUE} or
+          {.code FALSE}, if set."
+      ))
     }
-    return(should_stop)
+    return(opt)
   }
 
-  should_stop <- tolower(Sys.getenv("PKG_BUILD_STOP_FOR_WARNINGS", "false"))
-  if (should_stop %in% c("true", "yes", "on", "1")) return(TRUE)
-  if (should_stop %in% c("false", "no", "off", "0")) return(FALSE)
+  envvar_name <- paste0("PKG_BUILD_", toupper(name))
+  interpret_envvar_flag(envvar_name, default = tolower(as.character(default)))
+}
 
-  stop("`PKG_BUILD_STOP_FOR_WARNINGS` environment variable must be `TRUE` ",
-       "or `FALSE`.")
+should_stop_for_warnings <- function() {
+  get_config_flag_value("stop_for_warnings")
 }
