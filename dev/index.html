@@ -99,6 +99,15 @@
 <h2 id="configuration">Configuration<a class="anchor" aria-label="anchor" href="#configuration"></a>
 </h2>
 <div class="section level3">
+<h3 id="description-entries">
+<code>DESCRIPTION</code> entries<a class="anchor" aria-label="anchor" href="#description-entries"></a>
+</h3>
+<ul>
+<li>
+<code>Config/build/clean-inst-doc</code> can be set to <code>FALSE</code> to avoid cleaning up <code>inst/doc</code> when building a source package. Set it to <code>TRUE</code> to force a cleanup. See the <code>clean_doc</code> argument of <code><a href="reference/build.html">build()</a></code> as well.</li>
+</ul>
+</div>
+<div class="section level3">
 <h3 id="options">Options<a class="anchor" aria-label="anchor" href="#options"></a>
 </h3>
 <ul>
@@ -110,7 +119,7 @@
 <h3 id="environment-variables">Environment variables<a class="anchor" aria-label="anchor" href="#environment-variables"></a>
 </h3>
 <ul>
-<li><p><code>PKG_BUILD_COLOR_DIAGNOSTICS</code> set it to <code>false</code> to opt out of colored compiler diagnostics. Set it to <code>true</code> to force colored compiler diagnostics.</p></li>
+<li><p><code>PKG_BUILD_COLOR_DIAGNOSTICS</code>: set it to <code>false</code> to opt out of colored compiler diagnostics. Set it to <code>true</code> to force colored compiler diagnostics.</p></li>
 <li><p><code>PKG_BUILD_STOP_FOR_WARNINGS</code>: if it is set to <code>true</code>, then pkgbuild will stop for <code>R CMD build</code> errors. The <code>pkg.build_stop_for_warnings</code> option takes precedence over this environment variable.</p></li>
 </ul>
 </div>
