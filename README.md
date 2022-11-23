@@ -32,6 +32,12 @@ pkgbuild::with_build_tools(my_code)
 
 ## Configuration
 
+### `DESCRIPTION` entries
+
+* `Config/build/clean-inst-doc` can be set to `FALSE` to avoid cleaning up
+  `inst/doc` when building a source package. Set it to `TRUE` to force a
+  cleanup. See the `clean_doc` argument of `build()` as well.
+
 ### Options
 
 * `pkg.build_stop_for_warnings`: if it is set to `TRUE`, then pkgbuild will stop
@@ -40,7 +46,7 @@ pkgbuild::with_build_tools(my_code)
 
 ### Environment variables
 
-* `PKG_BUILD_COLOR_DIAGNOSTICS` set it to `false` to opt out of colored
+* `PKG_BUILD_COLOR_DIAGNOSTICS`: set it to `false` to opt out of colored
   compiler diagnostics. Set it to `true` to force colored compiler
   diagnostics.
 

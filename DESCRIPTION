@@ -27,8 +27,10 @@ Imports:
 Suggests:
     covr,
     cpp11,
+    knitr,
     mockery,
     Rcpp,
+    rmarkdown,
     testthat (>= 3.0.0)
 Config/Needs/website: tidyverse/tidytemplate
 Encoding: UTF-8

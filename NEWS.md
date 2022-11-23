@@ -8,6 +8,9 @@
 * `need_compile()` now knows about Rust source code files, i.e. `Cargo.toml`
   and `*.rs` (#115).
 
+* Now `pkgbuild::build()` will not clean up `inst/doc` by default if the
+  `Config/build/clean-inst-doc` entry in `DESCRIPTION` is set to `FALSE` (#128).
+
 * New `PKG_BUILD_COLOR_DIAGNOSTICS` environment variable to opt out from
   colored compiler output (#141).
 

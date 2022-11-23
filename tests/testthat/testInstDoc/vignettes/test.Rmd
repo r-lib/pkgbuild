@@ -1,0 +1,18 @@
+---
+title: "pkgbuild test"
+output: rmarkdown::html_vignette
+description: >
+  This is a vignette to be used in the pkgbuild tests.
+vignette: >
+  %\VignetteIndexEntry{pkgbuild test}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r, setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+```{r}
+1:10
+```

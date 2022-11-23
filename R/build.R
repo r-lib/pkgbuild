@@ -11,15 +11,25 @@
 #'
 #' ## Configuration
 #'
+#' ### `DESCRIPTION` entries
+#'
+#' * `Config/build/clean-inst-doc` can be set to `FALSE` to avoid cleaning up
+#'   `inst/doc` when building a source package. Set it to `TRUE` to force a
+#'   cleanup. See the `clean_doc` argument.
+#'
 #' ### Options
 #'
-#' * `pkg.build_stop_for_warnings` if it is set to `TRUE`, then pkgbuild
+#' * `pkg.build_stop_for_warnings`: if it is set to `TRUE`, then pkgbuild
 #'   will stop for `R CMD build` errors. It takes precedence over the
 #'   `PKG_BUILD_STOP_FOR_WARNINGS` environment variable.
 #'
 #' ### Environment variables
 #'
-#' * `PKG_BUILD_STOP_FOR_WARNINGS` if it is set to `true`, then pkgbuild
+#' * `PKG_BUILD_COLOR_DIAGNOSTICS`: set it to `false` to opt out of colored
+#'  compiler diagnostics. Set it to `true` to force colored compiler
+#'  diagnostics.
+#'
+#' * `PKG_BUILD_STOP_FOR_WARNINGS`: if it is set to `true`, then pkgbuild
 #' will stop for `R CMD build` errors. The `pkg.build_stop_for_warnings`
 #' option takes precedence over this environment variable.
 #'
@@ -49,9 +59,11 @@
 #'   `tools::package_native_routine_registration_skeleton()` before building
 #'   the package. It is ignored if package does not need compilation.
 #' @param clean_doc If `TRUE`, clean the files in `inst/doc` before building
-#'   the package. If `NULL` and interactive, ask to remove the
-#'   files prior to cleaning. In most cases cleaning the files is the correct
-#'   behavior to avoid stale vignette outputs in the built package.
+#'   the package. If `NULL` and the `Config/build/clean-inst-doc` entry is
+#'   present in `DESCRIPTION`, then that is used. Otherwise, if `NULL`,
+#'   and interactive, ask to remove the files prior to cleaning. In most
+#'   cases cleaning the files is the correct behavior to avoid stale
+#'   vignette outputs in the built package.
 #' @export
 #' @return a string giving the location (including file name) of the built
 #'  package
@@ -179,6 +191,9 @@ build_setup_source <- function(path, dest_path, vignettes, manual, clean_doc,
   }
 
   build_vignettes <- !("--no-build-vignettes" %in% args)
+  if (is.null(clean_doc)) {
+    clean_doc <- get_desc_config_flag(path, "clean-inst-doc")
+  }
   if (build_vignettes && (is.null(clean_doc) || isTRUE(clean_doc))) {
     doc_dir <- file.path(path, "inst", "doc")
     if (dir.exists(doc_dir)) {
