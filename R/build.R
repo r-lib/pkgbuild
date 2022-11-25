@@ -17,7 +17,29 @@
 #'   `inst/doc` when building a source package. Set it to `TRUE` to force a
 #'   cleanup. See the `clean_doc` argument.
 #'
+#' * `Config/build/copy-method` can be used to avoid copying large
+#'   directories in `R CMD build`. It works by copying (or linking) the
+#'   files of the package to a temporary directory, leaving out the
+#'   (possibly large) files that are not part of the package. Possible
+#'   values:
+#'
+#'   - `none`: pkgbuild does not copy the package tree. This is the default.
+#'   - `copy`: the package files are copied to a temporary directory before
+#'     ` R CMD build`.
+#'   - `link`: the package files are symbolic linked to a temporary
+#'     directory before `R CMD build`. Windows does not have symbolic
+#'     links, so on Windows this is equivalent to `copy`.
+#'
+#'   You can also use the `pkg.build_copy_method` option or the
+#'   `PKG_BUILD_COPY_METHOD` environment variable to set the copy method.
+#'   The option is consulted first, then the `DESCRIPTION` entry, then the
+#'   environment variable.
+#'
 #' ### Options
+#'
+#' * `pkg.build_copy_method`: use this option to avoid copying large
+#'   directories when building a package. See possible values above, at the
+#'   `Config/build/copy-method` `DESCRIPTION` entry.
 #'
 #' * `pkg.build_stop_for_warnings`: if it is set to `TRUE`, then pkgbuild
 #'   will stop for `R CMD build` errors. It takes precedence over the
@@ -29,7 +51,10 @@
 #'  compiler diagnostics. Set it to `true` to force colored compiler
 #'  diagnostics.
 #'
-#' * `PKG_BUILD_STOP_FOR_WARNINGS`: if it is set to `true`, then pkgbuild
+#' * `PKG_BUILD_COPY_METHOD`: use this environment variable to avoid copying
+#'   large directories when building a package. See possible values above,
+#'   at the `Config/build/copy-method` `DESCRIPTION` entry.
+#'
 #' will stop for `R CMD build` errors. The `pkg.build_stop_for_warnings`
 #' option takes precedence over this environment variable.
 #'
@@ -211,6 +236,15 @@ build_setup_source <- function(path, dest_path, vignettes, manual, clean_doc,
   # Build in temporary directory and then copy to final location
   out_dir <- tempfile()
   dir.create(out_dir)
+
+  copy_method <- get_copy_method(path)
+
+  if (copy_method != "none") {
+    pkgname <- desc::desc_get("Package", path)
+    tmppath <- tempfile("build-")
+    copy_package_tree(path, tmppath, pkgname)
+    path <- file.path(tmppath, pkgname)
+  }
 
   list(
     cmd = "build",

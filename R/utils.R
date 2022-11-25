@@ -19,6 +19,18 @@ is_windows <- function() {
   .Platform$OS.type == "windows"
 }
 
+is_string <- function(x) {
+  is.character(x) && length(x) == 1 && !is.na(x)
+}
+
+is_na <- function(x) {
+  identical(x, NA) ||
+    identical(x, NA_integer_) ||
+    identical(x, NA_character_) ||
+    identical(x, NA_real_) ||
+    identical(x, NA_complex_)
+}
+
 is_dir <- function(x) {
   isTRUE(file.info(x)$isdir)
 }
@@ -117,4 +129,55 @@ get_desc_config_flag <- function(path, name) {
      or {.code FALSE}.",
     "i" = "It is {.val {val}}."
   ))
+}
+
+mkdirp <- function(path, mode = NULL) {
+  if (file.exists(path)) {
+    if (file.info(path)$isdir) {
+      if (is.null(mode)) return()
+      mode <- as.octmode(mode)
+      emode <- as.octmode(file.info(path)$mode)
+      if (emode == mode) return()
+      ret <- Sys.chmod(path, mode, use_umask = FALSE)
+      if (!ret) {
+        stop(cli::format_error(c(
+          "Path {.path {path}} exists, but could not update mode to
+             {.code {mode}} from {.code {emode}}."
+        )))
+      }
+      return()
+    }
+    stop(cli::format_error(c(
+      "Could not create directory {.path {path}}.",
+      i = "Path already exists, but it is not a directory."
+    )))
+  }
+
+  if (is.null(mode)) mode <- "0777"
+  wrg <- NULL
+  withCallingHandlers(
+    ret <- dir.create(
+      path,
+      showWarnings = TRUE,
+      recursive = TRUE,
+      mode = mode
+    ),
+    warning = function(w) {
+      wrg <<- w
+      if (!is.null(findRestart("muffleWarning"))) {
+        invokeRestart("muffleWarning")
+      }
+    }
+  )
+
+  if (!ret) {
+    stop(cli::format_error(c(
+      "Could not create directory {.path {path}}.",
+      i = if (!is.null(wrg)) {
+        "From {.fn dir.create}: {conditionMessage(wrg)}."
+      } else {
+        "For reasons unknown."
+      }
+    )))
+  }
 }
