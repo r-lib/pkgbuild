@@ -1,6 +1,13 @@
 
 # pkgbuild development version
 
+* pkgbuild can now avoid copying large package directories when building a
+  source package. See the `PKG_BUILD_COPY_METHOD` enviroment variable in
+  `?build` or the package README (#59).
+
+  This is currently an experimental feature, and feedback is
+  appreciated.
+
 * `R CMD build` warnings can now be turned into errors, by setting the
   `pkg.build_stop_for_warnings` option to `TRUE` or by setting the
   `PKG_BUILD_STOP_FOR_WARNINGS` environment variable to `true` (#114).

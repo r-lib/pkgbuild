@@ -21,6 +21,7 @@ Imports:
     crayon,
     desc,
     prettyunits,
+    processx,
     R6,
     rprojroot,
     withr (>= 2.3.0)
