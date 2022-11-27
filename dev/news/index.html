@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">pkgbuild</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.3.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.4.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,6 +44,21 @@
       <small>Source: <a href="https://github.com/r-lib/pkgbuild/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="development version" id="pkgbuild-development-version">pkgbuild (development version)<a class="anchor" aria-label="anchor" href="#pkgbuild-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.4.0" id="pkgbuild-140">pkgbuild 1.4.0<a class="anchor" aria-label="anchor" href="#pkgbuild-140"></a></h2><p class="text-muted">CRAN release: 2022-11-27</p>
+<ul><li>
+<p>pkgbuild can now avoid copying large package directories when building a source package. See the <code>PKG_BUILD_COPY_METHOD</code> enviroment variable in <code><a href="../reference/build.html">?build</a></code> or the package README (<a href="https://github.com/r-lib/pkgbuild/issues/59" class="external-link">#59</a>).</p>
+<p>This is currently an experimental feature, and feedback is appreciated.</p>
+</li>
+<li><p><code>R CMD build</code> warnings can now be turned into errors, by setting the <code>pkg.build_stop_for_warnings</code> option to <code>TRUE</code> or by setting the <code>PKG_BUILD_STOP_FOR_WARNINGS</code> environment variable to <code>true</code> (<a href="https://github.com/r-lib/pkgbuild/issues/114" class="external-link">#114</a>).</p></li>
+<li><p><code>need_compile()</code> now knows about Rust source code files, i.e. <code>Cargo.toml</code> and <code>*.rs</code> (<a href="https://github.com/r-lib/pkgbuild/issues/115" class="external-link">#115</a>).</p></li>
+<li><p>Now <code><a href="../reference/build.html">pkgbuild::build()</a></code> will not clean up <code>inst/doc</code> by default if the <code>Config/build/clean-inst-doc</code> entry in <code>DESCRIPTION</code> is set to <code>FALSE</code> (<a href="https://github.com/r-lib/pkgbuild/issues/128" class="external-link">#128</a>).</p></li>
+<li><p>New <code>PKG_BUILD_COLOR_DIAGNOSTICS</code> environment variable to opt out from colored compiler output (<a href="https://github.com/r-lib/pkgbuild/issues/141" class="external-link">#141</a>).</p></li>
+<li><p>pkgbuild now works with a full XCode installation if the XCode Command Line Tools are not installed, on macOS, in RStudio (<a href="https://github.com/r-lib/pkgbuild/issues/103" class="external-link">#103</a>).</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.3.1" id="pkgbuild-131">pkgbuild 1.3.1<a class="anchor" aria-label="anchor" href="#pkgbuild-131"></a></h2><p class="text-muted">CRAN release: 2021-12-20</p>
 <ul><li>
