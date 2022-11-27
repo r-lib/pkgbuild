@@ -1,3 +1,5 @@
+# pkgbuild (development version)
+
 # pkgbuild 1.4.0
 
 * pkgbuild can now avoid copying large package directories when building a
