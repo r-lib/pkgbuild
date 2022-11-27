@@ -287,11 +287,11 @@ exclude_downstream <- function(paths) {
 }
 
 cp <- local({
-  windows <- NULL
+  wind <- NULL
   cpargs <- NULL
   function(src, tgt, recursive = FALSE) {
-    if (is.null(windows)) windows <<- is_windows()
-    if (windows) {
+    if (is.null(wind)) wind <<- is_windows()
+    if (wind) {
       if (!file.copy(src, tgt, recursive = recursive, copy.date = TRUE)) {
         stop(cli::format_error(c(
           "Could not copy package files.",
