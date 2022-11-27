@@ -123,6 +123,17 @@
 </h3>
 <ul>
 <li><p><code>pkg.build_copy_method</code>: use this option to avoid copying large directories when building a package. See possible values above, at the <code>Config/build/copy-method</code> <code>DESCRIPTION</code> entry.</p></li>
+<li>
+<p><code>pkg.build_extra_flags</code>: set this to <code>FALSE</code> to to opt out from adding debug compiler flags in <code><a href="reference/compile_dll.html">compile_dll()</a></code>. Takes precedence over the <code>PKG_BUILD_EXTRA_FLAGS</code> environment variable. Possible values:</p>
+<ul>
+<li>
+<code>TRUE</code>: add extra flags,</li>
+<li>
+<code>FALSE</code>: do not add extra flags,</li>
+<li>
+<code>"missing"</code>: add extra flags if the user does not have a <code>$HOME/.R/Makevars</code> file.</li>
+</ul>
+</li>
 <li><p><code>pkg.build_stop_for_warnings</code>: if it is set to <code>TRUE</code>, then pkgbuild will stop for <code>R CMD build</code> errors. It takes precedence over the <code>PKG_BUILD_STOP_FOR_WARNINGS</code> environment variable.</p></li>
 </ul>
 </div>
@@ -132,6 +143,17 @@
 <ul>
 <li><p><code>PKG_BUILD_COLOR_DIAGNOSTICS</code>: set it to <code>false</code> to opt out of colored compiler diagnostics. Set it to <code>true</code> to force colored compiler diagnostics.</p></li>
 <li><p><code>PKG_BUILD_COPY_METHOD</code>: use this environment variable to avoid copying large directories when building a package. See possible values above, at the <code>Config/build/copy-method</code> <code>DESCRIPTION</code> entry.</p></li>
+<li>
+<p><code>PKG_BUILD_EXTRA_FLAGS</code>: set this to <code>false</code> to to opt out from adding debug compiler flags in <code><a href="reference/compile_dll.html">compile_dll()</a></code>. The <code>pkg.build_extra_flags</code> option takes precedence over this environment variable. Possible values:</p>
+<ul>
+<li>
+<code>"true"</code>: add extra flags,</li>
+<li>
+<code>"false"</code>: do not add extra flags,</li>
+<li>
+<code>"missing"</code>: add extra flags if the user does not have a <code>$HOME/.R/Makevars</code> file.</li>
+</ul>
+</li>
 <li><p><code>PKG_BUILD_STOP_FOR_WARNINGS</code>: if it is set to <code>true</code>, then pkgbuild will stop for <code>R CMD build</code> errors. The <code>pkg.build_stop_for_warnings</code> option takes precedence over this environment variable.</p></li>
 </ul>
 </div>
