@@ -301,7 +301,19 @@ cp <- local({
 
     } else {
       if (is.null(cpargs)) cpargs <<- detect_cp_args()
-      processx::run("cp", c(cpargs, src, tgt))
+      ret <- processx::run(
+        "cp", c(cpargs, src, tgt),
+        stderr = "2>&1",
+        error_on_status = FALSE
+      )
+      if (ret$status != 0) {
+        stop(cli::format_error(c(
+          "Could not copy package files.",
+          i = "Failed to copy {.path {src}} to {.path {tgt}}.",
+          i = "{.code cp} output:",
+          " " = verb_for_cli(ret$stdout)
+        )))
+      }
     }
   }
 })

@@ -78,3 +78,12 @@
     Output
       [1] "-LR"                   "--preserve=timestamps"
 
+# cp error on Unix
+
+    Code
+      cp("foo", "bar")
+    Error <simpleError>
+      Could not copy package files.
+      i Failed to copy 'foo' to 'bar'.
+      i `cp` output:
+

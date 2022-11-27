@@ -217,3 +217,9 @@ mkdirp <- function(path, mode = NULL) {
     )))
   }
 }
+
+verb_for_cli <- function(x) {
+  x <- gsub("\n", "\f", x, fixed = TRUE)
+  x <- gsub(" ", "\u00a0", x, fixed = TRUE)
+  x
+}

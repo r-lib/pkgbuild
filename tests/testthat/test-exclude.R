@@ -112,8 +112,8 @@ test_that("Ignoring .Rbuildignore", {
 
 test_that("copying on windows", {
   # this works on Unix as well
-  environment(cp)$windows <- TRUE
-  on.exit(environment(cp)$windows <- NULL, add = TRUE)
+  environment(cp)$wind <- TRUE
+  on.exit(environment(cp)$wind <- NULL, add = TRUE)
   tmp <- withr::local_tempdir("pkgbuild-test-")
 
   # link
@@ -128,8 +128,8 @@ test_that("copying on windows", {
 })
 
 test_that("cp error", {
-  environment(cp)$windows <- TRUE
-  on.exit(environment(cp)$windows <- NULL, add = TRUE)
+  environment(cp)$wind <- TRUE
+  on.exit(environment(cp)$wind <- NULL, add = TRUE)
   withr::local_dir(withr::local_tempdir())
   expect_snapshot(error = TRUE, cp("foo", "bar"))
 })
@@ -148,4 +148,16 @@ test_that("detect_cp_args", {
     function(f1, f2) file.create(f2)
   )
   expect_snapshot(detect_cp_args())
+})
+
+test_that("cp error on Unix", {
+  skip_on_os("windows")
+  withr::local_dir(withr::local_tempdir())
+  expect_snapshot(
+    error = TRUE,
+    cp("foo", "bar"),
+    # do not include the cp output because it is slightly different on
+    # macOS, Linux, etc.
+    transform = function(x) utils::head(x, 3)
+  )
 })
