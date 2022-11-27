@@ -49,6 +49,7 @@ compile_dll <- function(path = ".",
 
   if (should_add_compiler_flags()) {
     withr::local_makevars(compiler_flags(debug), .assignment = "+=")
+    if (debug) withr::local_envvar(DEBUG = "true")
   }
 
   install_min(
