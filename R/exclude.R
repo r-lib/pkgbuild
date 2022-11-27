@@ -307,9 +307,12 @@ cp <- local({
 })
 
 detect_cp_args <- function() {
-  f1 <- tempfile()
-  f2 <- tempfile()
-  on.exit(unlink(c(f1, f2)), add = TRUE)
+  # we do this in a tempdir, because it might create a file a called
+  # `--preserve=timestamps`
+  tmp <- withr::local_tempdir()
+  withr::local_dir(tmp)
+  f1 <- basename(tempfile())
+  f2 <- basename(tempfile())
   file.create(f1)
   tryCatch(
     suppressWarnings(processx::run("cp", c("--preserve=timestamps", f1, f2))),
