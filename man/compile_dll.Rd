@@ -43,6 +43,36 @@ During compilation, debug flags are set with
 }
 \details{
 Invisibly returns the names of the DLL.
+\subsection{Configuration}{
+\subsection{Options}{
+\itemize{
+\item \code{pkg.build_extra_flags}: set this to \code{FALSE} to to opt out from adding
+debug compiler flags in \code{compile_dll()}. Takes precedence over the
+\code{PKG_BUILD_EXTRA_FLAGS} environment variable. Possible values:
+\itemize{
+\item \code{TRUE}: add extra flags,
+\item \code{FALSE}: do not add extra flags,
+\item \code{"missing"}: add extra flags if the user does not have a
+\verb{$HOME/.R/Makevars} file.
+}
+}
+}
+
+\subsection{Environment variables}{
+\itemize{
+\item \code{PKG_BUILD_EXTRA_FLAGS}: set this to \code{false} to to opt out from adding
+debug compiler flags in \code{compile_dll()}. The \code{pkg.build_extra_flags} option
+takes precedence over this environment variable. Possible values:
+\itemize{
+\item \code{"true"}: add extra flags,
+\item \code{"false"}: do not add extra flags,
+\item \code{"missing"}: add extra flags if the user does not have a
+\verb{$HOME/.R/Makevars} file.
+}
+}
+}
+
+}
 }
 \note{
 If this is used to compile code that uses Rcpp, you will need to

@@ -61,6 +61,15 @@ pkgbuild::with_build_tools(my_code)
   when building a package. See possible values above, at the
   `Config/build/copy-method` `DESCRIPTION` entry.
 
+* `pkg.build_extra_flags`: set this to `FALSE` to to opt out from adding
+  debug compiler flags in `compile_dll()`. Takes precedence over the
+  `PKG_BUILD_EXTRA_FLAGS` environment variable. Possible values:
+
+  - `TRUE`: add extra flags,
+  - `FALSE`: do not add extra flags,
+  - `"missing"`: add extra flags if the user does not have a
+    `$HOME/.R/Makevars` file.
+
 * `pkg.build_stop_for_warnings`: if it is set to `TRUE`, then pkgbuild will stop
   for `R CMD build` errors. It takes precedence over the
   `PKG_BUILD_STOP_FOR_WARNINGS` environment variable.
@@ -74,6 +83,15 @@ pkgbuild::with_build_tools(my_code)
 * `PKG_BUILD_COPY_METHOD`: use this environment variable to avoid copying
   large directories when building a package. See possible values above,
   at the `Config/build/copy-method` `DESCRIPTION` entry.
+
+* `PKG_BUILD_EXTRA_FLAGS`: set this to `false` to to opt out from adding
+  debug compiler flags in `compile_dll()`. The `pkg.build_extra_flags` option
+  takes precedence over this environment variable. Possible values:
+
+  - `"true"`: add extra flags,
+  - `"false"`: do not add extra flags,
+  - `"missing"`: add extra flags if the user does not have a
+    `$HOME/.R/Makevars` file.
 
 * `PKG_BUILD_STOP_FOR_WARNINGS`: if it is set to `true`, then pkgbuild will stop
   for `R CMD build` errors. The `pkg.build_stop_for_warnings` option takes
