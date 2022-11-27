@@ -38,33 +38,26 @@ compile_dll <- function(path = ".",
 
   # Mock install the package to generate the DLL
   if (!quiet) {
-    message("Re-compiling ", pkg_name(path))
+    cli::cli_alert_info(c(
+      "Re-compiling {.pkg {pkg_name(path)}}",
+      if (debug) " (debug build)"
+    ))
   }
 
   install_dir <- tempfile("devtools_install_")
   dir.create(install_dir)
 
-  # If the user has a makevars file just use that
-  if (length(makevars_user()) > 0) {
-    install_min(
-      path,
-      dest = install_dir,
-      components = "libs",
-      args = if (needs_clean(path)) "--preclean",
-      quiet = quiet
-    )
-  } else {
-    # Otherwise set makevars for fast development / debugging
-    withr::with_makevars(compiler_flags(debug), assignment = "+=", {
-      install_min(
-        path,
-        dest = install_dir,
-        components = "libs",
-        args = if (needs_clean(path)) "--preclean",
-        quiet = quiet
-      )
-    })
+  if (should_add_compiler_flags()) {
+    withr::local_makevars(compiler_flags(debug), .assignment = "+=")
   }
+
+  install_min(
+    path,
+    dest = install_dir,
+    components = "libs",
+    args = if (needs_clean(path)) "--preclean",
+    quiet = quiet
+  )
 
   invisible(dll_path(file.path(install_dir, pkg_name(path))))
 }

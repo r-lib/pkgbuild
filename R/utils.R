@@ -116,6 +116,42 @@ should_stop_for_warnings <- function() {
   get_config_flag_value("stop_for_warnings")
 }
 
+isFALSE <- function (x) {
+  is.logical(x) && length(x) == 1L && !is.na(x) && !x
+}
+
+should_add_compiler_flags <- function() {
+  val <- getOption("pkg.build_extra_flags", NULL)
+  if (isTRUE(val)) return(TRUE)
+  if (isFALSE(val)) return(FALSE)
+  if (identical(val, "missing")) return(length(makevars_user()) == 0)
+  if (!is.null(val)) {
+    if (!is_string(val)) {
+      stop(cli::format_error(c(
+        "Invalid {.code pkg.build_extra_flags} option.",
+        i = "It must be {.code TRUE}, {.code FALSE} or {.str missing}, not
+             {.type {val}}."
+      )))
+    } else {
+      stop(cli::format_error(c(
+        "Invalid {.code pkg_build_extra_flags} option.",
+        i = "It must be {.code TRUE}, {.code FALSE} or {.str missing}, not
+            {.str {val}}."
+      )))
+    }
+  }
+
+  val <- Sys.getenv("PKG_BUILD_EXTRA_FLAGS", "true")
+  if (val %in% flag_true_values) return(TRUE)
+  if (val %in% flag_false_values) return(FALSE)
+  if (val %in% "missing") return(length(makevars_user()) == 0)
+
+  stop(cli::format_error(c(
+    "Invalid {.envvar PKG_BUILD_EXTRA_FLAGS} environment variable.",
+    i = "Must be one of {.code true}, {.code false} or {.code missing}."
+  )))
+}
+
 get_desc_config_flag <- function(path, name) {
   name <- paste0("Config/build/", name)
   val <- desc::desc_get(name, file = path)
