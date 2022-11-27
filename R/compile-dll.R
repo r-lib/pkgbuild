@@ -7,6 +7,30 @@
 #'
 #' Invisibly returns the names of the DLL.
 #'
+#' ## Configuration
+#'
+#' ### Options
+#'
+#' * `pkg.build_extra_flags`: set this to `FALSE` to to opt out from adding
+#'   debug compiler flags in `compile_dll()`. Takes precedence over the
+#'   `PKG_BUILD_EXTRA_FLAGS` environment variable. Possible values:
+#'
+#'   - `TRUE`: add extra flags,
+#'   - `FALSE`: do not add extra flags,
+#'   - `"missing"`: add extra flags if the user does not have a
+#'     `$HOME/.R/Makevars` file.
+#'
+#' ### Environment variables
+#'
+#' * `PKG_BUILD_EXTRA_FLAGS`: set this to `false` to to opt out from adding
+#'   debug compiler flags in `compile_dll()`. The `pkg.build_extra_flags` option
+#'   takes precedence over this environment variable. Possible values:
+#'
+#'   - `"true"`: add extra flags,
+#'   - `"false"`: do not add extra flags,
+#'   - `"missing"`: add extra flags if the user does not have a
+#'     `$HOME/.R/Makevars` file.
+#'
 #' @note If this is used to compile code that uses Rcpp, you will need to
 #'   add the following line to your `Makevars` file so that it
 #'   knows where to find the Rcpp headers:
