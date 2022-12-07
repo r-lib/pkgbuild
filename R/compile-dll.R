@@ -133,10 +133,16 @@ mtime <- function(x) {
 # List all source files in the package
 sources <- function(path = ".") {
   srcdir <- file.path(path, "src")
-  c(
+  src <- c(
     dir(srcdir, "\\.(c.*|f|rs)$", recursive = TRUE, full.names = TRUE),
     dir(srcdir, "^Cargo\\.toml$", recursive = TRUE, full.names = TRUE)
   )
+  extra <- desc::desc_get("Config/build/extra-sources", path)
+  if (!is.na(extra)) {
+    xfls <- dir(path, utils::glob2rx(extra), recursive = TRUE, full.names = TRUE)
+    src <- c(src, xfls)
+  }
+  src
 }
 
 # List all header files in the package

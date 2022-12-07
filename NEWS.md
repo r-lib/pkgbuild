@@ -1,5 +1,8 @@
 # pkgbuild (development version)
 
+* New `Config/build/extra-sources` option to make pkgbuild aware of extra
+  source files to consider in `needs_compile()`.
+
 # pkgbuild 1.4.0
 
 * pkgbuild can now avoid copying large package directories when building a

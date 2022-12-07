@@ -55,6 +55,11 @@ pkgbuild::with_build_tools(my_code)
   The option is consulted first, then the `DESCRIPTION` entry, then the
   environment variable.
 
+* `Config/build/extra-sources` can be used to define extra source files for
+  pkgbuild to decide whether a package DLL needs to be recompiled in
+  `needs_compile()`. The syntax is a comma separated list of file names,
+  or globs. (See `?utils::glob2rx()`.) E.g. `src/rust/src/*.rs` or `configure*`.
+
 ### Options
 
 * `pkg.build_copy_method`: use this option to avoid copying large directories
