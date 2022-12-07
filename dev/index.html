@@ -116,6 +116,7 @@
 </ul>
 <p>You can also use the <code>pkg.build_copy_method</code> option or the <code>PKG_BUILD_COPY_METHOD</code> environment variable to set the copy method. The option is consulted first, then the <code>DESCRIPTION</code> entry, then the environment variable.</p>
 </li>
+<li><p><code>Config/build/extra-sources</code> can be used to define extra source files for pkgbuild to decide whether a package DLL needs to be recompiled in <code><a href="reference/needs_compile.html">needs_compile()</a></code>. The syntax is a comma separated list of file names, or globs. (See <code>?utils::glob2rx()</code>.) E.g. <code>src/rust/src/*.rs</code> or <code>configure*</code>.</p></li>
 </ul>
 </div>
 <div class="section level3">
