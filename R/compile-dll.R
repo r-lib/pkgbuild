@@ -130,6 +130,11 @@ mtime <- function(x) {
   max(file.info(x)$mtime)
 }
 
+globs <- function(path = ".", x) {
+  withr::local_dir(path)
+  Sys.glob(x)
+}
+
 # List all source files in the package
 sources <- function(path = ".") {
   srcdir <- file.path(path, "src")
@@ -138,9 +143,17 @@ sources <- function(path = ".") {
     dir(srcdir, "^Cargo\\.toml$", recursive = TRUE, full.names = TRUE)
   )
   extra <- desc::desc_get("Config/build/extra-sources", path)
+
   if (!is.na(extra)) {
-    xfls <- dir(path, utils::glob2rx(extra), recursive = TRUE, full.names = TRUE)
-    src <- c(src, xfls)
+    glb <- trimws(strsplit(extra, ",", fixed = TRUE)[[1]])
+    xs <- file.path(path, globs(path, glb))
+    xfls <- unlist(lapply(
+      xs,
+      dir,
+      recursive = TRUE,
+      full.names = TRUE
+    ))
+    src <- c(src, xs, xfls)
   }
   src
 }
