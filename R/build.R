@@ -165,6 +165,19 @@ build_setup <- function(path, dest_path, binary, vignettes, manual, clean_doc, a
     dest_path <- dirname(path)
   }
 
+  bootstrap_file <- file.path(path, "bootstrap.R")
+  run_boostrap <- isTRUE(get_desc_config_flag(path, "bootstrap"))
+  if (file.exists(bootstrap_file) && run_boostrap) {
+    if (!quiet) message("Running bootstrap.R...")
+
+    callr::rscript(
+      bootstrap_file,
+      wd = path,
+      stderr = "2>&1",
+      show = !quiet
+    )
+  }
+
   if (needs_compilation) {
     update_registration(path, compile_attributes, register_routines, quiet)
   }
