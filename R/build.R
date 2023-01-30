@@ -41,6 +41,10 @@
 #'   or globs. (See [utils::glob2rx()].) E.g. `src/rust/src/*.rs` or
 #'   `configure*`.
 #'
+#' * `Config/build/bootstrap` can be set to `TRUE` to run
+#'   `Rscript bootstrap.R` in the source directory prior to running subsequent
+#'   build steps.
+#'
 #' ### Options
 #'
 #' * `pkg.build_copy_method`: use this option to avoid copying large
