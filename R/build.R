@@ -41,6 +41,10 @@
 #'   or globs. (See [utils::glob2rx()].) E.g. `src/rust/src/*.rs` or
 #'   `configure*`.
 #'
+#' * `Config/build/bootstrap` can be set to `TRUE` to run
+#'   `Rscript bootstrap.R` in the source directory prior to running subsequent
+#'   build steps.
+#'
 #' ### Options
 #'
 #' * `pkg.build_copy_method`: use this option to avoid copying large
@@ -163,6 +167,19 @@ build_setup <- function(path, dest_path, binary, vignettes, manual, clean_doc, a
 
   if (is.null(dest_path)) {
     dest_path <- dirname(path)
+  }
+
+  bootstrap_file <- file.path(path, "bootstrap.R")
+  run_boostrap <- isTRUE(get_desc_config_flag(path, "bootstrap"))
+  if (file.exists(bootstrap_file) && run_boostrap) {
+    if (!quiet) message("Running bootstrap.R...")
+
+    callr::rscript(
+      bootstrap_file,
+      wd = path,
+      stderr = "2>&1",
+      show = !quiet
+    )
   }
 
   if (needs_compilation) {

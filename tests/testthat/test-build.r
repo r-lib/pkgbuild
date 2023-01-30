@@ -255,3 +255,95 @@ test_that("Config/build/clean-inst-doc TRUE", {
   expect_false("testInstDoc/inst/doc/keep.me" %in% pkg_files)
   expect_true("testInstDoc/inst/doc/test.html" %in% pkg_files)
 })
+
+test_that("bootstrap.R runs on build if present", {
+  src <- withr::local_tempdir()
+  dest <- withr::local_tempdir()
+  file.copy(test_path("testDummy"), src, recursive = TRUE)
+
+  writeLines(
+    c(
+      'dir.create("inst")',
+      'file.create("inst/file-created-by-bootstrap.txt")'
+    ),
+    file.path(src, "testDummy", "bootstrap.R")
+  )
+
+  desc::desc_set(
+    "Config/build/bootstrap" = "TRUE",
+    file = file.path(src, "testDummy")
+  )
+
+  expect_silent(
+    build(
+      file.path(src, "testDummy"),
+      dest_path = dest,
+      quiet = TRUE
+    )
+  )
+
+  pkg <- file.path(dest, dir(dest))
+  expect_true(length(pkg) == 1)
+  expect_true(file.exists(pkg))
+  pkg_files <- untar(pkg, list = TRUE)
+  expect_true("testDummy/inst/file-created-by-bootstrap.txt" %in% pkg_files)
+})
+
+test_that("bootstrap.R does not run if Config/build/bootstrap is not TRUE", {
+  src <- withr::local_tempdir()
+  dest <- withr::local_tempdir()
+  file.copy(test_path("testDummy"), src, recursive = TRUE)
+
+  writeLines(
+    c(
+      'dir.create("inst")',
+      'file.create("inst/file-created-by-bootstrap.txt")'
+    ),
+    file.path(src, "testDummy", "bootstrap.R")
+  )
+
+  expect_silent(
+    build(
+      file.path(src, "testDummy"),
+      dest_path = dest,
+      quiet = TRUE
+    )
+  )
+
+  pkg <- file.path(dest, dir(dest))
+  expect_true(length(pkg) == 1)
+  expect_true(file.exists(pkg))
+  pkg_files <- untar(pkg, list = TRUE)
+  expect_false("testDummy/inst/file-created-by-bootstrap.txt" %in% pkg_files)
+})
+
+test_that("bootstrap.R can output stdout, stderr, and warnings when run", {
+  src <- withr::local_tempdir()
+  dest <- withr::local_tempdir()
+  file.copy(test_path("testDummy"), src, recursive = TRUE)
+
+  writeLines(
+    c(
+      'message("output on stderr")',
+      'cat("output on stdout\\n")',
+      'warning("this is a warning")'
+    ),
+    file.path(src, "testDummy", "bootstrap.R")
+  )
+
+  desc::desc_set(
+    "Config/build/bootstrap" = "TRUE",
+    file = file.path(src, "testDummy")
+  )
+
+  expect_output(
+    expect_message(
+      build(
+        file.path(src, "testDummy"),
+        dest_path = dest
+      ),
+      "Running bootstrap.R"
+    ),
+    "output on stderr.*?output on stdout.*?this is a warning"
+  )
+})

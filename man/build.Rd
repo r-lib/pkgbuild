@@ -104,6 +104,9 @@ for pkgbuild to decide whether a package DLL needs to be recompiled in
 \code{needs_compile()}. The syntax is a comma separated list of file names,
 or globs. (See \code{\link[utils:glob2rx]{utils::glob2rx()}}.) E.g. \verb{src/rust/src/*.rs} or
 \verb{configure*}.
+\item \code{Config/build/bootstrap} can be set to \code{TRUE} to run
+\verb{Rscript bootstrap.R} in the source directory prior to running subsequent
+build steps.
 }
 }
 
