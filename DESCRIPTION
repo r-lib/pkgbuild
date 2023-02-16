@@ -11,7 +11,8 @@ Description: Provides functions used to build R packages. Locates
     compilers needed to build R packages on various platforms and ensures
     the PATH is configured appropriately so R can use them.
 License: MIT + file LICENSE
-URL: https://github.com/r-lib/pkgbuild, https://r-lib.github.io/pkgbuild/
+URL: https://github.com/r-lib/pkgbuild,
+    https://pkgbuild.r-lib.org
 BugReports: https://github.com/r-lib/pkgbuild/issues
 Depends: 
     R (>= 3.4)
@@ -36,5 +37,5 @@ Suggests:
 Config/Needs/website: tidyverse/tidytemplate
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1.9000
+RoxygenNote: 7.2.3
 Config/testthat/edition: 3

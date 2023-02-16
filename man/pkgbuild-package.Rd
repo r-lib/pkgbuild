@@ -12,7 +12,7 @@ Provides functions used to build R packages. Locates compilers needed to build R
 Useful links:
 \itemize{
   \item \url{https://github.com/r-lib/pkgbuild}
-  \item \url{https://r-lib.github.io/pkgbuild/}
+  \item \url{https://pkgbuild.r-lib.org}
   \item Report bugs at \url{https://github.com/r-lib/pkgbuild/issues}
 }
 
