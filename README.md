@@ -9,11 +9,17 @@ The goal of pkgbuild is to make it easy to build packages with compiled code. It
 
 ## Installation
 
-You can install pkgbuild from github with:
+ Install the released version from CRAN
+ 
+```r
+install.packages("pkgbuild")
+```
 
-``` r
-# install.packages("devtools")
-devtools::install_github("r-lib/pkgbuild")
+Or install the development version from GitHub:
+
+```r
+# install.packages("pak")
+pak::pak("r-lib/pkgbuild")
 ```
 
 ## Example
