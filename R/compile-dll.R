@@ -71,20 +71,29 @@ compile_dll <- function(path = ".",
   install_dir <- tempfile("devtools_install_")
   dir.create(install_dir)
 
-  if (should_add_compiler_flags()) {
-    withr::local_makevars(compiler_flags(debug), .assignment = "+=")
-    if (debug) withr::local_envvar(DEBUG = "true")
+  build <- function() {
+    install_min(
+      path,
+      dest = install_dir,
+      components = "libs",
+      args = if (needs_clean(path)) "--preclean",
+      quiet = quiet
+    )
+
+    invisible(dll_path(file.path(install_dir, pkg_name(path))))
   }
 
-  install_min(
-    path,
-    dest = install_dir,
-    components = "libs",
-    args = if (needs_clean(path)) "--preclean",
-    quiet = quiet
-  )
-
-  invisible(dll_path(file.path(install_dir, pkg_name(path))))
+  if (should_add_compiler_flags()) {
+    withr_with_makevars(compiler_flags(debug), assignment = "+=", {
+      if (debug) {
+        withr_with_envvar(c(DEBUG = "true"), build())
+      } else {
+        build()
+      }
+    })
+  } else {
+    build()
+  }
 }
 
 #' Remove compiled objects from /src/ directory
@@ -131,7 +140,9 @@ mtime <- function(x) {
 }
 
 globs <- function(path = ".", x) {
-  withr::local_dir(path)
+  old <- getwd()
+  on.exit(setwd(old), add = TRUE)
+  setwd(path)
   Sys.glob(x)
 }
 
