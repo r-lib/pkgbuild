@@ -25,7 +25,6 @@ Imports:
     processx,
     R6,
     rprojroot,
-    withr (>= 2.3.0)
 Suggests:
     covr,
     cpp11,
@@ -33,7 +32,8 @@ Suggests:
     mockery,
     Rcpp,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    withr (>= 2.3.0)
 Config/Needs/website: tidyverse/tidytemplate
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

@@ -70,14 +70,14 @@ with_build_tools <- function(code, debug = FALSE, required = TRUE) {
   }
 
   if (has_rtools()) {
-    withr::with_path(rtools_path(), code)
+    withr_with_path(rtools_path(), code)
   } else {
     code
   }
 }
 
 #' @rdname has_build_tools
-#' @inheritParams withr::local_path
+#' @param .local_envir The environment to use for scoping.
 #' @export
 local_build_tools <- function(debug = FALSE, required = TRUE, .local_envir = parent.frame()) {
   if (required) {
@@ -85,6 +85,6 @@ local_build_tools <- function(debug = FALSE, required = TRUE, .local_envir = par
   }
 
   if (has_rtools()) {
-    withr::local_path(rtools_path(), .local_envir = .local_envir)
+    withr_local_path(rtools_path(), .local_envir = .local_envir)
   }
 }

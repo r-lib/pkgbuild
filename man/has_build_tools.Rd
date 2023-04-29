@@ -32,7 +32,7 @@ exist.}
 will throw an error. Otherwise will attempt to run \code{code} without
 them.}
 
-\item{.local_envir}{\verb{[environment]}\cr The environment to use for scoping.}
+\item{.local_envir}{The environment to use for scoping.}
 }
 \description{
 \code{has_build_tools} returns a logical, \code{check_build_tools} throws

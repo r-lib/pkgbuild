@@ -321,8 +321,10 @@ cp <- local({
 detect_cp_args <- function() {
   # we do this in a tempdir, because it might create a file a called
   # `--preserve=timestamps`
-  tmp <- withr::local_tempdir()
-  withr::local_dir(tmp)
+  dir.create(tmp <- tempfile())
+  old <- getwd()
+  on.exit({ setwd(old); unlink(tmp, recursive = TRUE) }, add = TRUE)
+  setwd(tmp)
   f1 <- basename(tempfile())
   f2 <- basename(tempfile())
   file.create(f1)

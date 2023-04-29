@@ -76,7 +76,7 @@ has_compiler_colored_diagnostics <- function() {
     on.exit(cache_remove("has_compiler"))
   }
 
-  res <- withr::with_makevars(c(CFLAGS = "-fdiagnostics-color=always"), has_compiler())
+  res <- withr_with_makevars(c(CFLAGS = "-fdiagnostics-color=always"), has_compiler())
 
   cache_set("has_compiler_colored_diagnostics", res)
   res

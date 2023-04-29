@@ -5,7 +5,6 @@
 #' @param CXXFLAGS flags for compiling C++ code
 #' @param FFLAGS flags for compiling Fortran code.
 #' @param FCFLAGS flags for Fortran 9x code.
-#' @inheritParams withr::with_envvar
 #' @inheritParams compiler_flags
 #' @family debugging flags
 #' @export
@@ -26,7 +25,7 @@ with_debug <- function(code, CFLAGS = NULL, CXXFLAGS = NULL,
 
   flags <- unlist(utils::modifyList(as.list(defaults), as.list(flags)))
 
-  withr::with_makevars(flags, code)
+  withr_with_makevars(flags, code)
 }
 
 #' Tools for testing pkgbuild
@@ -48,11 +47,11 @@ without_compiler <- function(code) {
   if (is_windows()) {
     without_cache({
       cache_set("rtools_path", "")
-      withr::with_makevars(flags, code)
+      withr_with_makevars(flags, code)
     })
   } else {
     without_cache({
-      withr::with_makevars(flags, code)
+      withr_with_makevars(flags, code)
     })
   }
 }
@@ -71,12 +70,12 @@ without_cache <- function(code) {
 #' @export
 #' @rdname without_compiler
 without_latex <- function(code) {
-  withr::with_options(list(PKGBUILD_TEST_FIXTURE_HAS_LATEX = FALSE), code)
+  withr_with_options(list(PKGBUILD_TEST_FIXTURE_HAS_LATEX = FALSE), code)
 }
 
 
 #' @export
 #' @rdname without_compiler
 with_latex <- function(code) {
-  withr::with_options(list(PKGBUILD_TEST_FIXTURE_HAS_LATEX = TRUE), code)
+  withr_with_options(list(PKGBUILD_TEST_FIXTURE_HAS_LATEX = TRUE), code)
 }

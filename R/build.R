@@ -112,40 +112,44 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
   )
   on.exit(unlink(options$out_dir, recursive = TRUE), add = TRUE)
 
-  withr::local_makevars(compiler_flags(debug = FALSE), .assignment = "+=")
-  output <- withr::with_temp_libpaths(
-    rcmd_build_tools(
-      options$cmd,
-      c(options$path, options$args),
-      wd = options$out_dir,
-      fail_on_status = TRUE,
-      required = FALSE, # already checked in setup
-      quiet = quiet
-    )
-  )
+  withr_with_makevars(
+    compiler_flags(debug = FALSE),
+    assignment = "+=", {
+      output <- withr_with_temp_libpaths(
+        rcmd_build_tools(
+          options$cmd,
+          c(options$path, options$args),
+          wd = options$out_dir,
+          fail_on_status = TRUE,
+          required = FALSE, # already checked in setup
+          quiet = quiet
+        )
+      )
 
-  if (should_stop_for_warnings() &&
-      grepl("\n\\s*warning:", output$stdout, ignore.case = TRUE)) {
-    cli::cli_alert_warning(
-      "Stopping as requested for a warning during {.code R CMD build}.")
-    if (quiet) {
-      cli::cli_alert_warning("The full output is printed below.")
-      cli::cli_verbatim(output$stdout)
+      if (should_stop_for_warnings() &&
+          grepl("\n\\s*warning:", output$stdout, ignore.case = TRUE)) {
+        cli::cli_alert_warning(
+               "Stopping as requested for a warning during {.code R CMD build}.")
+        if (quiet) {
+          cli::cli_alert_warning("The full output is printed below.")
+          cli::cli_verbatim(output$stdout)
+        }
+        stop("converted from `R CMD build` warning.")
+      }
+
+      out_file <- dir(options$out_dir)
+      file.copy(
+        file.path(options$out_dir, out_file), options$dest_path,
+        overwrite = TRUE
+      )
+
+      if (is_dir(options$dest_path)) {
+        file.path(options$dest_path, out_file)
+      } else {
+        options$dest_path
+      }
     }
-    stop("converted from `R CMD build` warning.")
-  }
-
-  out_file <- dir(options$out_dir)
-  file.copy(
-    file.path(options$out_dir, out_file), options$dest_path,
-    overwrite = TRUE
   )
-
-  if (is_dir(options$dest_path)) {
-    file.path(options$dest_path, out_file)
-  } else {
-    options$dest_path
-  }
 }
 
 build_setup <- function(path, dest_path, binary, vignettes, manual, clean_doc, args,
