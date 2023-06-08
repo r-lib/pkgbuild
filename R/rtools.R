@@ -129,7 +129,7 @@ has_rtools <- function(debug = FALSE) {
   }
 
   # On Rtools 3.x do an extra check if the installed version is accurate.
-  # With rtools40 this is no longer needed (it doens't have a Version.txt)
+  # With rtools40 this is no longer needed (it doesn't have a Version.txt)
   if (isTRUE(from_registry$version < "4")) {
     installed_ver <- installed_version(from_registry$path, debug = debug)
     if (is.null(installed_ver)) {
