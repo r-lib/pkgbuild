@@ -6,7 +6,7 @@
 # pkgbuild 1.4.0
 
 * pkgbuild can now avoid copying large package directories when building a
-  source package. See the `PKG_BUILD_COPY_METHOD` enviroment variable in
+  source package. See the `PKG_BUILD_COPY_METHOD` environment variable in
   `?build` or the package README (#59).
 
   This is currently an experimental feature, and feedback is
@@ -55,7 +55,7 @@
 
 * Gábor Csárdi is now the maintainer.
 
-* `build_setup_source` now considerers both command-line build arguments, as
+* `build_setup_source` now considers both command-line build arguments, as
   well as parameters `vignettes` or `manual` when conditionally executing
   flag-dependent behaviors (@dgkf, #120)
 
