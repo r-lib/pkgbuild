@@ -3,6 +3,8 @@
 * New `Config/build/extra-sources` option to make pkgbuild aware of extra
   source files to consider in `needs_compile()`.
 
+* pkgbuild now supports Rtools43.
+
 # pkgbuild 1.4.0
 
 * pkgbuild can now avoid copying large package directories when building a

@@ -30,6 +30,20 @@ has_rtools <- function(debug = FALSE) {
     return(FALSE)
   }
 
+  # R 4.3.0 or later
+  if (getRversion() >= "4.3.0") {
+    rtools43_home <- Sys.getenv("RTOOLS43_HOME", "C:\\rtools43")
+    if (file.exists(file.path(rtools43_home, "usr", "bin"))) {
+      if (debug) {
+        cat("Found in Rtools 4.3 installation folder\n")
+      }
+      rtools_path_set(rtools(rtools43_home, "4.3"))
+      return(TRUE)
+    }
+    return(FALSE)
+  }
+
+
   # R 4.2.x or later and ucrt?
   ucrt <- is_ucrt()
   if (ucrt) {
@@ -265,10 +279,5 @@ rtools_needed <- function(r_version = getRversion()) {
 }
 
 rtools_url <- function(needed) {
-  paste0(
-    "https://cran.r-project.org/bin/windows/Rtools/",
-    if (needed == "Rtools 4.2") {
-      " or https://www.r-project.org/nosvn/winutf8/ucrt3/"
-    }
-  )
+  "https://cran.r-project.org/bin/windows/Rtools/"
 }
