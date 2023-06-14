@@ -1,3 +1,5 @@
+# pkgbuild (development version)
+
 # pkgbuild 1.4.1
 
 * New `Config/build/extra-sources` `DESCRIPTION` option to make pkgbuild aware
