@@ -1,7 +1,11 @@
 # pkgbuild (development version)
 
-* New `Config/build/extra-sources` option to make pkgbuild aware of extra
-  source files to consider in `needs_compile()`.
+* New `Config/build/extra-sources` `DESCRIPTION` option to make pkgbuild aware
+  of extra source files to consider in `needs_compile()`.
+
+* New `Config/build/bootstrap` `DESCRIPTION` option. Set it to `TRUE` to run
+  `Rscript bootstrap.R` in the package root prior to building the source
+  package (#157, @paleolimbot).
 
 * pkgbuild now supports Rtools43.
 
