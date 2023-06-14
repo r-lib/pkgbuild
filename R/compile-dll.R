@@ -61,10 +61,11 @@ compile_dll <- function(path = ".",
   update_registration(path, compile_attributes, register_routines, quiet)
 
   # Mock install the package to generate the DLL
+  xflags <- should_add_compiler_flags()
   if (!quiet) {
     cli::cli_alert_info(c(
       "Re-compiling {.pkg {pkg_name(path)}}",
-      if (debug) " (debug build)"
+      if (debug && xflags) " (debug build)"
     ))
   }
 
@@ -83,8 +84,8 @@ compile_dll <- function(path = ".",
     invisible(dll_path(file.path(install_dir, pkg_name(path))))
   }
 
-  if (should_add_compiler_flags()) {
-    withr_with_makevars(compiler_flags(debug), assignment = "+=", {
+  if (xflags) {
+    withr_with_makevars(compiler_flags(debug), {
       if (debug) {
         withr_with_envvar(c(DEBUG = "true"), build())
       } else {
