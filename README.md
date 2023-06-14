@@ -111,5 +111,5 @@ pkgbuild::with_build_tools(my_code)
 ## Code of Conduct
 
 Please note that the pkgbuild project is released with a
-[Contributor Code of Conduct](https://r-lib.github.io/pkgbuild/CODE_OF_CONDUCT.html).
+[Contributor Code of Conduct](https://pkgbuild.r-lib.org/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
