@@ -1,11 +1,11 @@
 
 test_that("withr_with_makevars", {
   split_lines <- function(x) strsplit(x, "\n\r?")[[1]]
-  
-  orig <- split_lines(callr::rcmd("CONFIG", "CFLAGS")$stdout)
+
+  orig <- split_lines(callr::rcmd("config", "CFLAGS")$stdout)
   new <- withr_with_makevars(
     new = c(CFLAGS = "-DFOO"),
-    split_lines(callr::rcmd("CONFIG", "CFLAGS")$stdout)
+    split_lines(callr::rcmd("config", "CFLAGS")$stdout)
   )
   expect_equal(new, paste(orig, "-DFOO"))
 
@@ -17,19 +17,19 @@ test_that("withr_with_makevars", {
     "CXXFLAGS+=-DTHAT"
   ), tmp)
 
-  orig <- split_lines(callr::rcmd("CONFIG", "CFLAGS")$stdout)
+  orig <- split_lines(callr::rcmd("config", "CFLAGS")$stdout)
   new <- withr_with_makevars(
     new = c(CFLAGS = "-DFOO"),
     path = tmp,
-    split_lines(callr::rcmd("CONFIG", "CFLAGS")$stdout)
+    split_lines(callr::rcmd("config", "CFLAGS")$stdout)
   )
   expect_equal(new, "-DTHIS -DFOO")
 
-  orig <- split_lines(callr::rcmd("CONFIG", "CXXFLAGS")$stdout)
+  orig <- split_lines(callr::rcmd("config", "CXXFLAGS")$stdout)
   new <- withr_with_makevars(
     new = c(CXXFLAGS = "-DFOO"),
     path = tmp,
-    split_lines(callr::rcmd("CONFIG", "CXXFLAGS")$stdout)
+    split_lines(callr::rcmd("config", "CXXFLAGS")$stdout)
   )
   expect_equal(new, paste(orig, "-DTHAT -DFOO"))
 })
