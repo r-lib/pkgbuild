@@ -113,8 +113,7 @@ build <- function(path = ".", dest_path = NULL, binary = FALSE, vignettes = TRUE
   on.exit(unlink(options$out_dir, recursive = TRUE), add = TRUE)
 
   withr_with_makevars(
-    compiler_flags(debug = FALSE),
-    assignment = "+=", {
+    compiler_flags(debug = FALSE), {
       output <- withr_with_temp_libpaths(
         rcmd_build_tools(
           options$cmd,

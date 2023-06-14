@@ -1,44 +1,27 @@
 
-withr_with_makevars <- function(new, code, path = makevars_user(),
-                                assignment = c("=", ":=", "?=", "+=")) {
-  assignment <- match.arg(assignment)
+withr_with_makevars <- function(new, code, path = makevars_user()) {
   makevars_file <- tempfile()
   on.exit(unlink(makevars_file), add = TRUE)
   force(path)
   withr_with_envvar(c(R_MAKEVARS_USER = makevars_file), {
-    withr_set_makevars(new, path, makevars_file, assignment = assignment)
+    withr_set_makevars(new, path, makevars_file)
     force(code)
   })
 }
 
 withr_set_makevars <- function(variables, old_path = withr_makevars_user(),
-                               new_path = tempfile(),
-                               assignment = c("=", ":=", "?=", "+=")) {
+                               new_path = tempfile()) {
   if (length(variables) == 0) {
     return()
   }
   stopifnot(withr_is_named(variables))
-  assignment <- match.arg(assignment)
   old <- NULL
   if (length(old_path) == 1 && file.exists(old_path)) {
     lines <- readLines(old_path)
     old <- lines
-    for (var in names(variables)) {
-      loc <- grep(paste(c("^[[:space:]]*", var, "[[:space:]]*",
-                          "="), collapse = ""), lines)
-      if (length(loc) == 0) {
-        lines <- append(lines, paste(sep = assignment,
-                                     var, variables[var]))
-      }
-      else if (length(loc) == 1) {
-        lines[loc] <- paste(sep = assignment, var, variables[var])
-      } else {
-        stop("Multiple results for ", var, " found, something is wrong.",
-             .call = FALSE)
-      }
-    }
+    lines <- c(old, paste(names(variables), variables, sep = " += "))
   } else {
-    lines <- paste(names(variables), variables, sep = assignment)
+    lines <- paste(names(variables), variables, sep = " += ")
   }
   if (!identical(old, lines)) {
     writeLines(con = new_path, lines)

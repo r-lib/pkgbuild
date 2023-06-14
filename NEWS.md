@@ -5,6 +5,9 @@
 
 * pkgbuild now supports Rtools43.
 
+* pkgbuild now always _appends_ its extra compiler flags to the ones that
+  already exist in the system and/or user `Makevars` files (#156).
+
 # pkgbuild 1.4.0
 
 * pkgbuild can now avoid copying large package directories when building a

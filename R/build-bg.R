@@ -116,7 +116,7 @@ rcb_init <- function(self, private, super, path, dest_path, binary,
 
   ## Build tools already checked in setup
 
-  withr_set_makevars(compiler_flags(debug = FALSE), new_path = private$makevars_file, assignment = "+=")
+  withr_set_makevars(compiler_flags(debug = FALSE), new_path = private$makevars_file)
   withr_with_envvar(
     c("R_MAKEVARS_USER" = private$makevars_file), {
       options <- rcmd_process_options(
