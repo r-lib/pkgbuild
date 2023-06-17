@@ -24,7 +24,7 @@ Imports:
     prettyunits,
     processx,
     R6,
-    rprojroot,
+    rprojroot
 Suggests:
     covr,
     cpp11,
