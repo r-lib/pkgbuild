@@ -50,11 +50,11 @@ pkgbuild_process <- R6Class(
                           vignettes = TRUE, manual = FALSE, clean_doc = NULL,
                           args = NULL, needs_compilation = pkg_has_src(path),
                           compile_attributes = FALSE,
-                          register_routines = FALSE) {
+                          register_routines = FALSE, quiet = FALSE) {
       rcb_init(
         self, private, super, path, dest_path, binary, vignettes,
         manual, clean_doc, args, needs_compilation, compile_attributes,
-        register_routines
+        register_routines, quiet
       )
     },
     finalize = function() {
