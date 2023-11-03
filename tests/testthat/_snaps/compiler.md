@@ -2,8 +2,9 @@
 
     Code
       has_compiler()
-    Error <simpleError>
-      
+    Condition
+      Error in `has_compiler()`:
+      ! 
       ! Invalid `pkgbuild.has_compiler` option.
       i It must be `TRUE` or `FALSE`, not an integer vector.
 

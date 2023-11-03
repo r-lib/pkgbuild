@@ -4,7 +4,7 @@
       sort(dir(tmp, recursive = TRUE, include.dirs = TRUE))
     Output
       [1] "testDummy"             "testDummy/DESCRIPTION" "testDummy/NAMESPACE"  
-      [4] "testDummy/R"           "testDummy/R/a.r"       "testDummy/R/b.r"      
+      [4] "testDummy/R"           "testDummy/R/a.R"       "testDummy/R/b.R"      
 
 ---
 
@@ -12,7 +12,7 @@
       sort(dir(tmp, recursive = TRUE, include.dirs = TRUE))
     Output
       [1] "testDummy"             "testDummy/DESCRIPTION" "testDummy/NAMESPACE"  
-      [4] "testDummy/R"           "testDummy/R/a.r"       "testDummy/R/b.r"      
+      [4] "testDummy/R"           "testDummy/R/a.R"       "testDummy/R/b.R"      
 
 # exclusions
 
@@ -54,14 +54,15 @@
       sort(dir(tmp, recursive = TRUE, include.dirs = TRUE))
     Output
       [1] "testDummy"             "testDummy/DESCRIPTION" "testDummy/NAMESPACE"  
-      [4] "testDummy/R"           "testDummy/R/a.r"       "testDummy/R/b.r"      
+      [4] "testDummy/R"           "testDummy/R/a.R"       "testDummy/R/b.R"      
 
 # cp error
 
     Code
       cp("foo", "bar")
-    Error <simpleError>
-      Could not copy package files.
+    Condition
+      Error in `cp()`:
+      ! Could not copy package files.
       i Failed to copy 'foo' to 'bar'.
 
 # detect_cp_args
@@ -82,8 +83,8 @@
 
     Code
       cp("foo", "bar")
-    Error <simpleError>
-      Could not copy package files.
+    Condition
+      Error in `cp()`:
+      ! Could not copy package files.
       i Failed to copy 'foo' to 'bar'.
-      i `cp` output:
 

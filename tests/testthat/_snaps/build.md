@@ -2,7 +2,7 @@
 
     Code
       build(file.path(src, "testDummy"), dest_path = dest, quiet = TRUE)
-    Message <cliMessage>
+    Message
       ! Stopping as requested for a warning during `R CMD build`.
       ! The full output is printed below.
       * checking for file '<file>' ... OK
@@ -17,6 +17,7 @@
           'testDummy/inst/testthat-problems.rds'
       * building 'testDummy_0.1.tar.gz'
       
-    Error <simpleError>
-      converted from `R CMD build` warning.
+    Condition
+      Error in `force()`:
+      ! converted from `R CMD build` warning.
 
