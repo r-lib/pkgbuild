@@ -20,8 +20,7 @@ Imports:
     cli (>= 3.4.0),
     desc,
     processx,
-    R6,
-    rprojroot
+    R6
 Suggests:
     covr,
     cpp11,
