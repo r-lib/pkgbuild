@@ -23,6 +23,14 @@ test_that("find_package_root", {
     )),
     lns
   )
+
+  wd <- getwd()
+  on.exit(setwd(wd), add = TRUE)
+  setwd(file.path(tmp, "a", "b", "c"))
+  expect_equal(
+    readLines(file.path(find_package_root("."), "DESCRIPTION")),
+    lns
+  )
 })
 
 test_that("find_package_root errors", {

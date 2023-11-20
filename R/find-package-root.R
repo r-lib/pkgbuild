@@ -9,7 +9,7 @@ find_package_root <- function(path = ".") {
   if (!file.exists(path)) {
     stop("Path does not exist: ", path)
   }
-  cur_path <- path
+  cur_path <- normalizePath(path, winslash = "/")
   errmsg <- paste0(
     "Could not find R package in `",
     path,
