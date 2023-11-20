@@ -13,12 +13,11 @@ Description: Provides functions used to build R packages. Locates
 License: MIT + file LICENSE
 URL: https://github.com/r-lib/pkgbuild, https://pkgbuild.r-lib.org
 BugReports: https://github.com/r-lib/pkgbuild/issues
-Depends: 
+Depends:
     R (>= 3.5)
 Imports:
     callr (>= 3.2.0),
     cli (>= 3.4.0),
-    crayon,
     desc,
     prettyunits,
     processx,
