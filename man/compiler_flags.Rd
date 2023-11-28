@@ -8,7 +8,7 @@ compiler_flags(debug = FALSE)
 }
 \arguments{
 \item{debug}{If \code{TRUE} adds \code{-g -O0} to all flags
-(Adding \env{FFLAGS} and \env{FCFLAGS}}
+(Adding \env{FFLAGS} and \env{FCFLAGS})}
 }
 \description{
 These default flags enforce good coding practice by ensuring that
