@@ -25,7 +25,7 @@ with_debug(
 \item{FCFLAGS}{flags for Fortran 9x code.}
 
 \item{debug}{If \code{TRUE} adds \code{-g -O0} to all flags
-(Adding \env{FFLAGS} and \env{FCFLAGS}}
+(Adding \env{FFLAGS} and \env{FCFLAGS})}
 }
 \description{
 Temporarily set debugging compilation flags.
