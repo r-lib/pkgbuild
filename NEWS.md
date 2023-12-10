@@ -1,4 +1,4 @@
-# pkgbuild (development version)
+# pkgbuild 1.4.3
 
 * pkgbuild now does not need the crayon, rprojroot and prettyunits
   packages.
