@@ -30,12 +30,38 @@ has_rtools <- function(debug = FALSE) {
     return(FALSE)
   }
 
+  # R 4.4.0 or later on ARM64
+  if (getRversion() >= "4.4.0" && grepl("aarch", R.version$platform)) {
+    rtools44_aarch64_home <- Sys.getenv("RTOOLS44_AARCH64_HOME", "C:\rtools44-aarch64")
+    if (file.exists(file.path(rtools44_aarch64_home, "usr", "bin"))) {
+      if (debug) {
+        cat("Found in Rtools 4.4 (aarch64) installation folder\n")
+      }
+      rtools_path_set(rtools(rtools44_aarch64_home, "4.4"))
+      return(TRUE)
+    }
+    return(FALSE)
+  }
+
+  # R 4.4.0 or later
+  if (getRversion() >= "4.4.0") {
+    rtools44_home <- Sys.getenv("RTOOLS44_HOME", "C:\\rtools44")
+    if (file.exists(file.path(rtools44_home, "usr", "bin"))) {
+      if (debug) {
+        cat("Found in Rtools 4.4 installation folder\n")
+      }
+      rtools_path_set(rtools(rtools44_home, "4.4"))
+      return(TRUE)
+    }
+    return(FALSE)
+  }
+
   # R 4.3.0 or later on ARM64
-  if (grepl("aarch", R.version$platform)) {
+  if (getRversion() >= "4.3.0" && grepl("aarch", R.version$platform)) {
     rtools43_aarch64_home <- Sys.getenv("RTOOLS43_AARCH64_HOME", "C:\rtools43-aarch64")
     if (file.exists(file.path(rtools43_aarch64_home, "usr", "bin"))) {
       if (debug) {
-        cat("Found in Rtools 4.3 installation folder\n")
+        cat("Found in Rtools 4.3 (aarch64) installation folder\n")
       }
       rtools_path_set(rtools(rtools43_aarch64_home, "4.3"))
       return(TRUE)
@@ -55,7 +81,6 @@ has_rtools <- function(debug = FALSE) {
     }
     return(FALSE)
   }
-
 
   # R 4.2.x or later and ucrt?
   ucrt <- is_ucrt()
