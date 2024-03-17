@@ -211,7 +211,7 @@ test_that("warnings can be turned into errors", {
 })
 
 test_that("Config/build/clean-inst-doc FALSE", {
-  if (Sys.which("pandoc")) skip("No pandoc")
+  if (Sys.which("pandoc") == "") skip("No pandoc")
   dest <- withr::local_tempdir()
   expect_silent(
     build(
@@ -232,7 +232,7 @@ test_that("Config/build/clean-inst-doc FALSE", {
 })
 
 test_that("Config/build/clean-inst-doc TRUE", {
-  if (Sys.which("pandoc")) skip("No pandoc")
+  if (Sys.which("pandoc") == "") skip("No pandoc")
   src <- withr::local_tempdir()
   dest <- withr::local_tempdir()
   file.copy(test_path("testInstDoc"), src, recursive = TRUE)
