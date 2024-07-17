@@ -174,7 +174,7 @@ test_that("package tarball binary build errors", {
 test_that("warnings can be turned into errors", {
   src <- withr::local_tempdir()
   dest <- withr::local_tempdir()
-  file.copy(test_path("testDummy"), src, recursive = TRUE)
+  file.copy(test_path("testDummy"), src, recursive = TRUE, copy.mode = FALSE)
 
   withr::local_options(pkg.build_stop_for_warnings = TRUE)
   expect_silent(
@@ -235,7 +235,7 @@ test_that("Config/build/clean-inst-doc TRUE", {
   if (Sys.which("pandoc") == "") skip("No pandoc")
   src <- withr::local_tempdir()
   dest <- withr::local_tempdir()
-  file.copy(test_path("testInstDoc"), src, recursive = TRUE)
+  file.copy(test_path("testInstDoc"), src, recursive = TRUE, copy.mode = FALSE)
 
   desc::desc_set(
     "Config/build/clean-inst-doc" = "TRUE",
@@ -262,7 +262,7 @@ test_that("Config/build/clean-inst-doc TRUE", {
 test_that("bootstrap.R runs on build if present", {
   src <- withr::local_tempdir()
   dest <- withr::local_tempdir()
-  file.copy(test_path("testDummy"), src, recursive = TRUE)
+  file.copy(test_path("testDummy"), src, recursive = TRUE, copy.mode = FALSE)
 
   writeLines(
     c(
@@ -295,7 +295,7 @@ test_that("bootstrap.R runs on build if present", {
 test_that("bootstrap.R does not run if Config/build/bootstrap is not TRUE", {
   src <- withr::local_tempdir()
   dest <- withr::local_tempdir()
-  file.copy(test_path("testDummy"), src, recursive = TRUE)
+  file.copy(test_path("testDummy"), src, recursive = TRUE, copy.mode = FALSE)
 
   writeLines(
     c(
@@ -323,7 +323,7 @@ test_that("bootstrap.R does not run if Config/build/bootstrap is not TRUE", {
 test_that("bootstrap.R can output stdout, stderr, and warnings when run", {
   src <- withr::local_tempdir()
   dest <- withr::local_tempdir()
-  file.copy(test_path("testDummy"), src, recursive = TRUE)
+  file.copy(test_path("testDummy"), src, recursive = TRUE, copy.mode = FALSE)
 
   writeLines(
     c(
