@@ -70,7 +70,7 @@ test_that("exclusions", {
 })
 
 test_that("get_copy_method", {
-  mockery::stub(get_copy_method, "is_windows", TRUE)
+  local_mocked_bindings(is_windows = function() TRUE)
   withr::local_options(pkg.build_copy_method = "link")
   expect_equal(get_copy_method(), "copy")
 
@@ -81,7 +81,7 @@ test_that("get_copy_method", {
   expect_error(get_copy_method(), "It must be a string")
 
   withr::local_options(pkg.build_copy_method = NULL)
-  mockery::stub(get_copy_method, "desc::desc_get", "link")
+  local_mocked_bindings(desc_get = function(...) "link", .package = "desc")
   expect_equal(get_copy_method(), "copy")
 })
 
@@ -135,17 +135,13 @@ test_that("cp error", {
 })
 
 test_that("detect_cp_args", {
-  mockery::stub(
-    detect_cp_args,
-    "processx::run",
-    function(...) stop("nope")
+  local_mocked_bindings(
+    run = function(...) stop("nope"), .package = "processx"
   )
   expect_snapshot(detect_cp_args())
 
-  mockery::stub(
-    detect_cp_args,
-    "processx::run",
-    function(f1, f2) file.create(f2)
+  local_mocked_bindings(
+    run = function(f1, f2) file.create(f2), .package = "processx"
   )
   expect_snapshot(detect_cp_args())
 })

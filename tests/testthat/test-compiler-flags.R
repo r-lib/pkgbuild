@@ -1,10 +1,6 @@
 
 test_that("has_compiler_colored_diagnostics", {
-  mockery::stub(
-    has_compiler_colored_diagnostics,
-    "cache_exists",
-    function(...) stop("nope")
-  )
+  local_mocked_bindings(cache_exists = function(...) stop("nope"))
 
   withr::local_envvar(PKG_BUILD_COLOR_DIAGNOSTICS = "true")
   expect_true(has_compiler_colored_diagnostics())

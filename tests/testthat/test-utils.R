@@ -38,11 +38,7 @@ test_that("isFALSE", {
 
 test_that("should_add_compiler_flags", {
   # should not be called if option is set
-  mockery::stub(
-    should_add_compiler_flags,
-    "makevars_user",
-    function() stop("dont")
-  )
+  local_mocked_bindings(makevars_user = function() stop("dont"))
 
   # options is TRUE
   withr::local_options(pkg.build_extra_flags = TRUE)
@@ -54,25 +50,13 @@ test_that("should_add_compiler_flags", {
 
   # depends on whether Makevars exists
   withr::local_options(pkg.build_extra_flags = "missing")
-  mockery::stub(
-    should_add_compiler_flags,
-    "makevars_user",
-    function() character()
-  )
+  local_mocked_bindings(makevars_user = function() character())
   expect_true(should_add_compiler_flags())
-  mockery::stub(
-    should_add_compiler_flags,
-    "makevars_user",
-    function() "foobar"
-  )
+  local_mocked_bindings(makevars_user = function() "foobar")
   withr::local_options(pkg.build_extra_flags = "missing")
   expect_false(should_add_compiler_flags())
 
-  mockery::stub(
-    should_add_compiler_flags,
-    "makevars_user",
-    function() stop("dont")
-  )
+  local_mocked_bindings(makevars_user = function() stop("dont"))
   withr::local_options(pkg.build_extra_flags = NULL)
 
   # env var true
@@ -85,25 +69,13 @@ test_that("should_add_compiler_flags", {
 
   # depends on whether Makevars exists
   withr::local_envvar(PKG_BUILD_EXTRA_FLAGS = "missing")
-  mockery::stub(
-    should_add_compiler_flags,
-    "makevars_user",
-    function() character()
-  )
+  local_mocked_bindings(makevars_user = function() character())
   expect_true(should_add_compiler_flags())
-  mockery::stub(
-    should_add_compiler_flags,
-    "makevars_user",
-    function() "foobar"
-  )
+  local_mocked_bindings(makevars_user = function() "foobar")
   expect_false(should_add_compiler_flags())
 
   # no option or env var, then TRUE
-  mockery::stub(
-    should_add_compiler_flags,
-    "makevars_user",
-    function() stop("dont")
-  )
+  local_mocked_bindings(makevars_user = function() stop("dont"))
   withr::local_options(pkg.build_extra_flags = NULL)
   withr::local_envvar(PKG_BUILD_EXTRA_FLAGS = NA_character_)
   expect_true(should_add_compiler_flags())
