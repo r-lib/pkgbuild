@@ -25,10 +25,9 @@ Suggests:
     covr,
     cpp11,
     knitr,
-    mockery,
     Rcpp,
     rmarkdown,
-    testthat (>= 3.0.0),
+    testthat (>= 3.2.0),
     withr (>= 2.3.0)
 Config/Needs/website: tidyverse/tidytemplate
 Config/testthat/edition: 3
