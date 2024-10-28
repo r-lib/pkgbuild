@@ -19,7 +19,7 @@ test_that("has_rtools finds rtools", {
   without_cache(
     withr::with_path(Sys.getenv("R_HOME"), action = "replace", {
       has_rtools()
-      expect_true(rtools_path() != "")
+      expect_true(all(rtools_path() != ""))
     })
   )
 })
