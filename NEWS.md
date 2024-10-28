@@ -1,5 +1,8 @@
 # pkgbuild (development version)
 
+* pkgbuild now does a better job at finding Rtools 4.3 and 4.4 if they
+  were not installed from an installer.
+
 # pkgbuild 1.4.4
 
 * pkgbuild now supports R 4.4.x and Rtools44 (#183).
