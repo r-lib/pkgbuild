@@ -1,4 +1,4 @@
-# pkgbuild (development version)
+# pkgbuild 1.4.5
 
 * pkgbuild now does a better job at finding Rtools 4.3 and 4.4 if they
   were not installed from an installer.
