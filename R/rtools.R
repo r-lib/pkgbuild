@@ -211,6 +211,12 @@ has_rtools <- function(debug = FALSE) {
   }
 
   # Otherwise it must be ok :)
+
+  # Recently Rtools is versioned properly
+  from_registry$version <- sub(
+    "^([0-9]+[.][0-9]+)[.].*$", "\\1",
+    from_registry$version
+  )
   rtools_path_set(from_registry)
   TRUE
 }
@@ -282,7 +288,9 @@ is_compatible <- function(rtools) {
   }
 
   stopifnot(is.rtools(rtools))
-  info <- version_info[[rtools$version]]
+  version <- rtools$version
+  version <- sub("^([0-9]+[.][0-9]+)[.].*$", "\\1", version)
+  info <- version_info[[version]]
   if (is.null(info)) {
     return(FALSE)
   }
