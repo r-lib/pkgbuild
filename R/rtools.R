@@ -80,8 +80,8 @@ has_rtools <- function(debug = FALSE) {
   }
 
   # R 4.2.x or later and ucrt?
+  ucrt <- is_ucrt()
   if (getRversion() >= "4.2.0" && getRversion() < "4.3.0") {
-    ucrt <- is_ucrt()
     if (ucrt) {
       rtools42_home <- Sys.getenv("RTOOLS42_HOME", "C:\\rtools42")
       if (file.exists(file.path(rtools42_home, "usr", "bin"))) {
