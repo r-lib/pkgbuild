@@ -1,78 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://pkgbuild.r-lib.org/404.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/index.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/reference/build.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/reference/clean_dll.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/reference/compile_dll.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/reference/compiler_flags.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/reference/has_build_tools.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/reference/has_compiler.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/reference/has_latex.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/reference/has_rtools.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/reference/needs_compile.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/reference/pkg_has_src.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/reference/pkg_links_to_rcpp.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/reference/pkgbuild-package.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/reference/pkgbuild_process.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/reference/rcmd_build_tools.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/reference/rtools_needed.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/reference/with_debug.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgbuild.r-lib.org/reference/without_compiler.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://pkgbuild.r-lib.org/404.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/LICENSE-text.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/LICENSE.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/authors.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/index.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/news/index.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/reference/build.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/reference/clean_dll.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/reference/compile_dll.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/reference/compiler_flags.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/reference/has_build_tools.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/reference/has_compiler.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/reference/has_latex.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/reference/has_rtools.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/reference/index.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/reference/needs_compile.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/reference/pkg_has_src.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/reference/pkg_links_to_rcpp.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/reference/pkgbuild-package.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/reference/pkgbuild_process.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/reference/rcmd_build_tools.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/reference/rtools_needed.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/reference/with_debug.html</loc></url>
+<url><loc>https://pkgbuild.r-lib.org/reference/without_compiler.html</loc></url>
 </urlset>
+
