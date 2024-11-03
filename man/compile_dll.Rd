@@ -78,7 +78,9 @@ takes precedence over this environment variable. Possible values:
 If this is used to compile code that uses Rcpp, you will need to
 add the following line to your \code{Makevars} file so that it
 knows where to find the Rcpp headers:
-\verb{PKG_CPPFLAGS=}$(R_HOME)/bin/Rscript -e 'Rcpp:::CxxFlags()'``
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{PKG_CPPFLAGS=`$(R_HOME)/bin/Rscript -e 'Rcpp:::CxxFlags()'`
+}\if{html}{\out{</div>}}
 }
 \seealso{
 \code{\link[=clean_dll]{clean_dll()}} to delete the compiled files.
