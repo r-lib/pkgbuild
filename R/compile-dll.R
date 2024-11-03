@@ -34,7 +34,7 @@
 #' @note If this is used to compile code that uses Rcpp, you will need to
 #'   add the following line to your `Makevars` file so that it
 #'   knows where to find the Rcpp headers:
-#'   `PKG_CPPFLAGS=`$(R_HOME)/bin/Rscript -e 'Rcpp:::CxxFlags()'``
+#'   \verb{PKG_CPPFLAGS=`$(R_HOME)/bin/Rscript -e 'Rcpp:::CxxFlags()'`}
 #'
 #' @inheritParams build
 #' @param force If `TRUE`, for compilation even if [needs_compile()] is
