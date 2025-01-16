@@ -1,5 +1,11 @@
 
 test_that("withr_with_makevars", {
+  skip_on_cran()
+  # need to run this without a user Makevars file
+  file.create(tmpmake <- tempfile())
+  on.exit(unlink(tmpmake), add = TRUE)
+  withr::local_envvar("R_MAKEVARS_USER" = tmpmake, R_MAKEVARS_SITE = tmpmake)
+
   split_lines <- function(x) strsplit(x, "\n\r?")[[1]]
 
   orig <- split_lines(callr::rcmd("config", "CFLAGS")$stdout)
