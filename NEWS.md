@@ -1,4 +1,4 @@
-# pkgbuild (development version)
+# pkgbuild 1.4.6
 
 * No changes.
 
