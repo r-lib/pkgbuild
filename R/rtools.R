@@ -30,18 +30,6 @@ has_rtools <- function(debug = FALSE) {
     return(FALSE)
   }
 
-  # R 4.4.0 or later on ARM64
-  if (getRversion() >= "4.4.0" && grepl("aarch", R.version$platform)) {
-    rtools44_aarch64_home <- Sys.getenv("RTOOLS44_AARCH64_HOME", "C:\rtools44-aarch64")
-    if (file.exists(file.path(rtools44_aarch64_home, "usr", "bin"))) {
-      if (debug) {
-        cat("Found in Rtools 4.4 (aarch64) installation folder\n")
-      }
-      rtools_path_set(rtools(rtools44_aarch64_home, "4.4"))
-      return(TRUE)
-    }
-  }
-
   # R 4.5.0 or later on ARM64
   if (getRversion() >= "4.5.0" && grepl("aarch", R.version$platform)) {
     rtools45_aarch64_home <- Sys.getenv("RTOOLS45_AARCH64_HOME", "C:\rtools45-aarch64")
@@ -55,7 +43,7 @@ has_rtools <- function(debug = FALSE) {
   }
 
   # R 4.5.0 or later
-  if (getRversion() >= "4.5.0") {
+  if (getRversion() >= "4.5.0" && !grepl("aarch", R.version$platform)) {
     rtools45_home <- Sys.getenv("RTOOLS45_HOME", "C:\\rtools45")
     if (file.exists(file.path(rtools45_home, "usr", "bin"))) {
       if (debug) {
@@ -66,8 +54,22 @@ has_rtools <- function(debug = FALSE) {
     }
   }
 
+  # R 4.4.0 or later on ARM64
+  if (getRversion() >= "4.4.0" && getRversion() < "4.5.0" &&
+      grepl("aarch", R.version$platform)) {
+    rtools44_aarch64_home <- Sys.getenv("RTOOLS44_AARCH64_HOME", "C:\rtools44-aarch64")
+    if (file.exists(file.path(rtools44_aarch64_home, "usr", "bin"))) {
+      if (debug) {
+        cat("Found in Rtools 4.4 (aarch64) installation folder\n")
+      }
+      rtools_path_set(rtools(rtools44_aarch64_home, "4.4"))
+      return(TRUE)
+    }
+  }
+
   # R 4.4.0 or later
-  if (getRversion() >= "4.4.0") {
+  if (getRversion() >= "4.4.0" && getRversion() < "4.5.0" &&
+      !grepl("aarch", R.version$platform)) {
     rtools44_home <- Sys.getenv("RTOOLS44_HOME", "C:\\rtools44")
     if (file.exists(file.path(rtools44_home, "usr", "bin"))) {
       if (debug) {
@@ -92,7 +94,8 @@ has_rtools <- function(debug = FALSE) {
   }
 
   # R 4.3.0 or later
-  if (getRversion() >= "4.3.0" && getRversion() < "4.4.0") {
+  if (getRversion() >= "4.3.0" && getRversion() < "4.4.0" &&
+      !grepl("aarch", R.version$platform)) {
     rtools43_home <- Sys.getenv("RTOOLS43_HOME", "C:\\rtools43")
     if (file.exists(file.path(rtools43_home, "usr", "bin"))) {
       if (debug) {
