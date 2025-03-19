@@ -1,5 +1,7 @@
 # pkgbuild (development version)
 
+* pkgbuilds now supports R 4.5.x and Rtools45.
+
 # pkgbuild 1.4.6
 
 * No changes.

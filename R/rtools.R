@@ -42,6 +42,30 @@ has_rtools <- function(debug = FALSE) {
     }
   }
 
+  # R 4.5.0 or later on ARM64
+  if (getRversion() >= "4.5.0" && grepl("aarch", R.version$platform)) {
+    rtools45_aarch64_home <- Sys.getenv("RTOOLS45_AARCH64_HOME", "C:\rtools45-aarch64")
+    if (file.exists(file.path(rtools45_aarch64_home, "usr", "bin"))) {
+      if (debug) {
+        cat("Found in Rtools 4.5 (aarch64) installation folder\n")
+      }
+      rtools_path_set(rtools(rtools45_aarch64_home, "4.5"))
+      return(TRUE)
+    }
+  }
+
+  # R 4.5.0 or later
+  if (getRversion() >= "4.5.0") {
+    rtools45_home <- Sys.getenv("RTOOLS45_HOME", "C:\\rtools45")
+    if (file.exists(file.path(rtools45_home, "usr", "bin"))) {
+      if (debug) {
+        cat("Found in Rtools 4.5 installation folder\n")
+      }
+      rtools_path_set(rtools(rtools45_home, "4.5"))
+      return(TRUE)
+    }
+  }
+
   # R 4.4.0 or later
   if (getRversion() >= "4.4.0") {
     rtools44_home <- Sys.getenv("RTOOLS44_HOME", "C:\\rtools44")
