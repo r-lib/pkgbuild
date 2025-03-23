@@ -37,7 +37,6 @@ jobs:
         $rver = (rig list --json).replace("\", "\\") | jq -r .[0].name
         rig rm $rver
         $rtver = (rig system rtools ls --json).replace("\", "\\").replace("}", "`"foo`": 1}") | jq -r .[0].name
-        echo $rtver
         if ($rtver -ne "") {
           rig system rtools rm $rtver
         }
@@ -75,6 +74,7 @@ jobs:
       shell: Rscript {0}
 
     - uses: actions/checkout@v4
+    - uses: r-hub/actions/debug-shell@v1
     - uses: r-lib/actions/setup-r-dependencies@v2
       with:
         dependencies: '"hard"'
