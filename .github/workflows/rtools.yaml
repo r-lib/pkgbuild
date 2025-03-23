@@ -1,0 +1,47 @@
+name: rtools.yaml
+
+on:
+  push: main
+  pull_request:
+
+permissions: read-all
+
+jobs:
+  without-rtools:
+    runs-on: windows-latest
+    name: $ {{ matrix.config.r }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - { r: 'devel' }
+          - { r: 'next' }
+          - { r: 'release' }
+          - { r: 'oldrel/1' }
+          - { r: 'oldrel/2' }
+          - { r: 'oldrel/3' }
+          - { r: 'oldrel/4' }
+          - { r: 'oldrel/5' }
+
+    steps:
+    - name: Install R (no rig)
+      run: |
+        $URL = (Invoke-WebRequest https://api.r-hub.io/rversions/resolve/${{ matrix.config.r }}/windows | Select-Object -Expand Content | jq -r .url)
+        Invoke-WebRequest $URL -OutFile R-installer.exe
+        Start-Process ".\R-installer.exe" -ArgumentList "/verysilent /suppressmsgboxes" -Wait -NoNewWindow
+
+    - name: Install rig
+      run: |
+        Invoke-WebRequest -Uri https://github.com/r-lib/rig/releases/download/v0.7.0/rig-windows-0.7.0.exe -OutFile rig-installer.exe
+        Start-Process ".\rig-installer.exe" -ArgumentList "/verysilent /suppressmsgboxes" -Wait -NoNewWindow
+
+    - name: Put R on the path
+      run: |
+        $rver = (rig list --json).replace("\", "\\") | jq -r .[0].name
+        rig default $rver
+        rig system make-links
+
+    - uses: actions/checkout@v4
+    - uses: r-lib/actions/setup-r-dependencies@v2
+      with:
+        extra-packages: 'local::.'
