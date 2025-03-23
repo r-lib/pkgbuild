@@ -23,29 +23,40 @@ jobs:
           - { r: 'oldrel/2' }
           - { r: 'oldrel/3' }
           - { r: 'oldrel/4' }
+          - { r: 'oldrel/5' }
 
     steps:
     - name: Install rig
       run: |
         Invoke-WebRequest -Uri https://github.com/r-lib/rig/releases/download/v0.7.0/rig-windows-0.7.0.exe -OutFile rig-installer.exe
         Start-Process ".\rig-installer.exe" -ArgumentList "/verysilent /suppressmsgboxes" -Wait -NoNewWindow
+        del rig-installer.exe
 
     - name: Remove pre-installed R
       run: |
         $rver = (rig list --json).replace("\", "\\") | jq -r .[0].name
         rig rm $rver
 
-    - name: Install R (no rig)
+    - name: Install R
       run: |
         $URL = (Invoke-WebRequest https://api.r-hub.io/rversions/resolve/${{ matrix.config.r }}/windows | Select-Object -Expand Content | jq -r .url)
         Invoke-WebRequest $URL -OutFile R-installer.exe
         Start-Process ".\R-installer.exe" -ArgumentList "/verysilent /suppressmsgboxes" -Wait -NoNewWindow
+        del R-installer.exe
+
+    - name: Install Rtools
+      run: |
+        $URL = (Invoke-WebRequest https://api.r-hub.io/rversions/resolve/${{ matrix.config.r }}/windows | Select-Object -Expand Content | jq -r .rtools_url)
+        Invoke-WebRequest $URL -OutFile Rtools.exe
+        Start-Process ".\Rtools.exe" -ArgumentList "/verysilent /suppressmsgboxes" -Wait -NoNewWindow
 
     - name: Put R on the path
       run: |
         $rver = (rig list --json).replace("\", "\\") | jq -r .[0].name
         rig default $rver
         rig system make-links
+        rig ls
+        rig system rtools ls
 
     - name: Configure RSPM
       run: |
@@ -63,5 +74,5 @@ jobs:
 
     - name: Install pkgbuild
       run: |
-        RS CMD INSTALL .
-        RS -q -e "library(pkgbuild)"
+        pak::pkg_install("local::.")
+      shell: Rscript {0}
