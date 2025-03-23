@@ -87,3 +87,17 @@ jobs:
         RS CMD build pkgbuild
         $file = (dir pkgbuild_*.tar.gz).name
         RS CMD INSTALL $file
+
+    - name: Rtools finding
+      run: |
+        ok <- pkgbuild::find_rtools(debug = TRUE)
+        if (!ok) stop("No Rtools. :(")
+      shell: Rscript {0}
+
+    - name: Test pkgbuild
+      run: |
+        srctiff <- download.packages("tiff", ".", repos = "https://cloud.r-project.org")[,2]
+        bintiff <- pkgbuild::build(srctiff, binary = TRUE)
+        install.packages(bintiff, repos = NULL)
+        library(tiff)
+      shell: Rscript {0}
