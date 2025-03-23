@@ -79,6 +79,7 @@ jobs:
       with:
         dependencies: '"hard"'
         cache-version: 'rtools-${{ matrix.config.r }}'
+        install-pandoc: false
 
     - name: Install pkgbuild
       run: |
