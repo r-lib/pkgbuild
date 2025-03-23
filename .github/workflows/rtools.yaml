@@ -36,6 +36,14 @@ jobs:
       run: |
         $rver = (rig list --json).replace("\", "\\") | jq -r .[0].name
         rig rm $rver
+        $rtver = (rig system rtools ls --json).replace("\", "\\").replace("}", "`"foo`": 1}") | jq -r .[0].name
+        echo $rtver
+        if ($rtver -ne "") {
+          rig system rtools rm $rtver
+        }
+        rig system clean-registry
+        rig ls
+        rig system rtools ls
 
     - name: Install R
       run: |
