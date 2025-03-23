@@ -82,5 +82,7 @@ jobs:
 
     - name: Install pkgbuild
       run: |
-        pak::pkg_install("local::.")
-      shell: Rscript {0}
+        cd ..
+        RS CMD build pkgbuild
+        $file = (dir pkgbuild_*.tar.gz).name
+        RS CMD INSTALL $file
