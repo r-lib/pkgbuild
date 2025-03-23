@@ -11,7 +11,7 @@ permissions: read-all
 jobs:
   without-rtools:
     runs-on: windows-latest
-    name: $ {{ matrix.config.r }}
+    name: ${{ matrix.config.r }}
     strategy:
       fail-fast: false
       matrix:
@@ -23,7 +23,6 @@ jobs:
           - { r: 'oldrel/2' }
           - { r: 'oldrel/3' }
           - { r: 'oldrel/4' }
-          - { r: 'oldrel/5' }
 
     steps:
     - name: Install R (no rig)
@@ -43,7 +42,21 @@ jobs:
         rig default $rver
         rig system make-links
 
+    - name: Configure RSPM
+      run: |
+        writeLines(
+          "options(repos = c(RSPM = 'https://packagemanager.posit.co/cran/latest'))",
+          "~/.Rprofile2"
+        )
+      shell: Rscript {0}
+
     - uses: actions/checkout@v4
     - uses: r-lib/actions/setup-r-dependencies@v2
       with:
-        extra-packages: 'local::.'
+        dependencies: '"hard"'
+        cache-version: 'rtools-${{ matrix.config.r }}'
+
+    - name: Install pkgbuild
+      run: |
+        RS CMD INSTALL .
+        RS -q -e "library(pkgbuild)"
