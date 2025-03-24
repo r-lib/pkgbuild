@@ -110,10 +110,6 @@ jobs:
 
     - name: Test pkgbuild
       run: |
-        if (getRversion() >= "4.2.0" && getRversion() < "4.3.0") {
-          # this might be a bug in R or Rtools or in jpeg
-          Sys.setenv("PKG_CONFIG_PATH" = "/c/rtools42/x86_64-w64-mingw32.static.posix/lib/pkgconfig")
-        }
         srcjpeg <- download.packages("jpeg", ".")[,2]
         binjpeg <- pkgbuild::build(srcjpeg, binary = TRUE)
         install.packages(binjpeg, repos = NULL)
