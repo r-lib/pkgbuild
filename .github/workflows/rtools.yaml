@@ -78,6 +78,11 @@ jobs:
         cache-version: 'rtools-${{ matrix.config.r }}'
         install-pandoc: false
 
+    - name: Environment
+      run: |
+        Sys.getenv()
+      shell: Rscript {0}
+
     - name: Install pkgbuild
       run: |
         cd ..
