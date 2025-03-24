@@ -96,8 +96,8 @@ jobs:
 
     - name: Test pkgbuild
       run: |
-        srctiff <- download.packages("tiff", ".", repos = "https://cloud.r-project.org")[,2]
-        bintiff <- pkgbuild::build(srctiff, binary = TRUE)
-        install.packages(bintiff, repos = NULL)
-        library(tiff)
+        srcjpeg <- download.packages("jpeg", ".", repos = "https://cloud.r-project.org")[,2]
+        binjpeg <- pkgbuild::build(srcjpeg, binary = TRUE)
+        install.packages(binjpeg, repos = NULL)
+        library(jpeg)
       shell: Rscript {0}
