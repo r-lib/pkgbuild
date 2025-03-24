@@ -69,7 +69,7 @@ jobs:
       run: |
         writeLines(
           "options(repos = c(RSPM = 'https://packagemanager.posit.co/cran/latest'))",
-          "~/.Rprofile2"
+          "~/.Rprofile"
         )
       shell: Rscript {0}
 
@@ -96,7 +96,7 @@ jobs:
 
     - name: Test pkgbuild
       run: |
-        srcjpeg <- download.packages("jpeg", ".", repos = "https://cloud.r-project.org")[,2]
+        srcjpeg <- download.packages("jpeg", ".")[,2]
         binjpeg <- pkgbuild::build(srcjpeg, binary = TRUE)
         install.packages(binjpeg, repos = NULL)
         library(jpeg)
