@@ -9,9 +9,9 @@ on:
 permissions: read-all
 
 jobs:
-  without-rtools:
+  pkgbuild:
     runs-on: windows-latest
-    name: ${{ matrix.config.r }}
+    name: pkgbuild - ${{ matrix.config.r }}
     strategy:
       fail-fast: false
       matrix:
@@ -87,6 +87,14 @@ jobs:
         RS CMD build pkgbuild
         $file = (dir pkgbuild_*.tar.gz).name
         RS CMD INSTALL $file
+
+    - name: Vanilla
+      run: |
+        if (getRversion() >= "4.2.0") {
+          srcjpeg <- download.packages("jpeg", ".")[,2]
+          install.packages(srcjpeg, repos = NULL, type = "source")
+        }
+      shell: Rscript {0}
 
     - name: Rtools finding
       run: |
