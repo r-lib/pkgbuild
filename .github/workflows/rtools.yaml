@@ -35,11 +35,8 @@ jobs:
     - name: Remove pre-installed R
       run: |
         $rver = (rig list --json).replace("\", "\\") | jq -r .[0].name
-        rig rm $rver
-        $rtver = (rig system rtools ls --json).replace("\", "\\").replace("}", "`"foo`": 1}") | jq -r .[0].name
-        if ($rtver -ne "") {
-          rig system rtools rm $rtver
-        }
+        mv "C:\Program Files\R/R-$rver" "C:\Program Files\bak"
+        mv C:\rtools* C:\bakrtoolsbak
         rig system clean-registry
         rig ls
         rig system rtools ls
