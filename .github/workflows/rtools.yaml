@@ -9,9 +9,9 @@ on:
 permissions: read-all
 
 jobs:
-  without-rtools:
+  pkgbuild:
     runs-on: windows-latest
-    name: $ {{ matrix.config.r }}
+    name: pkgbuild - ${{ matrix.config.r }}
     strategy:
       fail-fast: false
       matrix:
@@ -26,24 +26,91 @@ jobs:
           - { r: 'oldrel/5' }
 
     steps:
-    - name: Install R (no rig)
-      run: |
-        $URL = (Invoke-WebRequest https://api.r-hub.io/rversions/resolve/${{ matrix.config.r }}/windows | Select-Object -Expand Content | jq -r .url)
-        Invoke-WebRequest $URL -OutFile R-installer.exe
-        Start-Process ".\R-installer.exe" -ArgumentList "/verysilent /suppressmsgboxes" -Wait -NoNewWindow
-
     - name: Install rig
       run: |
         Invoke-WebRequest -Uri https://github.com/r-lib/rig/releases/download/v0.7.0/rig-windows-0.7.0.exe -OutFile rig-installer.exe
         Start-Process ".\rig-installer.exe" -ArgumentList "/verysilent /suppressmsgboxes" -Wait -NoNewWindow
+        del rig-installer.exe
+
+    - name: Remove pre-installed R
+      run: |
+        $rver = (rig list --json).replace("\", "\\") | jq -r .[0].name
+        mv "C:\Program Files\R/R-$rver" "C:\Program Files\bak"
+        mv C:\rtools* C:\bakrtoolsbak
+        rig system clean-registry
+        rig ls
+        rig system rtools ls
+
+    - name: Install R
+      run: |
+        $URL = (Invoke-WebRequest https://api.r-hub.io/rversions/resolve/${{ matrix.config.r }}/windows | Select-Object -Expand Content | jq -r .url)
+        Invoke-WebRequest $URL -OutFile R-installer.exe
+        Start-Process ".\R-installer.exe" -ArgumentList "/verysilent /suppressmsgboxes" -Wait -NoNewWindow
+        del R-installer.exe
+
+    - name: Install Rtools
+      run: |
+        $URL = (Invoke-WebRequest https://api.r-hub.io/rversions/resolve/${{ matrix.config.r }}/windows | Select-Object -Expand Content | jq -r .rtools_url)
+        Invoke-WebRequest $URL -OutFile Rtools.exe
+        Start-Process ".\Rtools.exe" -ArgumentList "/verysilent /suppressmsgboxes" -Wait -NoNewWindow
 
     - name: Put R on the path
       run: |
         $rver = (rig list --json).replace("\", "\\") | jq -r .[0].name
         rig default $rver
         rig system make-links
+        rig ls
+        rig system rtools ls
+
+    - name: Configure RSPM
+      run: |
+        writeLines(
+          "options(repos = c(RSPM = 'https://packagemanager.posit.co/cran/latest'))",
+          "~/.Rprofile"
+        )
+      shell: Rscript {0}
 
     - uses: actions/checkout@v4
+    - uses: r-hub/actions/debug-shell@v1
     - uses: r-lib/actions/setup-r-dependencies@v2
       with:
-        extra-packages: 'local::.'
+        dependencies: '"hard"'
+        cache-version: 'rtools-${{ matrix.config.r }}'
+        install-pandoc: false
+
+    - name: Install pkgbuild
+      run: |
+        cd ..
+        RS CMD build pkgbuild
+        $file = (dir pkgbuild_*.tar.gz).name
+        RS CMD INSTALL $file
+
+    - name: Vanilla
+      run: |
+        if (getRversion() >= "4.2.0") {
+          if (getRversion() < "4.3.0") {
+            # this might be a bug in R or Rtools or in jpeg
+            Sys.setenv("PKG_CONFIG_PATH" = "/c/rtools42/x86_64-w64-mingw32.static.posix/lib/pkgconfig")
+          }
+          srcjpeg <- download.packages("jpeg", ".")[,2]
+          install.packages(srcjpeg, repos = NULL, type = "source")
+        }
+      shell: Rscript {0}
+
+    - name: Rtools finding
+      run: |
+        ok <- pkgbuild::find_rtools(debug = TRUE)
+        if (!ok) stop("No Rtools. :(")
+      shell: Rscript {0}
+
+    - name: Test pkgbuild
+      run: |
+        if (getRversion() >= "4.2.0" && getRversion() < "4.3.0") {
+          # this might be a bug in R or Rtools or in jpeg
+          Sys.setenv("PKG_CONFIG_PATH" = "/c/rtools42/x86_64-w64-mingw32.static.posix/lib/pkgconfig")
+        }
+        srcjpeg <- download.packages("jpeg", ".")[,2]
+        binjpeg <- pkgbuild::build(srcjpeg, binary = TRUE)
+        install.packages(binjpeg, repos = NULL)
+        library(jpeg)
+      shell: Rscript {0}
