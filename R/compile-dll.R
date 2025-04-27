@@ -209,6 +209,11 @@ needs_compile <- function(path = ".") {
 # Does the package need a clean compile?
 # (i.e. is there a header or Makevars newer than the dll)
 needs_clean <- function(path = ".") {
+  never_clean <- get_desc_config_flag(path, "never-clean")
+  if (isTRUE(never_clean)) {
+    return(FALSE)
+  }
+
   headers <- mtime(headers(path))
   # no headers, so never needs clean compile
   if (is.null(headers)) {
