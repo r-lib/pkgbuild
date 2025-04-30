@@ -1,4 +1,3 @@
-
 test_that("has_compiler_colored_diagnostics", {
   local_mocked_bindings(cache_exists = function(...) stop("nope"))
 

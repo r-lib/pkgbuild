@@ -1,4 +1,3 @@
-
 test_that("tests always run in environment with dev tools", {
   without_cache({
     expect_true(has_build_tools())

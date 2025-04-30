@@ -1,4 +1,3 @@
-
 test_that("withr_with_makevars", {
   skip_on_cran()
   # need to run this without a user Makevars file
@@ -18,10 +17,13 @@ test_that("withr_with_makevars", {
   # with our own custom Makevars file
   tmp <- tempfile()
   on.exit(unlink(tmp), add = TRUE)
-  writeLines(c(
-    "CFLAGS=-DTHIS",
-    "CXXFLAGS+=-DTHAT"
-  ), tmp)
+  writeLines(
+    c(
+      "CFLAGS=-DTHIS",
+      "CXXFLAGS+=-DTHAT"
+    ),
+    tmp
+  )
 
   orig <- split_lines(callr::rcmd("config", "CFLAGS")$stdout)
   new <- withr_with_makevars(

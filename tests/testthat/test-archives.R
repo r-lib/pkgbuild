@@ -1,4 +1,3 @@
-
 test_that("is_zip_file", {
   expect_true(is_zip_file(file.path("fixtures", "xxx.zip")))
   expect_false(is_zip_file(file.path("fixtures", "xxx.gz")))

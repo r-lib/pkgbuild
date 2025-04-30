@@ -1,4 +1,3 @@
-
 test_that("should_stop_for_warnings", {
   withr::local_options(pkg.build_stop_for_warnings = NULL)
   withr::local_envvar(PKG_BUILD_STOP_FOR_WARNINGS = NA_character_)

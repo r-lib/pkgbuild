@@ -1,4 +1,3 @@
-
 describe("has_compiler", {
   withr::local_options(pkgbuild.has_compiler = NULL)
   testthat::local_reproducible_output()

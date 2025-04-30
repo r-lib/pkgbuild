@@ -1,4 +1,3 @@
-
 test_that("copy_package_tree creates package dir", {
   tmp <- withr::local_tempdir("pkgbuild-test-")
 
@@ -41,10 +40,13 @@ test_that("exclusions", {
   )
 
   # create some structure with files to ignore and keep
-  writeLines(c(
-    "^docs$",
-    "^src/.*[.]o$"
-  ), file.path(pkgdir, ".Rbuildignore"))
+  writeLines(
+    c(
+      "^docs$",
+      "^src/.*[.]o$"
+    ),
+    file.path(pkgdir, ".Rbuildignore")
+  )
 
   mkdirp(file.path(pkgdir, "src"))
   file.create(file.path(pkgdir, "src", "src.c"))
@@ -94,11 +96,14 @@ test_that("Ignoring .Rbuildignore", {
   )
 
   # create some structure with files to ignore and keep
-  writeLines(c(
-    "^docs$",
-    "^src/.*[.]o$",
-    "^\\.Rbuildignore$"
-  ), file.path(pkgdir, ".Rbuildignore"))
+  writeLines(
+    c(
+      "^docs$",
+      "^src/.*[.]o$",
+      "^\\.Rbuildignore$"
+    ),
+    file.path(pkgdir, ".Rbuildignore")
+  )
 
   mkdirp(file.path(pkgdir, "src"))
   file.create(file.path(pkgdir, "src", "src.c"))
@@ -136,12 +141,14 @@ test_that("cp error", {
 
 test_that("detect_cp_args", {
   local_mocked_bindings(
-    run = function(...) stop("nope"), .package = "processx"
+    run = function(...) stop("nope"),
+    .package = "processx"
   )
   expect_snapshot(detect_cp_args())
 
   local_mocked_bindings(
-    run = function(f1, f2) file.create(f2), .package = "processx"
+    run = function(f1, f2) file.create(f2),
+    .package = "processx"
   )
   expect_snapshot(detect_cp_args())
 })

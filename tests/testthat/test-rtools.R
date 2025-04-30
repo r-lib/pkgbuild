@@ -1,4 +1,3 @@
-
 test_that("has_rtools finds rtools", {
   skip_if_not(is_windows() && !is.null(scan_path_for_rtools()))
 
