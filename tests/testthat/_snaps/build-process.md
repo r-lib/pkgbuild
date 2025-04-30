@@ -1,7 +1,7 @@
 # build package with src requires compiler
 
     Code
-      suppressWarnings(local({
+      suppressMessages(local({
         pr <- pkgbuild_process$new("testWithSrc", dest_path = tempdir(),
         register_routines = FALSE)
         pr$kill()

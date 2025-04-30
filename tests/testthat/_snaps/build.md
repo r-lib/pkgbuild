@@ -1,7 +1,7 @@
 # build package with src requires compiler
 
     Code
-      suppressWarnings(build("testWithSrc", dest_path = tempdir(), quiet = TRUE))
+      suppressMessages(build("testWithSrc", dest_path = tempdir(), quiet = TRUE))
     Condition
       Error:
       ! Could not find tools necessary to compile a package

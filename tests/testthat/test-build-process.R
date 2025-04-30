@@ -85,7 +85,7 @@ test_that("build package with src requires compiler", {
   without_compiler({
     expect_snapshot(
       error = TRUE,
-      suppressWarnings(local({
+      suppressMessages(local({
         pr <- pkgbuild_process$new(
           "testWithSrc",
           dest_path = tempdir(),
