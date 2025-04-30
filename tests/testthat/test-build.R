@@ -153,7 +153,9 @@ test_that("build package with src requires compiler", {
   without_compiler({
     expect_snapshot(
       error = TRUE,
-      build("testWithSrc", dest_path = tempdir(), quiet = TRUE)
+      suppressWarnings(
+        build("testWithSrc", dest_path = tempdir(), quiet = TRUE)
+      )
     )
   })
 })

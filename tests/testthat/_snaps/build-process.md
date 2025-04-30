@@ -1,11 +1,11 @@
 # build package with src requires compiler
 
     Code
-      local({
+      suppressWarnings(local({
         pr <- pkgbuild_process$new("testWithSrc", dest_path = tempdir(),
         register_routines = FALSE)
         pr$kill()
-      })
+      }))
     Condition
       Error:
       ! Could not find tools necessary to compile a package
