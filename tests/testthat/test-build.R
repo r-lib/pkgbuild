@@ -151,9 +151,9 @@ test_that("source builds return correct filenames", {
 
 test_that("build package with src requires compiler", {
   without_compiler({
-    expect_error(
-      build("testWithSrc", dest_path = tempdir(), quiet = TRUE),
-      "Could not find tools"
+    expect_snapshot(
+      error = TRUE,
+      build("testWithSrc", dest_path = tempdir(), quiet = TRUE)
     )
   })
 })
@@ -182,11 +182,12 @@ test_that("package tarball binary build errors", {
   path <- build("testDummy", dest_path = tempdir(), quiet = TRUE)
   on.exit(unlink(path), add = TRUE)
 
-  expect_error(
-    build(path, dest_path = tempdir(), quiet = TRUE),
-    "binary"
+  expect_snapshot(
+    error = TRUE,
+    build(path, dest_path = tempdir(), quiet = TRUE)
   )
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     build(
       path,
       dest_path = tempdir(),
@@ -194,8 +195,7 @@ test_that("package tarball binary build errors", {
       binary = TRUE,
       needs_compilation = FALSE,
       compile_attributes = TRUE
-    ),
-    "compile_attributes"
+    )
   )
 })
 
@@ -220,26 +220,27 @@ test_that("warnings can be turned into errors", {
   if (getRversion() <= "3.6") skip("Needs R 3.5.0")
 
   # Warning looks different on older R
-  if (getRversion() >= "4.1") {
-    expect_snapshot(
-      error = TRUE,
-      build(file.path(src, "testDummy"), dest_path = dest, quiet = TRUE),
-      transform = function(x) {
-        x <- sub("\u2018", "'", x, fixed = TRUE)
-        x <- sub("\u2019", "'", x, fixed = TRUE)
-        x <- sub("checking for file '.*'", "checking for file '<file>'", x)
-        x
+  expect_snapshot(
+    error = TRUE,
+    {
+      if (getRversion() >= "4.1") {
+        build(file.path(src, "testDummy"), dest_path = dest, quiet = TRUE)
+      } else {
+        suppressMessages(build(
+          file.path(src, "testDummy"),
+          dest_path = dest,
+          quiet = TRUE
+        ))
       }
-    )
-  } else {
-    expect_error(
-      suppressMessages(build(
-        file.path(src, "testDummy"),
-        dest_path = dest,
-        quiet = TRUE
-      ))
-    )
-  }
+    },
+    transform = function(x) {
+      x <- sub("\u2018", "'", x, fixed = TRUE)
+      x <- sub("\u2019", "'", x, fixed = TRUE)
+      x <- sub("checking for file '.*'", "checking for file '<file>'", x)
+      x
+    },
+    variant = if (getRversion() >= "4.1") "new" else "old"
+  )
 })
 
 test_that("Config/build/clean-inst-doc FALSE", {

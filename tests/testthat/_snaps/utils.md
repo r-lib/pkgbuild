@@ -1,3 +1,19 @@
+# should_stop_for_warnings
+
+    Code
+      should_stop_for_warnings()
+    Condition
+      Error in `get_config_flag_value()`:
+      ! The `pkg.build_stop_for_warnings` option must be `TRUE` or `FALSE`, if set.
+
+---
+
+    Code
+      should_stop_for_warnings()
+    Condition
+      Error in `interpret_envvar_flag()`:
+      ! The `PKG_BUILD_STOP_FOR_WARNINGS` environment variable must be `true` or `false`, if set.
+
 # should_add_compiler_flags errors
 
     Code

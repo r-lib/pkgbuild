@@ -83,16 +83,16 @@ test_that("source builds return correct filenames", {
 
 test_that("build package with src requires compiler", {
   without_compiler({
-    expect_error(
-      {
+    expect_snapshot(
+      error = TRUE,
+      local({
         pr <- pkgbuild_process$new(
           "testWithSrc",
           dest_path = tempdir(),
           register_routines = FALSE
         )
         pr$kill()
-      },
-      "Could not find tools"
+      })
     )
   })
 })

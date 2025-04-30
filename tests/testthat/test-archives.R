@@ -22,6 +22,8 @@ test_that("pkg_has_src", {
 })
 
 test_that("pkg_has_src on non-package files", {
-  expect_error(pkg_has_src(file.path("fixtures", "xxx.zip")))
-  expect_error(pkg_has_src(file.path("fixtures", "xxx.tar.gz")))
+  expect_snapshot(error = TRUE, {
+    pkg_has_src(file.path("fixtures", "xxx.zip"))
+    pkg_has_src(file.path("fixtures", "xxx.tar.gz"))
+  })
 })

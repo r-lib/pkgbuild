@@ -6,7 +6,7 @@ describe("has_compiler", {
     without_cache({
       without_compiler({
         expect_false(has_compiler())
-        expect_error(check_compiler(), "Failed to compile C code")
+        expect_snapshot(error = TRUE, check_compiler())
       })
       cache_reset()
       expect_true(has_compiler())
@@ -31,7 +31,7 @@ describe("has_compiler", {
         c(pkgbuild.has_compiler = FALSE),
         {
           expect_false(has_compiler())
-          expect_error(check_compiler(), "Failed to compile C code")
+          expect_snapshot(error = TRUE, check_compiler())
         }
       )
       withr::with_options(
