@@ -9,7 +9,9 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-```{r, setup, include = FALSE}
+```{r}
+#| label: setup
+#| include: FALSE
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 

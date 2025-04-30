@@ -1,11 +1,11 @@
-
 test_that("update_c_registration does nothing if an init.c file already exists", {
   skip_if(getRversion() < "3.4")
 
   init_file <- test_path("testWithSrc", "src", "init.c")
   on.exit(unlink(init_file))
 
-  writeLines('
+  writeLines(
+    '
 #include <R.h>
 #include <Rinternals.h>
 #include <stdlib.h> // for NULL
@@ -26,7 +26,9 @@ void R_init_testWithSrc(DllInfo *dll)
 {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
-}', init_file)
+}',
+    init_file
+  )
 
   expect_equal(
     update_c_registration(test_path("testWithSrc")),
@@ -47,10 +49,13 @@ test_that("update_c_registration works", {
   # Add a call and try to update again
   src_file <- test_path("testWithSrc", "R", "c.R")
 
-  writeLines('
+  writeLines(
+    '
 add1 <- function(x) {
   .Call("add1", x)
-}', src_file)
+}',
+    src_file
+  )
 
   on.exit(unlink(src_file), add = TRUE)
 
@@ -65,14 +70,17 @@ add1 <- function(x) {
     init_lines
   )
 
-  writeLines('
+  writeLines(
+    '
 add1 <- function(x) {
   .Call("add1", x)
 }
 
 mult2 <- function(x) {
   .Call("mult2", x)
-}', src_file)
+}',
+    src_file
+  )
 
   # update_c_registration should be idempotent if nothing has changed
   update_c_registration(test_path("testWithSrc"))

@@ -15,3 +15,5 @@
 ^docs$
 ^pkgdown$
 ^dev-lib$
+^[\.]?air\.toml$
+^\.vscode$

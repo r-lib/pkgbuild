@@ -14,6 +14,15 @@
       [1] "testDummy"             "testDummy/DESCRIPTION" "testDummy/NAMESPACE"  
       [4] "testDummy/R"           "testDummy/R/a.R"       "testDummy/R/b.R"      
 
+# copy_package_tree errors
+
+    Code
+      copy_package_tree(test_path("testDummy"), tmp)
+    Condition
+      Error in `copy_package_tree()`:
+      ! Cannot copy package tree to '<tempdir>/pkgbuild-test-<id>'
+      i Directory '<tempdir>/pkgbuild-test-<id>/testDummy' already exists, and did not want to overwrite.
+
 # exclusions
 
     Code
@@ -34,6 +43,24 @@
       12     src/foo.d    TRUE FALSE   FALSE
       13     src/src.c   FALSE FALSE   FALSE
       14     src/src.o    TRUE FALSE   FALSE
+
+# get_copy_method
+
+    Code
+      get_copy_method()
+    Condition
+      Error in `check_method()`:
+      ! Invalid `pkg.build_copy_method` value: "foobar".
+      i It must be one of "none", "copy", and "link".
+
+---
+
+    Code
+      get_copy_method()
+    Condition
+      Error in `get_copy_method()`:
+      ! Invalid `pkg.build_copy_method` value.
+      i It must be a string, but it is an integer vector.
 
 # Ignoring .Rbuildignore
 

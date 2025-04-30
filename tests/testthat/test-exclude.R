@@ -1,4 +1,3 @@
-
 test_that("copy_package_tree creates package dir", {
   tmp <- withr::local_tempdir("pkgbuild-test-")
 
@@ -26,9 +25,13 @@ test_that("copy_package_tree creates package dir", {
 test_that("copy_package_tree errors", {
   tmp <- withr::local_tempdir("pkgbuild-test-")
   mkdirp(file.path(tmp, "testDummy"))
-  expect_error(
+  expect_snapshot(
+    error = TRUE,
     copy_package_tree(test_path("testDummy"), tmp),
-    "already exists"
+    transform = function(x) {
+      x <- transform_tempdir(x)
+      sub("test-[0-9a-f]+", "test-<id>", x)
+    }
   )
 })
 
@@ -41,10 +44,13 @@ test_that("exclusions", {
   )
 
   # create some structure with files to ignore and keep
-  writeLines(c(
-    "^docs$",
-    "^src/.*[.]o$"
-  ), file.path(pkgdir, ".Rbuildignore"))
+  writeLines(
+    c(
+      "^docs$",
+      "^src/.*[.]o$"
+    ),
+    file.path(pkgdir, ".Rbuildignore")
+  )
 
   mkdirp(file.path(pkgdir, "src"))
   file.create(file.path(pkgdir, "src", "src.c"))
@@ -75,10 +81,10 @@ test_that("get_copy_method", {
   expect_equal(get_copy_method(), "copy")
 
   withr::local_options(pkg.build_copy_method = "foobar")
-  expect_error(get_copy_method(), "pkg.build_copy_method")
+  expect_snapshot(error = TRUE, get_copy_method())
 
   withr::local_options(pkg.build_copy_method = 1:10)
-  expect_error(get_copy_method(), "It must be a string")
+  expect_snapshot(error = TRUE, get_copy_method())
 
   withr::local_options(pkg.build_copy_method = NULL)
   local_mocked_bindings(desc_get = function(...) "link", .package = "desc")
@@ -94,11 +100,14 @@ test_that("Ignoring .Rbuildignore", {
   )
 
   # create some structure with files to ignore and keep
-  writeLines(c(
-    "^docs$",
-    "^src/.*[.]o$",
-    "^\\.Rbuildignore$"
-  ), file.path(pkgdir, ".Rbuildignore"))
+  writeLines(
+    c(
+      "^docs$",
+      "^src/.*[.]o$",
+      "^\\.Rbuildignore$"
+    ),
+    file.path(pkgdir, ".Rbuildignore")
+  )
 
   mkdirp(file.path(pkgdir, "src"))
   file.create(file.path(pkgdir, "src", "src.c"))
@@ -136,12 +145,14 @@ test_that("cp error", {
 
 test_that("detect_cp_args", {
   local_mocked_bindings(
-    run = function(...) stop("nope"), .package = "processx"
+    run = function(...) stop("nope"),
+    .package = "processx"
   )
   expect_snapshot(detect_cp_args())
 
   local_mocked_bindings(
-    run = function(f1, f2) file.create(f2), .package = "processx"
+    run = function(f1, f2) file.create(f2),
+    .package = "processx"
   )
   expect_snapshot(detect_cp_args())
 })

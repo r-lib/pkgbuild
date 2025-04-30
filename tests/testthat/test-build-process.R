@@ -1,4 +1,3 @@
-
 # Package without source code --------------------------------------------
 
 test_that("source builds return correct filenames", {
@@ -66,7 +65,11 @@ test_that("source builds return correct filenames", {
   dir.create(tmp <- tempfile())
   on.exit(unlink(tmp, recursive = TRUE), add = TRUE)
 
-  pr <- pkgbuild_process$new("testWithSrc", dest_path = tmp, register_routines = FALSE)
+  pr <- pkgbuild_process$new(
+    "testWithSrc",
+    dest_path = tmp,
+    register_routines = FALSE
+  )
   pr$wait(60000)
   if (pr$is_alive()) {
     pr$kill()
@@ -80,12 +83,16 @@ test_that("source builds return correct filenames", {
 
 test_that("build package with src requires compiler", {
   without_compiler({
-    expect_error(
-      {
-        pr <- pkgbuild_process$new("testWithSrc", dest_path = tempdir(), register_routines = FALSE)
+    expect_snapshot(
+      error = TRUE,
+      suppressMessages(local({
+        pr <- pkgbuild_process$new(
+          "testWithSrc",
+          dest_path = tempdir(),
+          register_routines = FALSE
+        )
         pr$kill()
-      },
-      "Could not find tools"
+      }))
     )
   })
 })
