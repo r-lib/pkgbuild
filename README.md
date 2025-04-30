@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/r-lib/pkgbuild/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r-lib/pkgbuild/actions/workflows/R-CMD-check.yaml)
-[![Codecov test coverage](https://codecov.io/gh/r-lib/pkgbuild/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-lib/pkgbuild?branch=main)
+[![Codecov test coverage](https://codecov.io/gh/r-lib/pkgbuild/graph/badge.svg)](https://app.codecov.io/gh/r-lib/pkgbuild)
 <!-- badges: end -->
 
 The goal of pkgbuild is to make it easy to build packages with compiled code. It provides tools to configure your R session, and check that everything is working ok. If you are using RStudio, it also helps you trigger automatic install of the build tools.
@@ -10,7 +10,7 @@ The goal of pkgbuild is to make it easy to build packages with compiled code. It
 ## Installation
 
  Install the released version from CRAN
- 
+
 ```r
 install.packages("pkgbuild")
 ```
