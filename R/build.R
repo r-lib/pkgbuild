@@ -216,23 +216,6 @@ build_setup <- function(
     dest_path <- dirname(path)
   }
 
-  bootstrap_file <- file.path(path, "bootstrap.R")
-  run_boostrap <- isTRUE(get_desc_config_flag(path, "bootstrap"))
-  if (file.exists(bootstrap_file) && run_boostrap) {
-    if (!quiet) message("Running bootstrap.R...")
-
-    callr::rscript(
-      bootstrap_file,
-      wd = path,
-      stderr = "2>&1",
-      show = !quiet
-    )
-  }
-
-  if (needs_compilation) {
-    update_registration(path, compile_attributes, register_routines, quiet)
-  }
-
   if (binary) {
     build_setup_binary(path, dest_path, args, needs_compilation)
   } else {
@@ -243,7 +226,10 @@ build_setup <- function(
       manual,
       clean_doc,
       args,
-      needs_compilation
+      needs_compilation,
+      compile_attributes,
+      register_routines,
+      quiet
     )
   }
 }
@@ -273,8 +259,28 @@ build_setup_source <- function(
   manual,
   clean_doc,
   args,
-  needs_compilation
+  needs_compilation,
+  compile_attributes,
+  register_routines,
+  quiet
 ) {
+  bootstrap_file <- file.path(path, "bootstrap.R")
+  run_bootstrap <- isTRUE(get_desc_config_flag(path, "bootstrap"))
+  if (file.exists(bootstrap_file) && run_bootstrap) {
+    if (!quiet) message("Running bootstrap.R...")
+
+    callr::rscript(
+      bootstrap_file,
+      wd = path,
+      stderr = "2>&1",
+      show = !quiet
+    )
+  }
+
+  if (needs_compilation) {
+    update_registration(path, compile_attributes, register_routines, quiet)
+  }
+
   if (!("--resave-data" %in% args)) {
     args <- c(args, "--no-resave-data")
   }
