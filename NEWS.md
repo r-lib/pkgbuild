@@ -1,4 +1,4 @@
-# pkgbuild (development version)
+# pkgbuild 1.4.8
 
 * New `Config/build/never-clean` `DESCRIPTION` option to avoid adding
   `--preclean` to `R CMD INSTALL` (e.g., when header files have changed)
