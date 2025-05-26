@@ -34,7 +34,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgbuild-development-version">pkgbuild (development version)<a class="anchor" aria-label="anchor" href="#pkgbuild-development-version"></a></h2>
-<ul><li>New <code>Config/build/never-clean</code> <code>DESCRIPTION</code> option to avoid adding <code>--preclean</code> to <code>R CMD INSTALL</code> (e.g., when header files have changed) (<a href="https://github.com/krlmlr" class="external-link">@krlmlr</a>, <a href="https://github.com/r-lib/pkgbuild/issues/204" class="external-link">#204</a>).</li>
+<ul><li><p>New <code>Config/build/never-clean</code> <code>DESCRIPTION</code> option to avoid adding <code>--preclean</code> to <code>R CMD INSTALL</code> (e.g., when header files have changed) (<a href="https://github.com/krlmlr" class="external-link">@krlmlr</a>, <a href="https://github.com/r-lib/pkgbuild/issues/204" class="external-link">#204</a>).</p></li>
+<li><p><code><a href="../reference/has_rtools.html">has_rtools()</a></code> &amp; co. now work correctly on aarch64 Windows, when <code>RTOOLS45_AARCH64_HOME</code> is not set (<a href="https://github.com/remlapmot" class="external-link">@remlapmot</a>, <a href="https://github.com/r-lib/pkgbuild/issues/203" class="external-link">#203</a>).</p></li>
+<li><p><code>pkg_build()</code> and <code>pkgbuild_process</code> now work corrently when building binary packages from non-standard file names (<a href="https://github.com/r-lib/pkgbuild/issues/208" class="external-link">#208</a>).</p></li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.4.7" id="pkgbuild-147">pkgbuild 1.4.7<a class="anchor" aria-label="anchor" href="#pkgbuild-147"></a></h2><p class="text-muted">CRAN release: 2025-03-24</p>
@@ -182,7 +184,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
   </div></footer></body></html>
