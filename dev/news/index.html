@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">pkgbuild</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.4.7.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.4.8.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,6 +34,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="pkgbuild-development-version">pkgbuild (development version)<a class="anchor" aria-label="anchor" href="#pkgbuild-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.4.8" id="pkgbuild-148">pkgbuild 1.4.8<a class="anchor" aria-label="anchor" href="#pkgbuild-148"></a></h2><p class="text-muted">CRAN release: 2025-05-26</p>
 <ul><li><p>New <code>Config/build/never-clean</code> <code>DESCRIPTION</code> option to avoid adding <code>--preclean</code> to <code>R CMD INSTALL</code> (e.g., when header files have changed) (<a href="https://github.com/krlmlr" class="external-link">@krlmlr</a>, <a href="https://github.com/r-lib/pkgbuild/issues/204" class="external-link">#204</a>).</p></li>
 <li><p><code><a href="../reference/has_rtools.html">has_rtools()</a></code> &amp; co. now work correctly on aarch64 Windows, when <code>RTOOLS45_AARCH64_HOME</code> is not set (<a href="https://github.com/remlapmot" class="external-link">@remlapmot</a>, <a href="https://github.com/r-lib/pkgbuild/issues/203" class="external-link">#203</a>).</p></li>
 <li><p><code>pkg_build()</code> and <code>pkgbuild_process</code> now work corrently when building binary packages from non-standard file names (<a href="https://github.com/r-lib/pkgbuild/issues/208" class="external-link">#208</a>).</p></li>
