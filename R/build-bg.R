@@ -165,6 +165,7 @@ rcb_init <- function(
         cmd = options$cmd,
         cmdargs = c(options$path, options$args),
         wd = options$out_dir,
+        libpath = .libPaths(),
         stderr = "2>&1"
       )
 
