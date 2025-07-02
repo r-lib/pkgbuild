@@ -1,5 +1,7 @@
 # pkgbuild (development version)
 
+* `needs_compile()` now ignores `.gcov` code coverage files.
+
 # pkgbuild 1.4.8
 
 * New `Config/build/never-clean` `DESCRIPTION` option to avoid adding
