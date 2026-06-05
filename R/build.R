@@ -101,11 +101,12 @@
 #'   `tools::package_native_routine_registration_skeleton()` before building
 #'   the package. It is ignored if package does not need compilation.
 #' @param clean_doc If `TRUE`, clean the files in `inst/doc` before building
-#'   the package. If `NULL` and the `Config/build/clean-inst-doc` entry is
-#'   present in `DESCRIPTION`, then that is used. Otherwise, if `NULL`,
-#'   and interactive, ask to remove the files prior to cleaning. In most
-#'   cases cleaning the files is the correct behavior to avoid stale
-#'   vignette outputs in the built package.
+#'   the package. If `FALSE`, leave `inst/doc` unchanged. If `NULL` and the
+#'   `Config/build/clean-inst-doc` entry is present in `DESCRIPTION`, then that
+#'   value is used. Otherwise, if `NULL` and interactive, ask before removing
+#'   the files; if `NULL` and non-interactive, clean the files. In most cases
+#'   cleaning the files is the correct behavior to avoid stale vignette outputs
+#'   in the built package.
 #' @export
 #' @return a string giving the location (including file name) of the built
 #'  package

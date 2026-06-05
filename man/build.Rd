@@ -36,11 +36,12 @@ If \code{NULL}, it defaults to the parent directory of the package.}
 vignettes (\code{--no-build-vignettes}) or manual (\code{--no-manual}).}
 
 \item{clean_doc}{If \code{TRUE}, clean the files in \code{inst/doc} before building
-the package. If \code{NULL} and the \code{Config/build/clean-inst-doc} entry is
-present in \code{DESCRIPTION}, then that is used. Otherwise, if \code{NULL},
-and interactive, ask to remove the files prior to cleaning. In most
-cases cleaning the files is the correct behavior to avoid stale
-vignette outputs in the built package.}
+the package. If \code{FALSE}, leave \code{inst/doc} unchanged. If \code{NULL} and the
+\code{Config/build/clean-inst-doc} entry is present in \code{DESCRIPTION}, then that
+value is used. Otherwise, if \code{NULL} and interactive, ask before removing
+the files; if \code{NULL} and non-interactive, clean the files. In most cases
+cleaning the files is the correct behavior to avoid stale vignette outputs
+in the built package.}
 
 \item{args}{An optional character vector of additional command
 line arguments to be passed to \verb{R CMD build} if \code{binary = FALSE},

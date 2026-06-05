@@ -1,5 +1,8 @@
 # pkgbuild (development version)
 
+* The `build()` documentation now describes the `clean_doc = FALSE` and
+  non-interactive `clean_doc = NULL` behavior (#187).
+
 * `needs_compile()` now ignores `.gcov` code coverage files.
 
 # pkgbuild 1.4.8
