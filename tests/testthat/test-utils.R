@@ -31,8 +31,12 @@ test_that("should_stop_for_warnings", {
 test_that("isFALSE", {
   pos <- list(FALSE, structure(FALSE, class = "foo"))
   neg <- list(1, c(FALSE, TRUE), NA, list(FALSE))
-  for (p in pos) expect_true(isFALSE(p), info = p)
-  for (n in neg) expect_false(isFALSE(n), info = n)
+  for (p in pos) {
+    expect_true(isFALSE(p), info = p)
+  }
+  for (n in neg) {
+    expect_false(isFALSE(n), info = n)
+  }
 })
 
 test_that("should_add_compiler_flags", {
@@ -93,4 +97,12 @@ test_that("should_add_compiler_flags errors", {
   withr::local_options(pkg.build_extra_flags = NULL)
   withr::local_envvar(PKG_BUILD_EXTRA_FLAGS = "foo")
   expect_snapshot(error = TRUE, should_add_compiler_flags())
+})
+
+test_that("trimming white spaces for `pkg_name` #225", {
+  rpkg_path <- withr::local_tempdir()
+  writeLines("Package: abc \n", file.path(rpkg_path, "DESCRIPTION"))
+  expect_equal(pkg_name(rpkg_path), "abc")
+  writeLines("Package: abc\n", file.path(rpkg_path, "DESCRIPTION"))
+  expect_equal(pkg_name(rpkg_path), "abc")
 })

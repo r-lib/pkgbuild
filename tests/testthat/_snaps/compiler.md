@@ -1,4 +1,4 @@
-# has_compiler: succeeds if a compiler exists
+# has_compiler / succeeds if a compiler exists
 
     Code
       check_compiler()
@@ -6,7 +6,7 @@
       Error:
       ! Failed to compile C code
 
-# has_compiler: returns the value of the has_compiler option
+# has_compiler / returns the value of the has_compiler option
 
     Code
       check_compiler()
