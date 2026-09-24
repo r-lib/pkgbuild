@@ -8,7 +8,7 @@ pkg_path <- function(path = ".") {
 }
 
 pkg_name <- function(path = ".") {
-  desc::desc_get("Package", pkg_path(path))[[1]]
+  desc::desc_get_field("Package", file = pkg_path(path))
 }
 
 gcc_arch <- function() {
@@ -224,7 +224,9 @@ mkdirp <- function(path, mode = NULL) {
     )))
   }
 
-  if (is.null(mode)) mode <- "0777"
+  if (is.null(mode)) {
+    mode <- "0777"
+  }
   wrg <- NULL
   withCallingHandlers(
     ret <- dir.create(
