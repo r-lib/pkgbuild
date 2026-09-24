@@ -55,12 +55,14 @@ build(
 
 - clean_doc:
 
-  If `TRUE`, clean the files in `inst/doc` before building the package.
-  If `NULL` and the `Config/build/clean-inst-doc` entry is present in
-  `DESCRIPTION`, then that is used. Otherwise, if `NULL`, and
-  interactive, ask to remove the files prior to cleaning. In most cases
-  cleaning the files is the correct behavior to avoid stale vignette
-  outputs in the built package.
+  If `TRUE`, clean the existing documents by deleting the entire
+  `inst/doc` directory before building the package. If `FALSE`, leave
+  `inst/doc` untouched. If `NULL` (the default), first the
+  `Config/build/clean-inst-doc` entry in `DESCRIPTION` is used if
+  present, otherwise if the session is interactive the user is prompted
+  for what to do, if non-interactive the directory is deleted. In most
+  cases cleaning the files is the correct behavior to avoid stale
+  vignette outputs in the built package.
 
 - args:
 

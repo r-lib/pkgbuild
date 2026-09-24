@@ -2,7 +2,7 @@ pandoc: 3.8.3
 pkgdown: 2.2.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2026-09-17T19:21Z
+last_built: 2026-09-24T16:25Z
 urls:
   reference: https://pkgbuild.r-lib.org/reference
   article: https://pkgbuild.r-lib.org/articles

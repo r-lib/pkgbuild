@@ -2,6 +2,13 @@
 
 ## pkgbuild (development version)
 
+- The documentation for the `clean_doc` argument of
+  [`build()`](https://pkgbuild.r-lib.org/dev/reference/build.md) now
+  fully describes the behavior for `TRUE`, `FALSE`, and `NULL`,
+  including the non-interactive case
+  ([@jimhester](https://github.com/jimhester),
+  [\#187](https://github.com/r-lib/pkgbuild/issues/187)).
+
 - [`needs_compile()`](https://pkgbuild.r-lib.org/dev/reference/needs_compile.md)
   now ignores `.gcov` code coverage files.
 

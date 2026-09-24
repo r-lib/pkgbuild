@@ -104,12 +104,14 @@ vignettes (<code>--no-build-vignettes</code>) or manual (<code>--no-manual</code
 
 
 <dt id="arg-clean-doc">clean_doc<a class="anchor" aria-label="anchor" href="#arg-clean-doc"></a></dt>
-<dd><p>If <code>TRUE</code>, clean the files in <code>inst/doc</code> before building
-the package. If <code>NULL</code> and the <code>Config/build/clean-inst-doc</code> entry is
-present in <code>DESCRIPTION</code>, then that is used. Otherwise, if <code>NULL</code>,
-and interactive, ask to remove the files prior to cleaning. In most
-cases cleaning the files is the correct behavior to avoid stale
-vignette outputs in the built package.</p></dd>
+<dd><p>If <code>TRUE</code>, clean the existing documents by deleting the
+entire <code>inst/doc</code> directory before building the package. If <code>FALSE</code>,
+leave <code>inst/doc</code> untouched. If <code>NULL</code>
+(the default), first the <code>Config/build/clean-inst-doc</code> entry in
+<code>DESCRIPTION</code> is used if present, otherwise if the session is
+interactive the user is prompted for what to do, if non-interactive
+the directory is deleted. In most cases cleaning the files is the
+correct behavior to avoid stale vignette outputs in the built package.</p></dd>
 
 
 <dt id="arg-args">args<a class="anchor" aria-label="anchor" href="#arg-args"></a></dt>
