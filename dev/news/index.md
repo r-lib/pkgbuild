@@ -2,6 +2,13 @@
 
 ## pkgbuild (development version)
 
+- [`build()`](https://pkgbuild.r-lib.org/dev/reference/build.md) no
+  longer fails with an unrelated error when you answer “No” to the
+  interactive prompt about deleting `inst/doc`. `inst/doc` is now kept
+  and the build continues, and the prompt says what “Yes” and “No” do
+  ([@taekop](https://github.com/taekop),
+  [\#186](https://github.com/r-lib/pkgbuild/issues/186)).
+
 - The documentation for the `clean_doc` argument of
   [`build()`](https://pkgbuild.r-lib.org/dev/reference/build.md) now
   fully describes the behavior for `TRUE`, `FALSE`, and `NULL`,
