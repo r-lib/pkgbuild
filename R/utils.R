@@ -19,6 +19,10 @@ is_windows <- function() {
   .Platform$OS.type == "windows"
 }
 
+is_interactive <- function() {
+  interactive()
+}
+
 is_string <- function(x) {
   is.character(x) && length(x) == 1 && !is.na(x)
 }

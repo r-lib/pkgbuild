@@ -312,18 +312,18 @@ build_setup_source <- function(
   if (build_vignettes && (is.null(clean_doc) || isTRUE(clean_doc))) {
     doc_dir <- file.path(path, "inst", "doc")
     if (dir.exists(doc_dir)) {
-      if (is.null(clean_doc) && interactive()) {
+      delete <- TRUE
+      if (is.null(clean_doc) && is_interactive()) {
         message(
           "Building the package will delete...\n  '",
           doc_dir,
-          "'\nAre you sure?"
+          "'\nDelete it and build ('Yes'), or keep it and build ('No')?"
         )
-        res <- utils::menu(c("Yes", "No"))
-        if (res == 2) {
-          return()
-        }
+        delete <- utils::menu(c("Yes", "No")) == 1
       }
-      unlink(doc_dir, recursive = TRUE)
+      if (delete) {
+        unlink(doc_dir, recursive = TRUE)
+      }
     }
   }
 
