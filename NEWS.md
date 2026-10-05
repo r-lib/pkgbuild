@@ -1,5 +1,10 @@
 # pkgbuild (development version)
 
+* `build()` no longer fails with an unrelated error when you answer "No" to
+  the interactive prompt about deleting `inst/doc`. `inst/doc` is now kept and
+  the build continues, and the prompt says what "Yes" and "No" do
+  (@taekop, #186).
+
 * The documentation for the `clean_doc` argument of `build()` now fully
   describes the behavior for `TRUE`, `FALSE`, and `NULL`, including the
   non-interactive case (@jimhester, #187).

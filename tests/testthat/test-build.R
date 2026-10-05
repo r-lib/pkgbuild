@@ -294,6 +294,44 @@ test_that("Config/build/clean-inst-doc TRUE", {
   expect_true("testInstDoc/inst/doc/test.html" %in% pkg_files)
 })
 
+test_that("interactive clean_doc prompt", {
+  if (Sys.which("pandoc") == "") skip("No pandoc")
+  src <- withr::local_tempdir()
+  dest <- withr::local_tempdir()
+  file.copy(test_path("testInstDoc"), src, recursive = TRUE, copy.mode = FALSE)
+  pkg_dir <- file.path(src, "testInstDoc")
+  desc::desc_del("Config/build/clean-inst-doc", file = pkg_dir)
+
+  answer <- 2L
+  local_mocked_bindings(is_interactive = function() TRUE)
+  local_mocked_bindings(menu = function(...) answer, .package = "utils")
+  build_quiet <- function() {
+    suppressMessages(
+      build(pkg_dir, dest_path = dest, quiet = TRUE, vignettes = TRUE)
+    )
+  }
+
+  # No keeps inst/doc and builds
+  pkg <- build_quiet()
+  expect_true(file.exists(pkg))
+  pkg_files <- untar(pkg, list = TRUE)
+  expect_true("testInstDoc/inst/doc/keep.me" %in% pkg_files)
+  expect_true("testInstDoc/inst/doc/test.html" %in% pkg_files)
+  expect_true(file.exists(file.path(pkg_dir, "inst", "doc", "keep.me")))
+
+  # Cancelling the prompt also keeps inst/doc
+  answer <- 0L
+  pkg <- build_quiet()
+  expect_true("testInstDoc/inst/doc/keep.me" %in% untar(pkg, list = TRUE))
+
+  # Yes deletes it
+  answer <- 1L
+  pkg <- build_quiet()
+  pkg_files <- untar(pkg, list = TRUE)
+  expect_false("testInstDoc/inst/doc/keep.me" %in% pkg_files)
+  expect_true("testInstDoc/inst/doc/test.html" %in% pkg_files)
+})
+
 test_that("bootstrap.R runs on build if present", {
   src <- withr::local_tempdir()
   dest <- withr::local_tempdir()
