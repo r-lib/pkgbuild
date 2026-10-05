@@ -191,11 +191,11 @@ get_desc_config_flag <- function(path, name) {
     return(FALSE)
   }
 
-  stop(cli::format_error(
+  stop(cli::format_error(c(
     "The {.code {name}} entry in {.path DESCRIPTION} must be {.code TRUE}
      or {.code FALSE}.",
-    "i" = "It is {.val {val}}."
-  ))
+    i = "It is {.val {val}}."
+  )))
 }
 
 mkdirp <- function(path, mode = NULL) {

@@ -41,3 +41,12 @@
       ! Invalid `PKG_BUILD_EXTRA_FLAGS` environment variable.
       i Must be one of `true`, `false` or `missing`.
 
+# get_desc_config_flag errors on invalid DESCRIPTION value
+
+    Code
+      get_desc_config_flag(path, "never-clean")
+    Condition
+      Error in `get_desc_config_flag()`:
+      ! The `Config/build/never-clean` entry in 'DESCRIPTION' must be `TRUE` or `FALSE`.
+      i It is "maybe".
+
