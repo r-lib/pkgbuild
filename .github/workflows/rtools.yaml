@@ -28,9 +28,8 @@ jobs:
     steps:
     - name: Install rig
       run: |
-        Invoke-WebRequest -Uri https://github.com/r-lib/rig/releases/download/v0.7.0/rig-windows-0.7.0.exe -OutFile rig-installer.exe
-        Start-Process ".\rig-installer.exe" -ArgumentList "/verysilent /suppressmsgboxes" -Wait -NoNewWindow
-        del rig-installer.exe
+        irm https://r-lib.github.io/rig/install.ps1 | iex
+        "$env:USERPROFILE\.local\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
     - name: Remove pre-installed R
       run: |
@@ -43,16 +42,11 @@ jobs:
 
     - name: Install R
       run: |
-        $URL = (Invoke-WebRequest https://api.r-hub.io/rversions/resolve/${{ matrix.config.r }}/windows | Select-Object -Expand Content | jq -r .url)
-        Invoke-WebRequest $URL -OutFile R-installer.exe
-        Start-Process ".\R-installer.exe" -ArgumentList "/verysilent /suppressmsgboxes" -Wait -NoNewWindow
-        del R-installer.exe
+        rig add ${{ matrix.config.r }} --without-pak
 
     - name: Install Rtools
       run: |
-        $URL = (Invoke-WebRequest https://api.r-hub.io/rversions/resolve/${{ matrix.config.r }}/windows | Select-Object -Expand Content | jq -r .rtools_url)
-        Invoke-WebRequest $URL -OutFile Rtools.exe
-        Start-Process ".\Rtools.exe" -ArgumentList "/verysilent /suppressmsgboxes" -Wait -NoNewWindow
+        rig rtools add
 
     - name: Put R on the path
       run: |
