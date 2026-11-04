@@ -60,7 +60,12 @@ compiler_flags <- function(debug = FALSE) {
     res[flags] <- paste(res[flags], "-fdiagnostics-color=always")
   }
 
-  if (debug && .Platform$OS.type == "windows") {
+  # aarch64 Rtools uses clang, which does not need this flag
+  if (
+    debug &&
+      .Platform$OS.type == "windows" &&
+      R.version$arch != "aarch64"
+  ) {
     flags <- c(
       "CFLAGS",
       "CXXFLAGS",
