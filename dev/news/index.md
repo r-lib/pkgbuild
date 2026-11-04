@@ -19,6 +19,13 @@
 - [`needs_compile()`](https://pkgbuild.r-lib.org/dev/reference/needs_compile.md)
   now ignores `.gcov` code coverage files.
 
+- `compiler_flags(debug = TRUE)` now adds `-Wa,-mbig-obj` on x86_64
+  Windows, to avoid “too many sections” errors when compiling large
+  packages (e.g. packages using Stan) with debug symbols, e.g. in
+  [`pkgload::load_all()`](https://pkgload.r-lib.org/reference/load_all.html)
+  ([@andrjohns](https://github.com/andrjohns),
+  [\#223](https://github.com/r-lib/pkgbuild/issues/223)).
+
 ## pkgbuild 1.4.8
 
 CRAN release: 2025-05-26
