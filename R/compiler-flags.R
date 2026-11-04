@@ -59,6 +59,24 @@ compiler_flags <- function(debug = FALSE) {
     )
     res[flags] <- paste(res[flags], "-fdiagnostics-color=always")
   }
+
+  # aarch64 Rtools uses clang, which does not need this flag
+  if (
+    debug &&
+      .Platform$OS.type == "windows" &&
+      R.version$arch != "aarch64"
+  ) {
+    flags <- c(
+      "CFLAGS",
+      "CXXFLAGS",
+      "CXX11FLAGS",
+      "CXX14FLAGS",
+      "CXX17FLAGS",
+      "CXX20FLAGS"
+    )
+    # Debug symbols can generate too many sections on Windows
+    res[flags] <- paste(res[flags], "-Wa,-mbig-obj")
+  }
   res
 }
 

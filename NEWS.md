@@ -11,6 +11,11 @@
 
 * `needs_compile()` now ignores `.gcov` code coverage files.
 
+* `compiler_flags(debug = TRUE)` now adds `-Wa,-mbig-obj` on x86_64 Windows,
+  to avoid "too many sections" errors when compiling large packages (e.g.
+  packages using Stan) with debug symbols, e.g. in `pkgload::load_all()`
+  (@andrjohns, #223).
+
 # pkgbuild 1.4.8
 
 * New `Config/build/never-clean` `DESCRIPTION` option to avoid adding
