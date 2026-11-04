@@ -47,8 +47,8 @@ if (has_build_tools()) {
   rcmd_build_tools("CC", "--version")$stdout
 }
 #> ── R CMD CONFIG ───────────────────────────────────────────────────────
-#> /opt/R/4.6.1/lib/R/bin/Rcmd: 64: exec: CONFIG: not found
+#> /opt/R/4.6.2/lib/R/bin/Rcmd: 64: exec: CONFIG: not found
 #> ── R CMD CC ───────────────────────────────────────────────────────────
-#> /opt/R/4.6.1/lib/R/bin/Rcmd: 64: exec: CC: not found
-#> [1] "/opt/R/4.6.1/lib/R/bin/Rcmd: 64: exec: CC: not found\n"
+#> /opt/R/4.6.2/lib/R/bin/Rcmd: 64: exec: CC: not found
+#> [1] "/opt/R/4.6.2/lib/R/bin/Rcmd: 64: exec: CC: not found\n"
 ```

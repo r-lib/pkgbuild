@@ -71,10 +71,10 @@ has_rtools
 ``` r
 has_build_tools(debug = TRUE)
 #> Trying to compile a simple C file
-#> Running /opt/R/4.6.1/lib/R/bin/R CMD SHLIB foo.c
-#> using C compiler: ‘gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0’
-#> gcc -std=gnu2x -I"/opt/R/4.6.1/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c foo.c -o foo.o
-#> gcc -std=gnu2x -shared -L/opt/R/4.6.1/lib/R/lib -L/usr/local/lib -o foo.so foo.o -L/opt/R/4.6.1/lib/R/lib -lR
+#> Running /opt/R/4.6.2/lib/R/bin/R CMD SHLIB foo.c
+#> using C compiler: ‘gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0’
+#> gcc -I"/opt/R/4.6.2/lib/R/include" -DNDEBUG   -I/usr/local/include    -fpic  -g -O2  -c foo.c -o foo.o
+#> gcc -shared -L/opt/R/4.6.2/lib/R/lib -L/usr/local/lib -o foo.so foo.o -L/opt/R/4.6.2/lib/R/lib -lR
 #> 
 #> [1] TRUE
 check_build_tools()
