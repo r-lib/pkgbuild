@@ -30,6 +30,8 @@ jobs:
       run: |
         irm https://r-lib.github.io/rig/install.ps1 | iex
         "$env:USERPROFILE\.local\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+        # rig's R/Rscript quick links; the .exe installer used to add this
+        rig system dirs --binary | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
     - name: Remove pre-installed R
       run: |
@@ -47,22 +49,8 @@ jobs:
     - name: Install Rtools
       run: |
         rig rtools add
-
-    - name: Put R on the path
-      run: |
-        $rver = (rig list --json).replace("\", "\\") | jq -r .[0].name
-        rig default $rver
-        rig system make-links
         rig ls
         rig system rtools ls
-
-    - name: Configure RSPM
-      run: |
-        writeLines(
-          "options(repos = c(RSPM = 'https://packagemanager.posit.co/cran/latest'))",
-          "~/.Rprofile"
-        )
-      shell: Rscript {0}
 
     - uses: actions/checkout@v4
     - uses: r-hub/actions/debug-shell@v1
@@ -83,18 +71,6 @@ jobs:
         RS CMD build pkgbuild
         $file = (dir pkgbuild_*.tar.gz).name
         RS CMD INSTALL $file
-
-    - name: Vanilla
-      run: |
-        if (getRversion() >= "4.2.0") {
-          if (getRversion() < "4.3.0") {
-            # this might be a bug in R or Rtools or in jpeg
-            Sys.setenv("PKG_CONFIG_PATH" = "/c/rtools42/x86_64-w64-mingw32.static.posix/lib/pkgconfig")
-          }
-          srcjpeg <- download.packages("jpeg", ".")[,2]
-          install.packages(srcjpeg, repos = NULL, type = "source")
-        }
-      shell: Rscript {0}
 
     - name: Rtools finding
       run: |
