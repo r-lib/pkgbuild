@@ -94,3 +94,14 @@ test_that("should_add_compiler_flags errors", {
   withr::local_envvar(PKG_BUILD_EXTRA_FLAGS = "foo")
   expect_snapshot(error = TRUE, should_add_compiler_flags())
 })
+
+test_that("get_desc_config_flag errors on invalid DESCRIPTION value", {
+  path <- withr::local_tempfile(
+    lines = c(
+      "Package: test",
+      "Version: 1.0",
+      "Config/build/never-clean: maybe"
+    )
+  )
+  expect_snapshot(error = TRUE, get_desc_config_flag(path, "never-clean"))
+})
